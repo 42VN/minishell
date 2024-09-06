@@ -1,19 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_exit.c                                    :+:      :+:    :+:   */
+/*   envp_dup.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 17:10:14 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/06 15:20:30 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/06 16:42:24 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/06 16:52:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_error_exit(int fd, char *str, int exitcode)
+char	**envp_dup(char **envp)
 {
-	ft_printf_fd(2, str);
-	exit(exitcode);
+	char	**res;
+	int		i;
+	
+	i = 0;
+	while (envp && envp[i])
+		++i;
+	res = (char **)ft_calloc(i + 1, sizeof(char *));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (envp && envp[i])
+	{
+		res[i] = ft_strdup(envp[i]);
+		if (!res[i])
+		{
+			ft_multiple_free_set_null(&res);
+			return (NULL);
+		}
+		++i;
+	}
+	return (res);
 }

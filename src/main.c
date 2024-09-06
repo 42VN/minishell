@@ -1,7 +1,8 @@
-#include "../includes/minishell.h"
+#include "../include/minishell.h"
 
 int main(int ac, char **av, char **envp)
 {
+	t_shell	shell;
 	// char *input;
 
 	// while (1) {
@@ -19,4 +20,11 @@ int main(int ac, char **av, char **envp)
 	// 	free(input);
 	// }
 
+	int i = 0;
+	while (envp[i])
+	{
+		printf("env %d: %s\n", i, envp[i]);
+		++i;
+	}
+	return (0);
 }

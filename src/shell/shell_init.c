@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_exit.c                                    :+:      :+:    :+:   */
+/*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 17:10:14 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/06 15:20:30 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/06 16:27:58 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/06 16:31:13 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_error_exit(int fd, char *str, int exitcode)
+int	shell_init(t_shell *shell, char **envp)
 {
-	ft_printf_fd(2, str);
-	exit(exitcode);
+	ft_memset(shell, 0, sizeof(t_shell));
+	shell->envp = envp;
 }
