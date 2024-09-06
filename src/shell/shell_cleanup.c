@@ -1,22 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
+/*   shell_cleanup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 16:27:58 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/06 17:28:06 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/06 17:28:33 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/06 17:50:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	shell_init(t_shell *shell, char **envp)
+void	free_envp(char **envp)
 {
-	ft_memset(shell, 0, sizeof(t_shell));
-	shell->envp = envp_dup(envp);
-	if (!shell->envp)
-		return (0);
-	return (1);
+	int i;
+
+	if (!envp)
+		return;
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}
+
+void	shell_cleanup(t_shell *shell)
+{
+	if (!shell)
+		return;
+
+	if (shell->envp)
+		free_envp(shell->envp);
+
+	if (shell->cwd)
+	{
+		free(shell->cwd);
+		shell->cwd = NULL;
+	}
+
+	shell->exited = 0;
+	shell->aborted = 0;
 }

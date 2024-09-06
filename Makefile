@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/06 17:02:22 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/06 17:46:23 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,23 +21,20 @@ LIBFT_DIR			=	./libft
 LIBFT_A				=	$(LIBFT_DIR)/libft.a
 LINKER				=	-lreadline -L$(LIBFT_DIR) -lft
 
-# Directories
 SRC_DIR				=	./src
 ENV_DIR				=	$(SRC_DIR)/env
 SHELL_DIR			=	$(SRC_DIR)/shell
 OBJ_DIR				=	obj
 
-# Raw Source Files
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	envp_dup.c
-SHELL_FILES			=	shell.c
+SHELL_FILES			=	shell_init.c shell_cleanup.c
 
-# Source Files with paths
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
 						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES))
 
-OBJ_FILES			=	$(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 
 # **************************************************************************** #
 #                                  Build Rules                                 #
@@ -48,8 +45,8 @@ all: $(NAME)
 $(NAME): $(OBJ_FILES) $(LIBFT_A)
 	$(CC) $(CFLAGS_DEV) $(OBJ_FILES) $(LINKER) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(LIBFT_A):

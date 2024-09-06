@@ -23,6 +23,8 @@ typedef struct s_shell
 {
 	char	**envp;
 	char	*cwd;
+	int		exited;
+	int		aborted;
 }	t_shell;
 
 

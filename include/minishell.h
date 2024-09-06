@@ -23,3 +23,4 @@ char	**envp_dup(char **envp);
 //-----------------------------------------------------
 
 int		shell_init(t_shell *shell, char **envp);
+void	shell_cleanup(t_shell *shell);
