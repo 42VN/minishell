@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/09 15:33:38 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:49:40 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef enum e_token_type
 	BACKGROUND,				// & (sleep 10 & echo "running another function")
 	IN_REDIRECT,			// <
 	OUT_REDIRECT,			// >
-	APPEND_IN_REDIRECT,		// <<
-	APPEND_OUT_REDIRECT,	// >>
+	HERE_DOC,				// <<
+	APPEND,					// >>
 	ERR_REDIRECT,			// 2> Error Redirection 
 	COMBINED_REDIRECT		// &> Combined Output Redirection
 }	t_token_type;
