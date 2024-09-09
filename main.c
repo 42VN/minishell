@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/07/12 21:18:34 by hitran            #+#    #+#             */
+/*   Updated: 2024/09/05 12:05:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+int	main(int ac, char **av, char **envp)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
-
-void minishell(char **envp);
-
-#endif
+	if (ac != 1)
+	{
+		ft_printf_fd(2, "msh: %s: Invalid number of arguments.\n", av[0] +2);
+		exit (EXIT_FAILURE);
+	}
+	minishell(envp);
+	exit (EXIT_SUCCESS);
+}

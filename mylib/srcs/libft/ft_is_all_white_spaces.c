@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_is_all_white_spaces.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/08/03 22:52:19 by hitran            #+#    #+#             */
+/*   Updated: 2024/08/03 22:52:38 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+int	ft_is_all_white_spaces(char *s)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
-
-void minishell(char **envp);
-
-#endif
+	while (*s)
+	{
+		if (*s != 32 && (*s < 9 || *s > 13))
+			return (0);
+		s++;
+	}
+	return (1);
+}

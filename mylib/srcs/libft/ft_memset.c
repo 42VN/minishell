@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/04/16 09:48:16 by hitran            #+#    #+#             */
+/*   Updated: 2024/06/07 09:42:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
+	void	*b_pt;
 
-void minishell(char **envp);
-
-#endif
+	b_pt = b;
+	while (len--)
+		*(unsigned char *)b++ = (unsigned char)c;
+	return (b_pt);
+}

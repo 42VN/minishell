@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/06/25 15:52:15 by hitran            #+#    #+#             */
+/*   Updated: 2024/07/03 18:49:05 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+int	ft_max(int a, int b)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
-
-void minishell(char **envp);
-
-#endif
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}

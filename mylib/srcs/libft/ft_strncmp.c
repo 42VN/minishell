@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/01/15 15:11:16 by hitran            #+#    #+#             */
+/*   Updated: 2024/06/07 09:43:27 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
-
-void minishell(char **envp);
-
-#endif
+	if (n == 0)
+		return (0);
+	while (*(unsigned char *)s1 == *(unsigned char *)s2
+		&& *(unsigned char *)s1 && --n)
+	{
+		s1++;
+		s2++;
+	}
+	if (*(unsigned char *)s1 == *(unsigned char *)s2)
+		return (0);
+	else
+		return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}

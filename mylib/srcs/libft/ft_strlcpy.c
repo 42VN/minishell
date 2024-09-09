@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/01/15 09:07:40 by hitran            #+#    #+#             */
+/*   Updated: 2024/06/07 09:43:16 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
+	unsigned int	srcsize;
 
-void minishell(char **envp);
-
-#endif
+	srcsize = ft_strlen(src);
+	if (dstsize < 1)
+		return (srcsize);
+	while (*src && --dstsize)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (srcsize);
+}

@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_matrix_dup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/08/16 15:15:51 by hitran            #+#    #+#             */
+/*   Updated: 2024/08/16 15:20:55 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+char	**ft_matrix_dup(char **matrix, int row)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
+	char	**res;
+	int		i;
 
-void minishell(char **envp);
-
-#endif
+	res = (char **)ft_calloc(row + 1, sizeof(char *));
+	if (!res)
+		return (NULL);
+	i = -1;
+	while (++i < row)
+	{
+		res[i] = ft_strdup(matrix[i]);
+		if (!res[i])
+		{
+			ft_free_triptr(&res);
+			return (NULL);
+		}
+	}
+	return (res);
+}

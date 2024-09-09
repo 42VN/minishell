@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_puthexa_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/04/30 10:34:46 by hitran            #+#    #+#             */
+/*   Updated: 2024/07/11 11:09:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+int	ft_puthexa_fd(int fd, unsigned int n, char c)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
+	char	*base;
 
-void minishell(char **envp);
-
-#endif
+	if (c == 'x')
+		base = "0123456789abcdef";
+	if (c == 'X')
+		base = "0123456789ABCDEF";
+	return (ft_putbase_fd(fd, n, base));
+}

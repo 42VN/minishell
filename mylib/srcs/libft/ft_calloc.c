@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 09:47:49 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/05 12:06:39 by hitran           ###   ########.fr       */
+/*   Created: 2024/04/17 13:40:10 by hitran            #+#    #+#             */
+/*   Updated: 2024/06/07 09:41:29 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "mylib.h"
 
-# include "mylib.h"
-# include <stdio.h>						// printf
-# include <readline/readline.h>			// readline
-# include <readline/history.h>			// readline
-# include <signal.h>   					// SIGINT, SIGQUIT, SIGTERM, sigaction
-
-extern int g_errno;
-
-typedef struct s_msh
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	**envp;
-	char	*path;
-	int		level;
-}	t_msh;
+	void	*dest;
+	size_t	total;
 
-void minishell(char **envp);
-
-#endif
+	total = count * size;
+	if (count && size && total / count != size)
+		return (NULL);
+	dest = malloc(total);
+	if (dest == NULL)
+		return (NULL);
+	ft_bzero(dest, total);
+	return (dest);
+}
