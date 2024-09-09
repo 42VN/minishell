@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/09 17:23:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/09 17:35:21 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ char	**envp_dup(char **envp);
 int		shell_init(t_shell *shell, char **envp);
 void	shell_cleanup(t_shell *shell);
 
+//----------------------------------------------------
+// UTILS 
+//-----------------------------------------------------
 
+void 	ft_exit(char *str, int exitcode);
 char	*ft_prompt(char *prefix);
 
 #endif

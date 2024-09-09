@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/09 17:33:04 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/09 17:35:30 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ OBJ_DIR				=	obj
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
-UTIL_FILES			=	ft_prompt.c
+UTIL_FILES			=	ft_prompt.c ft_exit.c
 PARSE_FILES			=	parse.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
