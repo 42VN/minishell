@@ -6,7 +6,7 @@ static void minishell(t_shell *shell)
 
     while (!shell->exited && !shell->aborted)
     {
-        input = readline(PROMPT);
+        input = ft_prompt(PROMPT);
         if (!input)
         {
             printf("exit\n");

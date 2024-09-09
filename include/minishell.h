@@ -6,9 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/09 17:08:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/09 17:23:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,3 +40,8 @@ char	**envp_dup(char **envp);
 
 int		shell_init(t_shell *shell, char **envp);
 void	shell_cleanup(t_shell *shell);
+
+
+char	*ft_prompt(char *prefix);
+
+#endif

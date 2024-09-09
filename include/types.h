@@ -6,9 +6,12 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/09 17:07:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/09 17:15:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef TYPES_H
+# define TYPES_H
 
 typedef enum e_token_type
 {
@@ -47,3 +50,5 @@ typedef struct s_sighandler
 {
 	
 }	t_sighandler;
+
+#endif
