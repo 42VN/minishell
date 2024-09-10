@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 17:17:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/12 15:11:35 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/10 21:00:06 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/10 21:00:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_split_skip_delimiter(char const **s, char delimiter)
+void	ft_skip_strchr(char const **s, char delimiter)
 {
 	while (**s && **s == delimiter)
 		(*s)++;

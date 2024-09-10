@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/09 17:35:30 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/10 21:21:47 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,10 @@ LINKER				=	-lreadline -L$(LIBFT_DIR) -lft
 SRC_DIR				=	./src
 ENV_DIR				=	$(SRC_DIR)/env
 SHELL_DIR			=	$(SRC_DIR)/shell
+BUILTIN_DIR			=	$(SRC_DIR)/builtin
 UTIL_DIR			=	$(SRC_DIR)/utility
 PARSE_DIR			=	$(SRC_DIR)/parse
-BUILTIN_DIR			=	$(SRC_DIR)/builtin
+TOKEN_DIR			=	$(SRC_DIR)/token
 OBJ_DIR				=	obj
 
 SRC_BASE_FILES		=	main.c
@@ -37,11 +38,13 @@ ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c
 PARSE_FILES			=	parse.c
+TOKEN_FILES			=	tokenize.c free.c mem.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
 						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES)) \
-						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES))
+						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES)) \
+						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES))
 
 OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 

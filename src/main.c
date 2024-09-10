@@ -4,7 +4,7 @@ static void minishell(t_shell *shell)
 {
     char *input;
 
-    while (!shell->exited && !shell->aborted)
+    while (!shell->aborted)
     {
         input = ft_prompt(PROMPT);
         if (!input)
