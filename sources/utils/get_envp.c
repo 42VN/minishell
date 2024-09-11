@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:01:17 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/09 15:31:15 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/11 11:56:46 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	get_shell_level(char **envp)
 	return (ft_atoi(ft_strchr(*envp, '=') + 1));
 }
 
-void	get_envp(t_msh *msh, char **envp)
+void	get_envp(t_shell *msh, char **envp)
 {
 	msh->envp->array = ft_matrix_dup(envp, ft_matrixlen(envp));
 	if (!msh->envp->array)
