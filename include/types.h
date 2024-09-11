@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/09 17:15:31 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/11 14:32:40 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 
 typedef enum e_token_type
 {
-	CMD,					// command (ls, cat ...)
-	ARG,					// option (-l, -d ...) or file (infile.txt)
+	CMD,					// command
 	PIPE,					// |
-	OR,						// ||
-	AND,					// &&
-	SEMICOLON,				// ; (mkdir new; cd new; echo "successful")
-	BACKGROUND,				// & (sleep 10 & echo "running another function")
-	REDIRECT_IN,			// <
-	REDIRECT_OUT,			// >
-	REDIRECT_ERR,			// 2> Error Redirection 
-	REDIRECT_COMBINED,		// &> Combined Output Redirection
-	HERE_DOC,				// <<
-	APPEND					// >>
+	RD_IN,					// <
+	RD_OUT,					// >
+	RD_HEREDOC,				// <<
+	RD_APPEND,				// >>
+	OR,						// ||				#bonus
+	AND,					// &&				#bonus
+	BR_OPEN,				// ( 				#bonus
+	BR_CLOSE				// ) 				#bonus
 }	t_token_type;
+
+//----------------------------------------------------
+// TOKEN 
+//-----------------------------------------------------
 
 typedef struct s_token
 {
@@ -36,19 +37,43 @@ typedef struct s_token
 	char			*str;
 }	t_token;
 
+typedef struct s_tokens
+{
+	t_token	*array;
+	size_t	size;
+	size_t	cur_token;
+	size_t	cur_pos;
+	size_t	to_add;
+}	t_tokens;
+
+//----------------------------------------------------
+// ABSTRACT SYNTAX TREE 
+//-----------------------------------------------------
+
+/**
+ * Data structure for AST (Abstract Syntax Tree)
+ */
+typedef struct s_ast
+{
+	t_token_type	type;
+	t_token			*token;
+	char			*path;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}	t_ast;
+
+//----------------------------------------------------
+// SHELL
+//-----------------------------------------------------
+
 typedef struct s_shell
 {
-	char	**envp;
-	char	*cwd;
-	int		exited;
-	int		aborted;
-	t_token	*tokens;
+	char		**envp;
+	char		*cwd;
+	int			aborted;
+	int			exitcode;
+	t_err_type	err_type;
+	t_tokens	*tokens;
 }	t_shell;
-
-
-typedef struct s_sighandler
-{
-	
-}	t_sighandler;
 
 #endif
