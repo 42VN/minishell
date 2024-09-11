@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 21:29:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/11 11:16:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_ast
 {
 	t_ast_node_type	type;
 	t_token			*token;
+	char			*path;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
