@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:28:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/06 17:50:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/11 14:00:10 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ void	shell_cleanup(t_shell *shell)
 		shell->cwd = NULL;
 	}
 
-	shell->exited = 0;
 	shell->aborted = 0;
 }

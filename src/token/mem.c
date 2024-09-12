@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:09:42 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 21:47:37 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 14:03:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_token_realloc(t_shell *shell)
 	size_t	new_size;
 	
 	if (shell->tokens->cur_pos < shell->tokens->size)
-		return;
+		return (1);
 	new_size = shell->tokens->size * shell->tokens->to_add;
 	res = (t_token *) malloc(sizeof(t_token) * (new_size));
 	if (!res)

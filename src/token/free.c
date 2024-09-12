@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 17:24:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 15:39:36 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	ft_token_free(t_shell *shell)
 		return;
 	while (i < shell->tokens->size && shell->tokens->array)
 	{
-		free(shell->tokens->array[i++].str);
+		if (shell->tokens->array[i].str)
+			free(shell->tokens->array[i].str);
+		++i;
 	}
 	free(shell->tokens->array);
 	free(shell->tokens);

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/11 11:16:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 15:17:41 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@
 typedef enum e_token_type
 {
 	CMD,					// command (ls, cat ...)
-	ARG,					// option (-l, -d ...) or file (infile.txt)
 	PIPE,					// |
-	OR,						// ||
-	AND,					// &&
-	SEMICOLON,				// ; (mkdir new; cd new; echo "successful")
-	BACKGROUND,				// & (sleep 10 & echo "running another function")
 	RD_IN,					// <
 	RD_OUT,					// >
 	RD_HEREDOC,				// <<
-	RD_APPEND				// >>
+	RD_APPEND,				// >>
+	OR,						// ||
+	AND,					// &&
+	BRACKET_OPEN,		
+	BRACKET_CLOSE,	
 }	t_token_type;
 
 typedef enum e_err_type
@@ -64,6 +63,7 @@ typedef struct s_tokens
 	size_t	cur_token;
 	size_t	cur_pos;
 	size_t	to_add;
+	int		need_join;
 }	t_tokens;
 
 //----------------------------------------------------

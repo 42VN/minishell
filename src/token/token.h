@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 21:34:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 14:23:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 void	ft_token_free(t_shell *shell);
 int		ft_token_realloc(t_shell *shell);
-void	*tokenize(t_shell *shell, char *input);
+int		ft_token_categorize(
+			t_shell *shell,
+			char *input,
+			char *start);
+void	ft_token_print(t_shell *shell);
+int		tokenize(t_shell *shell, char **av);
 
 #endif
