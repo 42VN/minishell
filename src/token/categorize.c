@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 15:33:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 15:51:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 /**
  * Function to check if the current input character is an operator
@@ -68,7 +67,7 @@ static void	ft_token_cmd_handler(
 	t_token_type *type)
 {
 	char	input_val;
-	
+
 	input_val = **input;
 	*type = CMD;
 	if (input_val == '"' || input_val == '\'')
@@ -76,7 +75,7 @@ static void	ft_token_cmd_handler(
 	else
 	{
 		while (**input && !ft_token_is_op(*input) && **input != ' ')
-			(*input)++;	
+			(*input)++;
 	}
 }
 
@@ -96,7 +95,8 @@ int	ft_token_categorize(
 	else
 		ft_token_cmd_handler(&input, &type);
 	token_len = input - start;
-	shell->tokens->array[shell->tokens->cur_pos].str = ft_substr(start, 0, token_len);
+	shell->tokens->array[shell->tokens->cur_pos].str
+		= ft_substr(start, 0, token_len);
 	if (!shell->tokens->array[shell->tokens->cur_pos].str)
 	{
 		shell->err_type = ERR_MEMORY;
@@ -105,5 +105,5 @@ int	ft_token_categorize(
 	}
 	shell->tokens->array[shell->tokens->cur_pos].type = type;
 	shell->tokens->cur_pos++;
-		return (1);
+	return (1);
 }

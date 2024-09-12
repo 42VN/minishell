@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 17:25:28 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/05 17:49:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 15:49:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static char	*ft_rl_strjoin(char *s1, char *s2)
 static int	ft_read_handler(int fd, char *buffer, char *result)
 {
 	ssize_t	bytes_read;
+
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	if (bytes_read < 0)
 	{
