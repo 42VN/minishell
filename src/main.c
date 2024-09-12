@@ -30,7 +30,7 @@ int main(int ac, char **av, char **envp)
 	
 	shell_init(&shell, envp);
 	// minishell(&shell);
-    if (ac > 2)
+    if (ac > 1)
     {
 		tokenize(&shell, av);
 		int i = 0;
