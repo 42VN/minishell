@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 15:51:44 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 18:11:48 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
  */
 int	ft_token_is_op(char *input)
 {
+	while (*input && *input == ' ')
+		(input)++;
 	if (*input == '>' || *input == '<')
 		return (1);
 	if (*input == '|')
@@ -26,16 +28,15 @@ int	ft_token_is_op(char *input)
 	return (0);
 }
 
-/**
- * Handles operator tokens
- */
-static void	ft_token_op_handler(
+static void	ft_token_op_check(
 	char **input,
-	t_token_type *type,
-	t_shell *shell)
+	t_token_type *type
+)
 {
 	char	*input_val;
 
+	while (**input == ' ')
+		(*input)++;
 	input_val = *input;
 	if (*input_val == '|')
 		*type = PIPE;
@@ -52,10 +53,30 @@ static void	ft_token_op_handler(
 	else if (*input_val == '<')
 		*type = RD_IN;
 	(*input)++;
+}
+
+/**
+ * Handles operator tokens
+ */
+static void	ft_token_op_handler(
+	char **input,
+	t_token_type *type,
+	t_shell *shell)
+{
+	ft_token_op_check(input, type);
+	if (**input != '\0')
+	{
+		*type = CMD;
+		while (**input)
+			(*input)++;
+		return ;
+	}
 	if (shell->tokens->need_join == 0)
 	{
-		if (*type == RD_IN || *type == RD_APPEND || *type == RD_APPEND)
+		if (*type == RD_IN || *type == RD_OUT || *type == RD_HEREDOC)
+		{
 			shell->tokens->need_join = 1;
+		}
 	}
 }
 
@@ -68,13 +89,15 @@ static void	ft_token_cmd_handler(
 {
 	char	input_val;
 
+	while (**input == ' ')
+		(*input)++;
 	input_val = **input;
 	*type = CMD;
 	if (input_val == '"' || input_val == '\'')
 		ft_skip_quote((const char **)input);
 	else
 	{
-		while (**input && !ft_token_is_op(*input) && **input != ' ')
+		while (**input && !ft_token_is_op(*input))
 			(*input)++;
 	}
 }
@@ -99,9 +122,8 @@ int	ft_token_categorize(
 		= ft_substr(start, 0, token_len);
 	if (!shell->tokens->array[shell->tokens->cur_pos].str)
 	{
-		shell->err_type = ERR_MEMORY;
 		ft_token_free(shell);
-		return (0);
+		return (ft_error_ret("malloc", shell, ERR_MEMORY, 0));
 	}
 	shell->tokens->array[shell->tokens->cur_pos].type = type;
 	shell->tokens->cur_pos++;

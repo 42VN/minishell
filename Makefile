@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/12 14:22:58 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/12 17:14:25 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ OBJ_DIR				=	obj
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
-UTIL_FILES			=	ft_prompt.c ft_exit.c
+UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c
 PARSE_FILES			=	parse.c
 TOKEN_FILES			=	tokenize.c free.c mem.c categorize.c print.c
 

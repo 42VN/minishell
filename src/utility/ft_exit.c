@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:34:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 16:39:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 18:10:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_exit(char *str, int exitcode)
+void	ft_exit(char *str, int exitcode)
 {
 	ft_printf_fd(2, str);
 	exit(exitcode);

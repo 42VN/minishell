@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 16:56:55 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:18:29 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void	shell_cleanup(t_shell *shell);
 //-----------------------------------------------------
 
 void 	ft_exit(char *str, int exitcode);
+int		ft_error_ret(
+			char *str,
+			t_shell *shell,
+			t_err_type type,
+			int return_code);
 char	*ft_prompt(char *prefix);
 
 #endif

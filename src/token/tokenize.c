@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 15:52:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/12 17:58:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static int	ft_token_init(t_shell *shell)
 {
+	int	i;
+
+	i = 0;
 	shell->tokens->size = 10;
 	shell->tokens->to_add = 10;
 	shell->tokens->cur_pos = 0;
@@ -71,7 +74,6 @@ static int	tokenize_loop(t_shell *shell, char **av)
 	while (av[i])
 	{
 		input = av[i];
-		ft_skip_strchr((const char **)&input, ' ');
 		if (*input)
 		{
 			if (!ft_token_add(shell, &input))
