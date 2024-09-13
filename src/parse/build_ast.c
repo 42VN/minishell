@@ -6,13 +6,13 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/13 12:42:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/13 15:45:14 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_tokens_size(t_token **tokens)
+int	get_tokens_size(t_token **tokens)
 {
 	int	i;
 

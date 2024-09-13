@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 15:36:17 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 15:48:22 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int		locate_logic(t_token **tokens, int index);
 int		locate_pipe(t_token **tokens, int index);
 int		is_redirect(t_token_type type);
 int		locate_redirect(t_token **tokens, int index);
+int		get_tokens_size(t_token **tokens);
 
 #endif
