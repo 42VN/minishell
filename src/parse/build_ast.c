@@ -6,92 +6,55 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/13 11:43:11 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/13 12:42:36 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_redirect(t_token_type type)
+static int	get_tokens_size(t_token **tokens)
 {
-	return (type == RD_IN || type == RD_OUT
-			|| type == RD_APPEND || type == RD_HEREDOC);
+	int	i;
+
+	i = 0;
+	if (!tokens)
+		return (0);
+	while (tokens[i])
+		i++;
+	return (i);
 }
 
-int	locate_logic(t_token **tokens, int index)
+static t_token	**extract_tokens(t_token **tokens, int start, int end)
 {
-	while (--index >= 0)
-	{
-		if (tokens[index]->type == AND || tokens[index]->type == OR)
-			return (index);
-	}
-	return (-1);
-}
-
-int	locate_pipe(t_token **tokens, int index)
-{
-	while (--index >= 0)
-	{
-		if (tokens[index]->type == PIPE)
-			return (index);
-	}
-	return (-1);
-}
-
-int	locate_redirect(t_token **tokens, int index)
-{
-	while (--index >= 0)
-	{
-		if (is_redirect(tokens[index]->type))
-			return (index);
-	}
-	return (-1);
-}
-
-t_tokens	*extract_right(t_token **tokens, int size, int start)
-{
-	t_token **right;
+	t_token	**right;
 	int		index;
 
-	right = (t_token **)ft_calloc(size - index, sizeof(t_token *));
+	if (end - start <= 0)
+		return (NULL);
+	right = (t_token **)ft_calloc(end - start + 1, sizeof(t_token *));
 	index = 0;
-	while (++start < size)
+	while (start < end)
 	{
 		right[index]->type = tokens[start]->type;
 		right[index]->str = ft_strdup(tokens[start]->str);
+		start++;
 		index++;
 	}
 	return (right);
 }
 
-t_tokens	*extract_left(t_token **tokens, int end)
-{
-	t_token **left;
-	int		index;
-
-	left = (t_token **)ft_calloc(end, sizeof(t_token *));
-	index = -1;
-	while (++index < end)
-	{
-		left[index]->type = tokens[index]->type;
-		left[index]->str = ft_strdup(tokens[index]->str);
-		index++;
-	}
-	return (left);
-}
-
-int	make_root(t_ast *ast, t_token **tokens, int size, int index)
+static int	make_root(t_ast *ast, t_token **tokens, int size, int index)
 {
 	t_token	**left;
 	t_token	**right;
 
 	if (!ast || !tokens || index != -1)
 		return (0);
-	right = extract_right(tokens, size, index);
-	left = extract_left(tokens, index);
+	left = extract_tokens(tokens, 0, index);
+	right = extract_tokens(tokens, index + 1, size);
 	ast->type = tokens[index]->type;
-	ast->left = build_ast(left, ft_matrixlen(left));
-	ast->right = build_ast(right, ft_matrixlen(right));
+	ast->left = build_ast(left, get_tokens_size(left));
+	ast->right = build_ast(right, get_tokens_size(right));
 	return (1);
 }
 

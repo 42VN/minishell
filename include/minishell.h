@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/09 17:35:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 12:44:28 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,19 @@ char	**envp_dup(char **envp);
 int		shell_init(t_shell *shell, char **envp);
 void	shell_cleanup(t_shell *shell);
 
+//---------------------------------||  PARSE  ||------------------------------//
+t_ast	*build_ast(t_token **tokens, int size);
+
+
 //----------------------------------------------------
 // UTILS 
 //-----------------------------------------------------
 
 void 	ft_exit(char *str, int exitcode);
 char	*ft_prompt(char *prefix);
+int		locate_logic(t_token **tokens, int index);
+int		locate_pipe(t_token **tokens, int index);
+int		is_redirect(t_token_type type);
+int		locate_redirect(t_token **tokens, int index);
 
 #endif
