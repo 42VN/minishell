@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_cleanup.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 17:28:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 18:09:57 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/13 12:07:02 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/13 12:23:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_envp(char **envp)
+/**
+ * Function to check if the current input character is an operator
+ */
+int	ft_token_is_op(char *input)
 {
-	int	i;
-
-	if (!envp)
-		return ;
-	i = 0;
-	while (envp[i])
-	{
-		free(envp[i]);
-		i++;
-	}
-	free(envp);
-}
-
-void	shell_cleanup(t_shell *shell)
-{
-	if (!shell)
-		return ;
-	if (shell->envp)
-		free_envp(shell->envp);
-	if (shell->cwd)
-	{
-		free(shell->cwd);
-		shell->cwd = NULL;
-	}
-	shell->aborted = 0;
+	if (*input == '>' || *input == '<')
+		return (1);
+	if (*input == '|')
+		return (1);
+	if (*input == '(' || *input == ')')
+		return (1);
+	return (0);
 }

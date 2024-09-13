@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_cleanup.c                                    :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 17:28:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 18:09:57 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/13 14:23:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef TOKEN_H
+# define TOKEN_H
 
-void	free_envp(char **envp)
-{
-	int	i;
+int		ft_token_is_op(char *input);
+void	ft_token_free(t_shell *shell);
+int		ft_token_realloc(t_shell *shell);
+int		ft_token_categorize(
+			t_shell *shell,
+			char *input,
+			char *start);
+void	ft_token_print(t_shell *shell);
+int		tokenize(t_shell *shell, char *line);
 
-	if (!envp)
-		return ;
-	i = 0;
-	while (envp[i])
-	{
-		free(envp[i]);
-		i++;
-	}
-	free(envp);
-}
-
-void	shell_cleanup(t_shell *shell)
-{
-	if (!shell)
-		return ;
-	if (shell->envp)
-		free_envp(shell->envp);
-	if (shell->cwd)
-	{
-		free(shell->cwd);
-		shell->cwd = NULL;
-	}
-	shell->aborted = 0;
-}
+#endif

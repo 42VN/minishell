@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_cleanup.c                                    :+:      :+:    :+:   */
+/*   ft_error_ret.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 17:28:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 18:09:57 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/12 17:13:26 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/12 18:11:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_envp(char **envp)
+int	ft_error_ret(
+	char *str,
+	t_shell *shell,
+	t_err_type type,
+	int return_code)
 {
-	int	i;
-
-	if (!envp)
-		return ;
-	i = 0;
-	while (envp[i])
+	if (shell && type)
 	{
-		free(envp[i]);
-		i++;
+		shell->err_type = type;
 	}
-	free(envp);
-}
-
-void	shell_cleanup(t_shell *shell)
-{
-	if (!shell)
-		return ;
-	if (shell->envp)
-		free_envp(shell->envp);
-	if (shell->cwd)
-	{
-		free(shell->cwd);
-		shell->cwd = NULL;
-	}
-	shell->aborted = 0;
+	ft_printf_fd(2, "Error: %s\n", str);
+	return (return_code);
 }

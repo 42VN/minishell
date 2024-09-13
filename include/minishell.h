@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 12:44:28 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/13 15:32:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 #include "../libft/libft.h"
 #include "./types.h"
+#include "../src/token/token.h"
 
 #define PROMPT "minishell> "
 
@@ -41,7 +42,9 @@ char	**envp_dup(char **envp);
 int		shell_init(t_shell *shell, char **envp);
 void	shell_cleanup(t_shell *shell);
 
-//---------------------------------||  PARSE  ||------------------------------//
+//----------------------------------------------------
+// PARSE 
+//-----------------------------------------------------
 t_ast	*build_ast(t_token **tokens, int size);
 
 
@@ -50,6 +53,11 @@ t_ast	*build_ast(t_token **tokens, int size);
 //-----------------------------------------------------
 
 void 	ft_exit(char *str, int exitcode);
+int		ft_error_ret(
+			char *str,
+			t_shell *shell,
+			t_err_type type,
+			int return_code);
 char	*ft_prompt(char *prefix);
 int		locate_logic(t_token **tokens, int index);
 int		locate_pipe(t_token **tokens, int index);

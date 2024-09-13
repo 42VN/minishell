@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/05 17:36:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 14:53:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_printf
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINTF									*/
 /*-------------------------------------------------------------------------*/
-size_t		ft_wordcount_delimiter(const char *s, char delimiter);
+size_t		ft_wordcount_delimiter(const char *s, char delimiter, int has_quote);
 void		ft_printf_init(t_printf *s);
 void		ft_printf_realloc(t_printf *s);
 void		ft_add_to_struct(t_printf *s, int c);
@@ -97,10 +97,10 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 /*								SPLIT										*/
 /*-------------------------------------------------------------------------*/
 
-void		ft_split_skip_delimiter(char const **s, char delimiter);
-const char	*ft_skip_quote(const char **s);
+void		ft_skip_strchr(char const **s, char delimiter);
+const char	*ft_skip_quote(const char **s, int has_quote);
 char		**ft_split(char const *s, char delimiter);
-char		**ft_split_esc(const char *s, char delimiter);
+char		**ft_split_esc(const char *s, char delimiter, int has_quote);
 void		*ft_memcpy_esc(void	*dst, void const *src, size_t n);
 /*-------------------------------------------------------------------------*/
 /*								TYPE										*/
@@ -150,8 +150,8 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /*								FREE										*/
 /*-------------------------------------------------------------------------*/
 
-void		ft_free_set_null(char **str);
-void		ft_multiple_free_set_null(char ***str);
+void		ft_free_null(char **str);
+void		ft_multi_free_null(char ***str);
 char		*ft_return_multiple_free_set_null(char ***str);
 
 /*-------------------------------------------------------------------------*/

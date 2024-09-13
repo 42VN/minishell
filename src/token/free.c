@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 15:59:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/04/22 16:00:33 by ktieu            ###   ########.fr       */
+/*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
+/*   Updated: 2024/09/12 15:51:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_token_free(t_shell *shell)
 {
-	
+	int	i;
+
+	i = 0;
+	if (!shell->tokens)
+		return ;
+	while (i < shell->tokens->size && shell->tokens->array)
+	{
+		if (shell->tokens->array[i].str)
+			free(shell->tokens->array[i].str);
+		++i;
+	}
+	free(shell->tokens->array);
+	free(shell->tokens);
+	shell->tokens = NULL;
 }
