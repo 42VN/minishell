@@ -6,26 +6,37 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 18:11:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 12:15:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/**
- * Function to check if the current input character is an operator
- */
-int	ft_token_is_op(char *input)
+inline static void	ft_check_redirect(
+	char **input,
+	t_token_type *type,
+	char *input_val)
 {
-	while (*input && *input == ' ')
-		(input)++;
-	if (*input == '>' || *input == '<')
-		return (1);
-	if (*input == '|')
-		return (1);
-	if (*input == '(' || *input == ')')
-		return (1);
-	return (0);
+	if (*input_val == '>')
+	{
+		if (*(input_val + 1) == '>')
+		{
+			*type = RD_HEREDOC;
+			(*input)++;
+		}
+		else
+			*type = RD_OUT;
+	}
+	else if (*input_val == '<')
+	{
+		if (*(input_val + 1) == '<')
+		{
+			*type = RD_APPEND;
+			(*input)++;
+		}
+		else
+			*type = RD_IN;
+	}
 }
 
 static void	ft_token_op_check(
@@ -40,18 +51,14 @@ static void	ft_token_op_check(
 	input_val = *input;
 	if (*input_val == '|')
 		*type = PIPE;
-	else if (*input_val == '>')
+	else if (*input_val == '>' || *input_val == '<')
 	{
-		if (*(input_val + 1) == '>')
-		{
-			*type = RD_HEREDOC;
-			(*input)++;
-		}
-		else
-			*type = RD_OUT;
+		ft_check_redirect(input, type, input_val);
 	}
-	else if (*input_val == '<')
-		*type = RD_IN;
+	else if (*input_val == '(')
+		*type = BRACKET_OPEN;
+	else if (*input_val == ')')
+		*type = BRACKET_CLOSE;
 	(*input)++;
 }
 
