@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 15:55:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 15:10:13 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static void	minishell(t_shell *shell)
 			printf("exit\n");
 			break ;
 		}
-		printf("You entered: %s\n", input);
+		printf("Input: [%s]\n", input);
+		tokenize(shell, input);
+		ft_token_print(shell);
+		ft_token_free(shell);
 		if (ft_strcmp(input, "exit") == 0)
 		{
 			free(input);
@@ -40,13 +43,7 @@ int	main(int ac, char **av, char **envp)
 	t_shell	shell;
 
 	shell_init(&shell, envp);
-	// minishell(&shell);
-	if (ac > 1)
-	{
-		tokenize(&shell, av);
-		ft_token_print(&shell);
-		ft_token_free(&shell);
-	}
+	minishell(&shell);
 	shell_cleanup(&shell);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 17:58:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 15:23:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	ft_token_add(t_shell *shell, char **input)
 	if (index > 0 && shell->tokens->need_join)
 	{
 		str = shell->tokens->array[index - 1].str;
-		shell->tokens->array[index - 1].str = ft_strjoin(str, *input);
+		// shell->tokens->array[index - 1].str = ft_strjoin(str, *input);
 		free(str);
+		shell->tokens->array[index - 1].str = ft_strdup(*input);
 		if (!shell->tokens->array[index - 1].str)
 		{
 			shell->err_type = ERR_MEMORY;
@@ -65,39 +66,49 @@ int	ft_token_add(t_shell *shell, char **input)
 	return (1);
 }
 
-static int	tokenize_loop(t_shell *shell, char **av)
+static int	tokenize_loop(t_shell *shell, char *line, char **arr)
 {
+	char	*substr;
 	int		i;
-	char	*input;
 
-	i = 1;
-	while (av[i])
+	i = 0;
+	while (arr[i])
 	{
-		input = av[i];
-		if (*input)
+		substr = arr[i];
+		if (*substr)
 		{
-			if (!ft_token_add(shell, &input))
-				return (0);
+			if (!ft_token_add(shell, &substr))
+			{
+				return (ft_error_ret("tokenize: ft_token_add",
+					shell, ERR_MEMORY, 0));
+			}
 		}
 		++i;
 	}
 	return (1);
 }
 
-int	tokenize(t_shell *shell, char **av)
+int	tokenize(t_shell *shell, char *line)
 {
-	if (!shell || !av || !*av)
+	char	**arr;
+
+	if (!shell || !line || !*line)
 		return (0);
 	shell->tokens = ft_calloc(1, sizeof(t_tokens));
 	if (!shell->tokens)
+		return (ft_error_ret("malloc", shell, ERR_MEMORY, 0));
+	arr = ft_split_esc(line, ' ', 0);
+	if (!arr)
 	{
-		shell->err_type = ERR_MEMORY;
-		return (0);
+		free(shell->tokens);
+		return (ft_error_ret("tokenize: ft_split_esc",
+			shell, ERR_MEMORY, 0));
 	}
 	if (!ft_token_init(shell))
 		return (0);
-	if (tokenize_loop(shell, av) == 0)
+	if (tokenize_loop(shell, line, arr) == 0)
 	{
+		ft_multi_free_null(&arr);
 		ft_token_free(shell);
 		return (0);
 	}

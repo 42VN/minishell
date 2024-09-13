@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:42:24 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 18:09:17 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 14:25:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**envp_dup(char **envp)
 		res[i] = ft_strdup(envp[i]);
 		if (!res[i])
 		{
-			ft_multiple_free_set_null(&res);
+			ft_multi_free_null(&res);
 			return (NULL);
 		}
 		++i;

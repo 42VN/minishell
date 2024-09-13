@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 12:32:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 14:51:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	ft_token_cmd_handler(
 	input_val = **input;
 	*type = CMD;
 	if (input_val == '"' || input_val == '\'')
-		ft_skip_quote((const char **)input);
+		ft_skip_quote((const char **)input, 1);
 	else
 	{
 		while (**input && !ft_token_is_op(*input))
@@ -128,7 +128,8 @@ int	ft_token_categorize(
 	if (!shell->tokens->array[shell->tokens->cur_pos].str)
 	{
 		ft_token_free(shell);
-		return (ft_error_ret("malloc", shell, ERR_MEMORY, 0));
+		return (ft_error_ret("ft_token_categorize: malloc",
+			shell, ERR_MEMORY, 0));
 	}
 	shell->tokens->array[shell->tokens->cur_pos].type = type;
 	shell->tokens->cur_pos++;

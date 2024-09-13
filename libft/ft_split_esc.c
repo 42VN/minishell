@@ -6,13 +6,16 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:30:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 21:00:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 14:50:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_wordcount_delimiter(const char *s, char delimiter)
+size_t	ft_wordcount_delimiter(
+	const char *s,
+	char delimiter,
+	int has_quote)
 {
 	size_t	count;
 
@@ -25,7 +28,7 @@ size_t	ft_wordcount_delimiter(const char *s, char delimiter)
 			count++;
 			if (*s == '\'' || *s == '\"')
 			{
-				if (ft_skip_quote(&s) == NULL)
+				if (ft_skip_quote(&s, has_quote) == NULL)
 					break ;
 			}
 			else
@@ -110,7 +113,7 @@ static char	**ft_split_helper(
 			res[i] = (char *)malloc((current_word_len + 1) * sizeof(char));
 			if (!res[i])
 			{
-				ft_multiple_free_set_null(&res);
+				ft_multi_free_null(&res);
 				return (NULL);
 			}
 			ft_memcpy_esc(res[i], start, current_word_len);
@@ -122,12 +125,15 @@ static char	**ft_split_helper(
 	return (res);
 }
 
-char	**ft_split_esc(const char *s, char delimiter)
+char	**ft_split_esc(
+	const char *s,
+	char delimiter,
+	int has_quote)
 {
 	char	**res;
 	size_t	size;
 
-	size = ft_wordcount_delimiter(s, delimiter);
+	size = ft_wordcount_delimiter(s, delimiter, has_quote);
 	res = (char **)malloc((size + 1) * sizeof(char *));
 	if (!res)
 	{
