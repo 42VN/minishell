@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/11 14:32:40 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/13 11:47:47 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ typedef struct s_tokens
 typedef struct s_ast
 {
 	t_token_type	type;
-	t_token			*token;
-	char			*path;
+	char			*arg;
 	struct s_ast	*left;
 	struct s_ast	*right;
 }	t_ast;
@@ -74,6 +73,7 @@ typedef struct s_shell
 	int			exitcode;
 	t_err_type	err_type;
 	t_tokens	*tokens;
+	t_ast		*ast;
 }	t_shell;
 
 #endif
