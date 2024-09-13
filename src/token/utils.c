@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:07:02 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 12:07:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 12:23:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
  */
 int	ft_token_is_op(char *input)
 {
-	while (*input && *input == ' ')
-		(input)++;
 	if (*input == '>' || *input == '<')
 		return (1);
 	if (*input == '|')
