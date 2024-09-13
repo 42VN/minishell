@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 14:51:18 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 15:38:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static void	ft_token_op_check(
 		ft_check_redirect(input, type, input_val);
 	}
 	else if (*input_val == '(')
-		*type = BRACKET_OPEN;
+		*type = BR_OPEN;
 	else if (*input_val == ')')
-		*type = BRACKET_CLOSE;
+		*type = BR_CLOSE;
 	(*input)++;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 12:15:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 15:38:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	ft_token_print(t_shell *shell)
 			type_str = "RD_APPEND";
 		else if (type == RD_HEREDOC)
 			type_str = "RD_HEREDOC";
-		else if (type == BRACKET_OPEN)
-			type_str = "BRACKET_OPEN";
-		else if (type == BRACKET_CLOSE)
-			type_str = "BRACKET_CLOSE";
+		else if (type == BR_OPEN)
+			type_str = "BR_OPEN";
+		else if (type == BR_CLOSE)
+			type_str = "BR_CLOSE";
 		printf("Token %d: [%s], Type: %s\n",
 			i,
 			shell->tokens->array[i].str, type_str);
