@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/13 15:49:24 by hitran           ###   ########.fr        #
+#    Updated: 2024/09/13 22:31:43 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ OBJ_DIR				=	obj
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
-PARSE_FILES			=	parse.c	 build_ast.c
-UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c locate_token.c
+PARSE_FILES			=	parse.c	 build_ast.c	print_ast.c
+UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c locate_token.c convert2double.c
 TOKEN_FILES			=	tokenize.c free.c mem.c categorize.c print.c utils.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
