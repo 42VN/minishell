@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 12:31:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/13 12:32:51 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	ft_token_op_handler(
 	t_token_type *type,
 	t_shell *shell)
 {
-	
 	ft_token_op_check(input, type);
 	if (**input != '\0')
 	{
@@ -95,8 +94,6 @@ static void	ft_token_cmd_handler(
 {
 	char	input_val;
 
-	// while (**input == ' ')
-	// 	(*input)++;
 	input_val = **input;
 	*type = CMD;
 	if (input_val == '"' || input_val == '\'')
