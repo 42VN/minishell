@@ -6,14 +6,13 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/13 22:16:25 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/15 09:09:01 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	get_tokens_size(t_token *tokens)
+static int	get_tokens_size(t_token *tokens)
 {
 	int	i;
 
@@ -41,7 +40,6 @@ static t_token	*extract_tokens(t_token *tokens, int start, int end)
 		start++;
 		index++;
 	}
-	// printf("index = %d\n", index);
 	return (res);
 }
 
@@ -69,19 +67,14 @@ t_ast	*build_ast(t_token *tokens)
 	size = get_tokens_size(tokens);
 	if (!size)
 		return (NULL);
-	// printf("size = %d\n", size);
 	ast = (t_ast *)ft_calloc(1, sizeof(t_ast));
-	// printf("locate logic = %d\n", locate_logic(tokens, size));
 	if (make_root(ast, tokens, size, locate_logic(tokens, size)))
 		return (ast);
-	// printf("locate pipe = %d\n", locate_pipe(tokens, size));
 	if (make_root(ast, tokens, size, locate_pipe(tokens, size)))
 		return (ast);
-	// printf("locate redirect = %d\n", locate_redirect(tokens, size));
 	if (make_root(ast, tokens, size, locate_redirect(tokens, size)))
 		return (ast);
 	ast->type = tokens[size - 1].type;
 	ast->arg = ft_strdup(tokens[size - 1].str);
-	// printf("done\n");
 	return (ast);
 }

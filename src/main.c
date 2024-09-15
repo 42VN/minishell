@@ -6,11 +6,11 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 22:17:14 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/15 09:27:17 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static void	minishell(t_shell *shell)
 {
@@ -31,6 +31,7 @@ static void	minishell(t_shell *shell)
 		ft_token_print(shell);
 		shell->ast = build_ast(shell->tokens->array);
 		print_ast(shell->ast);
+		// execute_ast(shell, shell->ast);
 		ft_token_free(shell);
 		}
 		if (ft_strcmp(input, "exit") == 0)
