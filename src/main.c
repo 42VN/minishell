@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 15:59:38 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/13 22:17:14 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	minishell(t_shell *shell)
 			// printf("Input: [%s]\n", input);
 		tokenize(shell, input);
 		ft_token_print(shell);
-		// shell->ast = build_ast(shell->tokens->array,
-		// 	get_tokens_size(shell->tokens->array));
+		shell->ast = build_ast(shell->tokens->array);
+		print_ast(shell->ast);
 		ft_token_free(shell);
 		}
 		if (ft_strcmp(input, "exit") == 0)
