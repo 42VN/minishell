@@ -6,59 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:38:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 15:38:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/16 10:58:34 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-inline static void	ft_check_redirect(
-	char **input,
-	t_token_type *type,
-	char *input_val)
-{
-	if (*input_val == '>')
-	{
-		if (*(input_val + 1) == '>')
-		{
-			*type = RD_HEREDOC;
-			(*input)++;
-		}
-		else
-			*type = RD_OUT;
-	}
-	else if (*input_val == '<')
-	{
-		if (*(input_val + 1) == '<')
-		{
-			*type = RD_APPEND;
-			(*input)++;
-		}
-		else
-			*type = RD_IN;
-	}
-}
-
-static void	ft_token_op_check(
-	char **input,
-	t_token_type *type
-)
-{
-	char	*input_val;
-
-	input_val = *input;
-	if (*input_val == '|')
-		*type = PIPE;
-	else if (*input_val == '>' || *input_val == '<')
-	{
-		ft_check_redirect(input, type, input_val);
-	}
-	else if (*input_val == '(')
-		*type = BR_OPEN;
-	else if (*input_val == ')')
-		*type = BR_CLOSE;
-	(*input)++;
-}
 
 /**
  * Handles operator tokens
@@ -68,7 +20,8 @@ static void	ft_token_op_handler(
 	t_token_type *type,
 	t_shell *shell)
 {
-	ft_token_op_check(input, type);
+	while (ft_token_is_op(*input, NULL))
+		(*input)++;
 	if (**input != '\0')
 	{
 		*type = CMD;
@@ -78,7 +31,8 @@ static void	ft_token_op_handler(
 	}
 	if (shell->tokens->need_join == 0)
 	{
-		if (*type == RD_IN || *type == RD_OUT || *type == RD_HEREDOC)
+		if (*type == RD_IN || *type == RD_OUT 
+			|| *type == RD_HEREDOC || *type == RD_APPEND)
 		{
 			shell->tokens->need_join = 1;
 		}
@@ -100,7 +54,7 @@ static void	ft_token_cmd_handler(
 		ft_skip_quote((const char **)input, 1);
 	else
 	{
-		while (**input && !ft_token_is_op(*input))
+		while (**input && !ft_token_is_op(*input, NULL))
 			(*input)++;
 	}
 }
@@ -118,7 +72,7 @@ int	ft_token_categorize(
 
 	while (*input && *input == ' ')
 		(input)++;
-	if (ft_token_is_op(input))
+	if (ft_token_is_op(input, &type))
 		ft_token_op_handler(&input, &type, shell);
 	else
 		ft_token_cmd_handler(&input, &type);

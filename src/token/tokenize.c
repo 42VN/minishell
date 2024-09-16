@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 15:23:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/16 10:53:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	ft_token_add(t_shell *shell, char **input)
 	if (index > 0 && shell->tokens->need_join)
 	{
 		str = shell->tokens->array[index - 1].str;
-		// shell->tokens->array[index - 1].str = ft_strjoin(str, *input);
 		free(str);
 		shell->tokens->array[index - 1].str = ft_strdup(*input);
 		if (!shell->tokens->array[index - 1].str)
