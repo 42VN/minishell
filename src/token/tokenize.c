@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/16 18:24:59 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/18 18:03:59 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_token_init(t_shell *shell)
 	int	i;
 
 	i = 0;
+	if (!shell || !shell->tokens)
+        return (0);
 	shell->tokens->size = 10;
 	shell->tokens->to_add = 10;
 	shell->tokens->cur_pos = 0;
@@ -42,24 +44,9 @@ static int	ft_token_init(t_shell *shell)
 int	ft_token_add(t_shell *shell, char **input)
 {
 	char			*start;
-	int				index;
 	char			*str;
 
 	start = *input;
-	index = shell->tokens->cur_pos;
-	if (index > 0 && shell->tokens->need_join)
-	{
-		str = shell->tokens->array[index - 1].str;
-		free(str);
-		shell->tokens->array[index - 1].str = ft_strdup(*input);
-		if (!shell->tokens->array[index - 1].str)
-		{
-			shell->err_type = ERR_MEMORY;
-			return (0);
-		}
-		shell->tokens->need_join = 0;
-		return (1);
-	}
 	if (!ft_token_categorize(shell, *input, start))
 		return (0);
 	return (1);
@@ -104,12 +91,15 @@ int	tokenize(t_shell *shell, char *line)
 			shell, ERR_MEMORY, 0));
 	}
 	if (!ft_token_init(shell))
+	{
 		return (0);
+	}
 	if (tokenize_loop(shell, line, arr) == 0)
 	{
 		ft_multi_free_null(&arr);
 		ft_token_free(shell);
 		return (0);
 	}
+	ft_multi_free_null(&arr);
 	return (1);
 }

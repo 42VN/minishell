@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/16 11:01:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/18 18:07:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,8 @@ void	ft_token_print(t_shell *shell)
 		type = shell->tokens->array[i].type;
 		if (type == CMD)
 			type_str = "CMD";
-		else if (type == RD_IN)
-			type_str = "RD_IN";
-		else if (type == RD_OUT)
-			type_str = "RD_OUT";
 		else if (type == PIPE)
 			type_str = "PIPE";
-		else if (type == RD_APPEND)
-			type_str = "RD_APPEND";
-		else if (type == RD_HEREDOC)
-			type_str = "RD_HEREDOC";
 		else if (type == BR_OPEN)
 			type_str = "BR_OPEN";
 		else if (type == BR_CLOSE)
@@ -42,9 +34,11 @@ void	ft_token_print(t_shell *shell)
 			type_str = "AND";
 		else if (type == OR)
 			type_str = "OR";
+		else
+			type_str = "UNKNOWN";
 		printf("Token %d: [%s], Type: %s\n",
 			i,
-			shell->tokens->array[i].str, type_str);
+			shell->tokens->array[i].cmd, type_str);
 		++i;
 	}
 }

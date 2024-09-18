@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 14:36:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/18 17:38:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_tokens
 	size_t	cur_token;
 	size_t	cur_pos;
 	size_t	to_add;
-	int		need_join;
 }	t_tokens;
 
 //----------------------------------------------------

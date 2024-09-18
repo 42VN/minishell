@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/16 18:37:13 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/18 18:24:09 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_BASE_FILES		=	main.c
 ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	locate_token.c	print_ast.c
-UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c
+UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	tokenize.c free.c mem.c categorize.c print.c utils.c
 EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c
 PARSE_FILES			=	parse.c
@@ -49,9 +49,7 @@ SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
 						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES)) \
 						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES)) \
-						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES)) \
-						$(addprefix $(AST_DIR)/, $(AST_FILES))	\
-						$(addprefix $(EXEC_DIR)/, $(EXEC_FILES))
+						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES))
 
 OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 
