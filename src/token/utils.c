@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:07:02 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 18:24:09 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/18 18:33:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_token_join_cmd(t_token *token, char *str)
     char	*cmd;
 
     cmd = token->cmd;
-    token->cmd = ft_strjoin_space(cmd, str, ' ');
+    token->cmd = ft_strjoin_space(cmd, str);
     free(cmd);
     if (!token->cmd)
     {
