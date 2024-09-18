@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/15 09:09:01 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:24:37 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_tokens_size(t_token *tokens)
 	i = 0;
 	if (!tokens)
 		return (0);
-	while (tokens[i].str)
+	while (tokens[i].type || tokens[i].cmd)
 		i++;
 	return (i);
 }
@@ -34,12 +34,8 @@ static t_token	*extract_tokens(t_token *tokens, int start, int end)
 	res = (t_token *)ft_calloc(end - start + 1, sizeof(t_token));
 	index = 0;
 	while (start < end)
-	{
-		res[index].type = tokens[start].type;
-		res[index].str = ft_strdup(tokens[start].str);
-		start++;
-		index++;
-	}
+		res[index++] = tokens[start++];
+	res[index] = (t_token){0};  //terminated-null
 	return (res);
 }
 
@@ -52,8 +48,7 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 		return (0);
 	left = extract_tokens(tokens, 0, index);
 	right = extract_tokens(tokens, index + 1, size);
-	ast->type = tokens[index].type;
-	ast->arg = ft_strdup(tokens[index].str);
+	ast->token = tokens[index];
 	ast->left = build_ast(left);
 	ast->right = build_ast(right);
 	return (1);
@@ -64,17 +59,16 @@ t_ast	*build_ast(t_token *tokens)
 	t_ast	*ast;
 	int		size;
 
+	if (!tokens)
+		return (NULL);
 	size = get_tokens_size(tokens);
 	if (!size)
 		return (NULL);
 	ast = (t_ast *)ft_calloc(1, sizeof(t_ast));
 	if (make_root(ast, tokens, size, locate_logic(tokens, size)))
 		return (ast);
-	if (make_root(ast, tokens, size, locate_pipe(tokens, size)))
+	else if (make_root(ast, tokens, size, locate_pipe(tokens, size)))
 		return (ast);
-	if (make_root(ast, tokens, size, locate_redirect(tokens, size)))
-		return (ast);
-	ast->type = tokens[size - 1].type;
-	ast->arg = ft_strdup(tokens[size - 1].str);
+	ast->token = tokens[0];
 	return (ast);
 }
