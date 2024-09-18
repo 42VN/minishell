@@ -1,0 +1,10 @@
+include
+infile
+libft
+LICENSE
+Makefile
+out
+outappend
+README.md
+src
+test

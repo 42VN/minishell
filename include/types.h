@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/16 15:32:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:12:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ typedef enum e_token_type
 {
 	CMD,					// command
 	PIPE,					// |
+	RD_IN,					// <
+	RD_OUT,					// >
+	RD_HEREDOC,				// <<
+	RD_APPEND,				// >>
 	OR,						// ||				#bonus
 	AND,					// &&				#bonus
 	BR_OPEN,				// ( 				#bonus
@@ -49,12 +53,7 @@ typedef enum e_err_type
 typedef struct s_token
 {
 	t_token_type	type; // CMD, PIPE, AND, OR, BR_OPEN/CLOSE bo RD
-	char			**command; // sua thanh ** chua command va option + redirect (neu co)
-	//neu co redirect, chuyen no thanh command[0] voi dinh dang la RD viet lien voi path
-	// vi du: < "__path" grep hello  -> command[0] = <__path (_ la space); command[1] = grep; command[2] = hello
-	// khi execute: kiem tra command[0][0] == < || > || << || >> -> open(&command[0][1]) ->tang pointer command ->command[1]
-	// neu k co RD, giu nguyen
-	// goi exeve(command[0], command)
+	char			*str; // sua thanh ** chua command va option + redirect (neu co)
 }	t_token;
 
 typedef struct s_tokens
