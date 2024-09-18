@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 14:33:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/18 14:36:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_token_type
 	AND,					// &&				#bonus
 	BR_OPEN,				// ( 				#bonus
 	BR_CLOSE				// ) 				#bonus
-}	t_token_type;
+}	t_token_type; // bo RD
 
 typedef enum e_redirecct_type
 {
