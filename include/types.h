@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 17:38:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/20 12:24:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef enum e_err_type
 
 typedef	struct s_redirect
 {
-	int					fd;
+	// int					fd; //k can
 	t_redirect_type 	type;
 	char				*path;
 	struct s_redirect	*next;
@@ -66,10 +66,11 @@ typedef	struct s_redirect
 typedef struct s_token
 {
 	t_token_type	type;
-	char			*cmd;
-	char			**split_cmd;
-	t_redirect		*redirect_in;
-	t_redirect		*redirect_out;
+	// char			*cmd; // k can
+	char			**splitted_cmd; //doi ten
+	t_redirect		*redirect;
+	// t_redirect		*redirect_in; // nen nhap in va out chung
+	// t_redirect		*redirect_out;
 }	t_token;
 
 typedef struct s_tokens
