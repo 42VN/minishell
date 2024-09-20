@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 17:38:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/20 15:31:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ typedef struct s_token
 	t_token_type	type;
 	char			*cmd;
 	char			**split_cmd;
-	t_redirect		*redirect_in;
-	t_redirect		*redirect_out;
+	t_redirect		*redirect;
 }	t_token;
 
 typedef struct s_tokens
