@@ -6,11 +6,34 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/20 09:56:20 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 11:21:17 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	locate_operator(t_token *tokens, int index, int priority)
+{
+	int	depth;
+	
+	depth = 0;
+	while (--index >= 0)
+	{
+		if (tokens[index].type == BR_OPEN)
+			depth++;
+		else if (tokens[index].type == BR_CLOSE)
+			depth--;
+		else if (depth == 0)
+		{
+			if (priority == 0 
+				&& (tokens[index].type == AND || tokens[index].type == OR))
+				return (index);
+			else if (priority == 1 && tokens[index].type == PIPE)
+				return (index);
+		}
+	}
+	return (-1);
+}
 
 static int	get_tokens_size(t_token *tokens)
 {
@@ -35,7 +58,7 @@ static t_token	*extract_tokens(t_token *tokens, int start, int end)
 	index = 0;
 	while (start < end)
 		res[index++] = tokens[start++];
-	res[index] = (t_token){0};  //terminated-null
+	res[index] = NULL;
 	return (res);
 }
 
@@ -43,6 +66,7 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 {
 	t_token	*left;
 	t_token	*right;
+	int		close_index;
 
 	if (!ast || !tokens || index == -1)
 		return (0);
@@ -51,6 +75,8 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 	ast->token = tokens[index];
 	ast->left = build_ast(left);
 	ast->right = build_ast(right);
+	free (left);
+	free (right);
 	return (1);
 }
 
@@ -58,16 +84,24 @@ t_ast	*build_ast(t_token *tokens)
 {
 	t_ast	*ast;
 	int		size;
+	t_token *temp;
 
 	if (!tokens)
 		return (NULL);
 	size = get_tokens_size(tokens);
 	if (!size)
 		return (NULL);
-	ast = (t_ast *)ft_calloc(1, sizeof(t_ast));
-	if (make_root(ast, tokens, size, locate_logic(tokens, size)))
+	if (tokens[0].type == BR_OPEN && tokens[size - 1].type == BR_CLOSE)
+	{
+		temp = extract_tokens(tokens, 1, size - 1);
+		ast = build_ast(temp);
+		free (temp);
 		return (ast);
-	else if (make_root(ast, tokens, size, locate_pipe(tokens, size)))
+	}
+	ast = (t_ast *)ft_calloc(1, sizeof(t_ast));
+	if (make_root(ast, tokens, size, locate_operator(tokens, size, 0)))
+		return (ast);
+	else if (make_root(ast, tokens, size, locate_operator(tokens, size, 1)))
 		return (ast);
 	ast->token = tokens[0];
 	return (ast);
