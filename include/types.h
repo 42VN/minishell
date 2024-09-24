@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/20 12:24:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:40:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@
  */
 typedef enum e_token_type
 {
-	CMD,					// command
-	PIPE,					// |
-	OR,						// ||				#bonus
-	AND,					// &&				#bonus
-	BR_OPEN,				// ( 				#bonus
-	BR_CLOSE				// ) 				#bonus
+	NONE = 0,
+	CMD = 1,					// command
+	PIPE = 2,					// |
+	OR = 3,						// ||				#bonus
+	AND = 4,					// &&				#bonus
+	BR_OPEN = 5,				// ( 				#bonus
+	BR_CLOSE = 6,				// ) 				#bonus
+	INVALID = -1
 }	t_token_type; // bo RD
 
-typedef enum e_redirecct_type
+typedef enum e_redirect_type
 {
 	RD_IN,					// <
 	RD_OUT,					// >
@@ -55,10 +57,10 @@ typedef enum e_err_type
 // TOKEN 
 //-----------------------------------------------------
 
-typedef	struct s_redirect
+typedef struct s_redirect
 {
-	// int					fd; //k can
-	t_redirect_type 	type;
+	int					fd;
+	t_redirect_type		type;
 	char				*path;
 	struct s_redirect	*next;
 }	t_redirect;
@@ -66,11 +68,9 @@ typedef	struct s_redirect
 typedef struct s_token
 {
 	t_token_type	type;
-	// char			*cmd; // k can
-	char			**splitted_cmd; //doi ten
+	char			*cmd;
+	char			**split_cmd;
 	t_redirect		*redirect;
-	// t_redirect		*redirect_in; // nen nhap in va out chung
-	// t_redirect		*redirect_out;
 }	t_token;
 
 typedef struct s_tokens
@@ -80,6 +80,7 @@ typedef struct s_tokens
 	size_t	cur_token;
 	size_t	cur_pos;
 	size_t	to_add;
+	int		is_cmd;
 }	t_tokens;
 
 //----------------------------------------------------

@@ -6,11 +6,34 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 18:07:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 14:18:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_redirect_print(t_redirect **head)
+{
+	t_redirect	*temp;
+	char		*str;
+	
+	if (!*head)
+		return;
+	temp = *head;
+	while (temp)
+	{
+		if (temp->type == RD_IN)
+			str = "RD_IN";
+		else if (temp->type == RD_OUT)
+			str = "RD_OUT";
+		else if (temp->type == RD_APPEND)
+			str = "RD_APPEND";
+		else if (temp->type == RD_HEREDOC)
+			str = "RD_HEREDOC";
+		printf("Path: %s, Type: %s\n", temp->path, str);
+		temp = temp->next;
+	}
+}
 
 void	ft_token_print(t_shell *shell)
 {
@@ -19,8 +42,12 @@ void	ft_token_print(t_shell *shell)
 	char			*type_str;
 
 	i = 0;
-	while (i < shell->tokens->cur_pos)
+	if (!shell->tokens)
+		return ;
+	while (i <= shell->tokens->cur_pos)
 	{
+		if (shell->tokens->array[i].type == NONE)
+			return ;
 		type = shell->tokens->array[i].type;
 		if (type == CMD)
 			type_str = "CMD";
@@ -34,12 +61,18 @@ void	ft_token_print(t_shell *shell)
 			type_str = "AND";
 		else if (type == OR)
 			type_str = "OR";
+		else if (type == NONE)
+			type_str = "NONE";
 		else
 			type_str = "UNKNOWN";
+		printf("------------------------\n");
 		printf("Token %d: [%s], Type: %s\n",
 			i,
 			shell->tokens->array[i].cmd, type_str);
+		ft_redirect_print(&shell->tokens->array[i].redirect);
 		++i;
 	}
 }
+
+
 
