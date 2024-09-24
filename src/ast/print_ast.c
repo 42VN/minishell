@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 22:18:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/13 22:36:19 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:58:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,17 @@ void	print_ast(t_ast *ast)
 {
 	if (!ast)
 		return ;
-	printf("root = %s, arg = %s\n", type_string(ast->type), ast->arg);
+	printf("root = %s\n", type_string(ast->token.type));
 	if (ast->left)
 	{
-		printf("left brach:\n");
+		printf("left branch:\n");
 		print_ast(ast->left);
 	}
 	if (ast->right)
 	{
-		printf("right brach:\n");
+		printf("right branch:\n");
 		print_ast(ast->right);
 	}
+	if(ast->token.cmd)
+	printf("cmd = %s\n", ast->token.cmd);
 }

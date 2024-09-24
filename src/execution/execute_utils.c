@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/15 09:26:56 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 15:03:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,12 @@ int	update_status(int new_status)
 		status = new_status;
 	return (status);
 }
+
+// void	open_error(t_shell *shell, char *path, int *fd)
+// {
+// 	free_shell(shell);
+// 	if (fd[0] > 2)
+// 		close (fd[0]);
+// 	if (fd[1] > 2)
+// 		close (fd[1]);
+// }

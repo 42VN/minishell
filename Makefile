@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/24 10:23:34 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/24 14:50:36 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJ_DIR				=	obj
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
-AST_FILES			=	build_ast.c	locate_token.c	print_ast.c
+AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c
 EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c
@@ -49,6 +49,7 @@ SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
 						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES)) \
 						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES)) \
+						$(addprefix $(AST_DIR)/, $(AST_FILES)) \
 						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES))
 
 OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)

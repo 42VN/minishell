@@ -6,18 +6,22 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/20 12:50:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 15:05:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "minishell.h"
 
-static char	**find_envp_path(char **envp, char **command)
+static char	**find_envp_path(char **envp, char *command)
 {
 	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
 		envp++;
 	if (!*envp)
-		handle_cmd_error(command, "No such file or directory", 1);
+	{
+		write(2, command, ft_strlen(command));
+		write(2, ": No such file or directory\n", 26);
+		exit (EXIT_FAILURE);
+	}
 	return (ft_split(*envp + 5, ':'));
 }
 
@@ -41,27 +45,39 @@ static char	*get_command_path(char **envp_paths, char *command)
 	while (*envp_paths)
 	{
 		command_path = join_command_path(*(envp_paths++), command);
-		if (!command_path || access(command_path, F_OK) == 0)
+		if (!command_path)
+			return (NULL);
+		if (access(command_path, F_OK) == 0)
 			return (command_path);
 		free(command_path);
 	}
 	return (NULL);
 }
 
-char	*find_command_path(char **envp, char **splitted_cmd)
+char	*find_command_path(char **envp, char *command)
 {
 	char	**envp_paths;
 	char	*command_path;
 
-	if (ft_strchr(*splitted_cmd, '/'))
+	if (ft_strchr(command, '/'))
 	{
-		if (access(*splitted_cmd, F_OK) == 0)
-			return (ft_strdup(*splitted_cmd));
+		if (access(command, F_OK) == 0)
+			return (ft_strdup(command));
 		else
-			handle_cmd_error(splitted_cmd, "No such file or directory", 1);
+		{
+			write(2, command, ft_strlen(command));
+			write(2, ": No such file or directory\n", 26);
+			return (NULL);
+		}
 	}
-	envp_paths = find_envp_path(envp, splitted_cmd);
-	command_path = get_command_path(envp_paths, *splitted_cmd);
+	envp_paths = find_envp_path(envp, command);
+	command_path = get_command_path(envp_paths, command);
 	ft_free_triptr(&envp_paths);
+	if (!command_path)
+	{
+		write(2, command, ft_strlen(command));
+		write(2, ": Command not found\n", 20);
+		exit (EXIT_FAILURE);
+	}
 	return (command_path);
 }

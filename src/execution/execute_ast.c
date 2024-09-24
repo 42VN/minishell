@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/20 13:16:28 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:24:48 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	execute_ast(t_shell *shell, t_ast *ast)
 {
-	if (ast->type == AND || ast->type == OR)
+	if (ast->token.type == AND || ast->token.type == OR)
 		execute_logic(shell, ast);
-	else if (ast->type == PIPE)
+	else if (ast->token.type == PIPE)
 		execute_pipe(shell, ast);
 	else if (ast->left)
 		execute_ast(shell, ast->left);
 	else if (ast->right)
 		execute_ast(shell, ast->right);
-	else if (ast->arg)
+	else if (ast->token.type == CMD)
 		execute_command(shell, ast->token);
 }

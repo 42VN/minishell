@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/24 11:21:17 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/24 14:43:00 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	locate_operator(t_token *tokens, int index, int priority)
 			depth++;
 		else if (tokens[index].type == BR_CLOSE)
 			depth--;
-		else if (depth == 0)
+		if (depth == 0)
 		{
 			if (priority == 0 
 				&& (tokens[index].type == AND || tokens[index].type == OR))
@@ -37,14 +37,14 @@ static int	locate_operator(t_token *tokens, int index, int priority)
 
 static int	get_tokens_size(t_token *tokens)
 {
-	int	i;
+	int	index;
 
-	i = 0;
+	index = 0;
 	if (!tokens)
 		return (0);
-	while (tokens[i].type || tokens[i].cmd)
-		i++;
-	return (i);
+	while (tokens[index].type || tokens[index].cmd)
+		index++;
+	return (index);
 }
 
 static t_token	*extract_tokens(t_token *tokens, int start, int end)
@@ -58,7 +58,7 @@ static t_token	*extract_tokens(t_token *tokens, int start, int end)
 	index = 0;
 	while (start < end)
 		res[index++] = tokens[start++];
-	res[index] = NULL;
+	ft_memset(&res[index], 0, sizeof(t_token));
 	return (res);
 }
 
