@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/22 20:19:58 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 12:09:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static int	ft_token_is_redirect(
 	op = **str;
 	if (op == '<' || op == '>')
 	{
+		printf("Redirect\n");
 		*type = CMD;
 		count = ft_count_op(str, op);
 		redirect = ft_token_redirect(shell, str, op, count);

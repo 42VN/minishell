@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 10:23:53 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 12:11:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,23 @@ int	ft_token_add(t_shell *shell, char **input)
 	index = shell->tokens->cur_pos;
 	if (!ft_token_realloc(shell))
 		return (0);
-	if (!ft_token_handle_op(input, shell))
-		return (0);
+	if (ft_is_op(*input))
+	{
+		if (!ft_token_handle_op(input, shell))
+		{
+			printf("Failed to handle op\n");
+			return (0);
+		}
+	}
 	else
-		shell->tokens->cur_pos++;
-	if (!ft_token_handle_cmd(input, shell))
-		return (0);
+	{
+		if (!ft_token_handle_cmd(input, shell))
+		{
+			printf("Failed to handle cmd\n");
+			return (0);
+		}
+	}
+	
 	return (1);
 }
 
@@ -74,7 +85,6 @@ int	tokenize(t_shell *shell, char *line)
 	while (*line)
 	{
 		ft_skip_strchr(&line, ' ');
-		printf("String: [%s]\n", line);
 		if (!ft_token_add(shell, &line))
 		{
 			ft_token_free(shell);

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 10:22:24 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 12:07:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 	size_t			*index;
 	char			*str;
 
-	if (!ptr || !*ptr || !**ptr || !shell)
+	if (!ptr || !*ptr || !shell)
 		return (0);
+	if (!**ptr)
+		return (1);
 	index = &shell->tokens->cur_pos;
 	if (!ft_is_op(*ptr))
 	{
