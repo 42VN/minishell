@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 14:18:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 15:05:34 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ void	ft_redirect_print(t_redirect **head)
 {
 	t_redirect	*temp;
 	char		*str;
+	int			i;
 	
 	if (!*head)
 		return;
 	temp = *head;
+	i = 0;
 	while (temp)
 	{
 		if (temp->type == RD_IN)
@@ -30,8 +32,9 @@ void	ft_redirect_print(t_redirect **head)
 			str = "RD_APPEND";
 		else if (temp->type == RD_HEREDOC)
 			str = "RD_HEREDOC";
-		printf("Path: %s, Type: %s\n", temp->path, str);
+		printf("Path %d: %s, Type: %s\n", i, temp->path, str);
 		temp = temp->next;
+		++i;
 	}
 }
 

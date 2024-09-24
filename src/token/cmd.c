@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 14:35:55 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 15:08:29 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 			shell->tokens->array[*index].type = CMD;
 			shell->tokens->array[*index].cmd = str;
 			shell->tokens->is_cmd = 0;
-			shell->tokens->cur_pos++;
 		}
 		else if (index > 0)
 		{
-			if (!ft_token_join_cmd(&shell->tokens->array[*index - 1], &str))
+			if (!ft_token_join_cmd(&shell->tokens->array[*index], &str))
 				return (ft_free_null_ret(&str, 0));
 		}
 	}
