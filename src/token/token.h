@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 10:23:29 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 14:35:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			ft_token_handle_op(char **ptr, t_shell *shell);
 // CMD 
 //-----------------------------------------------------
 
-char		*ft_token_join_cmd(t_token *token, char *str);
+char		*ft_token_join_cmd(t_token *token, char **str);
 int			ft_token_handle_cmd(char **ptr, t_shell *shell);
 //----------------------------------------------------
 // UTILS 

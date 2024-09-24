@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 12:11:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 14:28:43 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	ft_token_init(t_shell *shell)
 	shell->tokens->to_add = 5;
 	shell->tokens->cur_pos = 0;
 	shell->tokens->cur_token = 0;
+	shell->tokens->is_cmd = 1;
 	shell->tokens->array
 		= (t_token *)ft_calloc(shell->tokens->size, sizeof(t_token));
 	if (!shell->tokens->array)
@@ -49,17 +50,13 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
-	size_t			index;
-	t_token_type	type;
-
-	index = shell->tokens->cur_pos;
 	if (!ft_token_realloc(shell))
 		return (0);
 	if (ft_is_op(*input))
 	{
 		if (!ft_token_handle_op(input, shell))
 		{
-			printf("Failed to handle op\n");
+			ft_printf_fd(2, "minishell: parse error near %c\n", **input);
 			return (0);
 		}
 	}
@@ -67,11 +64,10 @@ int	ft_token_add(t_shell *shell, char **input)
 	{
 		if (!ft_token_handle_cmd(input, shell))
 		{
-			printf("Failed to handle cmd\n");
+			ft_printf_fd(2, "minishell: parse error near %c\n", **input);
 			return (0);
 		}
 	}
-	
 	return (1);
 }
 
@@ -85,7 +81,7 @@ int	tokenize(t_shell *shell, char *line)
 	while (*line)
 	{
 		ft_skip_strchr(&line, ' ');
-		if (!ft_token_add(shell, &line))
+		if (*line && !ft_token_add(shell, &line))
 		{
 			ft_token_free(shell);
 			return (0);

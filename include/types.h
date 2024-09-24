@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/22 19:20:16 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 14:14:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@
  */
 typedef enum e_token_type
 {
-	NONE,
-	CMD,					// command
-	PIPE,					// |
-	OR,						// ||				#bonus
-	AND,					// &&				#bonus
-	BR_OPEN,				// ( 				#bonus
-	BR_CLOSE,				// ) 				#bonus
-	INVALID
+	NONE = 0,
+	CMD = 1,					// command
+	PIPE = 2,					// |
+	OR = 3,						// ||				#bonus
+	AND = 4,					// &&				#bonus
+	BR_OPEN = 5,				// ( 				#bonus
+	BR_CLOSE = 6,				// ) 				#bonus
+	INVALID = -1
 }	t_token_type; // bo RD
 
 typedef enum e_redirect_type
@@ -57,10 +57,10 @@ typedef enum e_err_type
 // TOKEN 
 //-----------------------------------------------------
 
-typedef	struct s_redirect
+typedef struct s_redirect
 {
 	int					fd;
-	t_redirect_type 	type;
+	t_redirect_type		type;
 	char				*path;
 	struct s_redirect	*next;
 }	t_redirect;
@@ -80,6 +80,7 @@ typedef struct s_tokens
 	size_t	cur_token;
 	size_t	cur_pos;
 	size_t	to_add;
+	int		is_cmd;
 }	t_tokens;
 
 //----------------------------------------------------
