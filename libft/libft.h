@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/22 19:41:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 10:22:05 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 /*-------------------------------------------------------------------------*/
 
 void		ft_free_null(char **str);
+int			ft_free_null_ret(char **str, int value);
 void		ft_multi_free_null(char ***str);
 int			ft_multi_free_null_ret(char ***str, int value);
 

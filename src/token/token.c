@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/22 20:09:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/24 10:23:53 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int	ft_token_add(t_shell *shell, char **input)
 		return (0);
 	if (!ft_token_handle_op(input, shell))
 		return (0);
-	if (type == CMD)
-	{
-	}
-	shell->tokens->cur_pos++;
+	else
+		shell->tokens->cur_pos++;
+	if (!ft_token_handle_cmd(input, shell))
+		return (0);
 	return (1);
 }
 
@@ -71,7 +71,6 @@ int	tokenize(t_shell *shell, char *line)
 		return (0);
 	if (!ft_token_init(shell))
 		return (0);
-
 	while (*line)
 	{
 		ft_skip_strchr(&line, ' ');

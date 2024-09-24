@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/22 19:33:51 by ktieu            ###   ########.fr        #
+#    Updated: 2024/09/24 10:23:34 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	locate_token.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
-TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c
+TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c
 EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c
 PARSE_FILES			=	ft_av_dup.c parse.c
 # execute_pipe.c execute_redirect.c 
