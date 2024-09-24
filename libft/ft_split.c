@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:37:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/10 21:00:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/22 19:46:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_wordcount(char const *s, char delimiter)
 	count = 0;
 	while (*s)
 	{
-		ft_skip_strchr(&s, delimiter);
+		ft_skip_strchr((char **)&s, delimiter);
 		if (*s)
 		{
 			count++;
@@ -50,7 +50,7 @@ char	**ft_split_helper(char **res, char const *s, char delimiter, size_t i)
 
 	while (*s)
 	{
-		ft_skip_strchr(&s, delimiter);
+		ft_skip_strchr((char **)&s, delimiter);
 		if (*s)
 		{
 			start = (char *) s;

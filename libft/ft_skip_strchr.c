@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:00:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 14:56:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/22 19:41:20 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_skip_strchr(char const **s, char delimiter)
+void	ft_skip_strchr(char **s, char delimiter)
 {
 	while (**s && **s == delimiter)
 		(*s)++;

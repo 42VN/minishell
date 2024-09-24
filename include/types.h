@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/20 15:31:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/22 19:20:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@
  */
 typedef enum e_token_type
 {
+	NONE,
 	CMD,					// command
 	PIPE,					// |
 	OR,						// ||				#bonus
 	AND,					// &&				#bonus
 	BR_OPEN,				// ( 				#bonus
-	BR_CLOSE				// ) 				#bonus
+	BR_CLOSE,				// ) 				#bonus
+	INVALID
 }	t_token_type; // bo RD
 
-typedef enum e_redirecct_type
+typedef enum e_redirect_type
 {
 	RD_IN,					// <
 	RD_OUT,					// >

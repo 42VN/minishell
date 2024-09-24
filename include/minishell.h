@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 18:24:29 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/21 14:29:14 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,4 @@ int		ft_error_ret(
 char	*ft_prompt(char *prefix);
 int		ft_is_op(char *str);
 char	*ft_strjoin_space(char const *s1, char const *s2);
-char	*ft_token_join_cmd(t_token *token, char *str);
 #endif

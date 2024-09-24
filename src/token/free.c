@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 17:38:50 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/22 20:13:52 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	ft_token_free(t_shell *shell)
 	{
 		if (shell->tokens->array[i].cmd)
 			free(shell->tokens->array[i].cmd);
+		if (shell->tokens->array[i].redirect)
+		{
+			ft_redirect_clear(&shell->tokens->array[i].redirect);
+		}
 		++i;
 	}
 	free(shell->tokens->array);

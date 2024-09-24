@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/13 14:53:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/22 19:41:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 /*								SPLIT										*/
 /*-------------------------------------------------------------------------*/
 
-void		ft_skip_strchr(char const **s, char delimiter);
+void		ft_skip_strchr(char **s, char delimiter);
 const char	*ft_skip_quote(const char **s, int has_quote);
 char		**ft_split(char const *s, char delimiter);
 char		**ft_split_esc(const char *s, char delimiter, int has_quote);
@@ -152,7 +152,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 void		ft_free_null(char **str);
 void		ft_multi_free_null(char ***str);
-char		*ft_return_multiple_free_set_null(char ***str);
+int			ft_multi_free_null_ret(char ***str, int value);
 
 /*-------------------------------------------------------------------------*/
 /*							READLINE										*/
