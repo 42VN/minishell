@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 15:42:06 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 17:30:04 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_token_join_cmd(t_token *token, char **str)
 	return (token->cmd);
 }
 
-int		ft_token_type_is_op(t_token_type type)
+int	ft_token_type_is_op(t_token_type type)
 {
 	if (type == BR_OPEN || BR_CLOSE)
 		return (1);
@@ -42,10 +42,13 @@ int		ft_token_type_is_op(t_token_type type)
 		return (0);
 }
 
-int		ft_token_type_is_br(t_token_type type)
+int	ft_token_check_closing_br(char *str)
 {
-	if (type == BR_OPEN || BR_CLOSE)
-		return (1);
-	else
-		return (0);
+	while (*str)
+	{
+		if (*str == ')')
+			return (1);
+		str++;
+	}
+	return (0);
 }

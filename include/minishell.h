@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 15:33:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 16:30:13 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,5 @@ int		ft_is_op(char *str);
 int		ft_is_op_redirect(char *str);
 int		ft_is_op_logic(char *str);
 int		ft_is_op_bracket(char *str);
-int		ft_is_op_not_br(char *str);
 char	*ft_strjoin_space(char const *s1, char const *s2);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 15:05:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 16:58:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,14 @@ void	ft_token_print(t_shell *shell)
 		else
 			type_str = "UNKNOWN";
 		printf("------------------------\n");
-		printf("Token %d: [%s], Type: %s\n",
-			i,
-			shell->tokens->array[i].cmd, type_str);
+		if (shell->tokens->array[i].cmd)
+			printf("Token %d: [%s], Type: %s\n",
+				i,
+				shell->tokens->array[i].cmd, type_str);
+		else
+			printf("Token %d: [NONE], Type: %s\n",
+				i,
+				type_str);
 		ft_redirect_print(&shell->tokens->array[i].redirect);
 		++i;
 	}

@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 16:29:05 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 17:28:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_redirect_classify(t_redirect *redirect,  char op, int count)
+void	ft_redirect_classify(t_redirect *redirect, char op, int count)
 {
 	if (!redirect)
 		return ;
@@ -58,7 +58,7 @@ void	ft_redirect_append(t_redirect **head, t_redirect *new_redirect)
 	if (!*head)
 	{
 		*head = new_redirect;
-		return;
+		return ;
 	}
 	temp = *head;
 	while (temp->next)
@@ -72,8 +72,7 @@ void	ft_redirect_clear(t_redirect **head)
 	t_redirect	*next;
 
 	if (!head || !*head)
-		return;
-
+		return ;
 	temp = *head;
 	while (temp)
 	{

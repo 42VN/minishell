@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 15:08:29 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 17:26:20 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
 }
 
 /**
- * Handles the creation or update of command tokens. 
- * If there is no string in the token array at the current index, a new command is created.
- * Otherwise, the string is joined as an argument to the existing command.
+ * - Handles the creation or update of command tokens. 
+ * - If there is no string in the token array
+ * at the current index, a new command is created.
+ * - Otherwise, the string is joined as an argument to the existing command.
  */
 int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 {

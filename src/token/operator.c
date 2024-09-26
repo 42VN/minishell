@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 16:22:19 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 17:27:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ft_token_is_logic(
 		else if (count == 2 && op == '|')
 			shell->tokens->array[*index].type = OR;
 		else if (count == 1 && op == '|')
-			shell->tokens->array[*index].type  = PIPE;
+			shell->tokens->array[*index].type = PIPE;
 		if (count == 2 || count == 1)
 		{
 			shell->tokens->is_cmd = 1;
@@ -81,6 +81,8 @@ static int	ft_token_is_bracket(
 {
 	if (**str == '(')
 	{
+		if (!ft_token_check_closing_br(*str))
+			return (0);
 		shell->tokens->array[*index].type = BR_OPEN;
 		shell->tokens->br_open++;
 	}
@@ -106,7 +108,7 @@ static int	ft_token_is_bracket(
  * Check if the current token is a redirection operator (< or >) and handle it.
  */
 static int	ft_token_is_redirect(
-	char **str, 
+	char **str,
 	t_shell *shell,
 	size_t *index)
 {
@@ -124,7 +126,9 @@ static int	ft_token_is_redirect(
 			redirect = ft_token_redirect(shell, str, op, count);
 			if (!redirect)
 				return (0);
-			ft_redirect_append(&shell->tokens->array[*index].redirect, redirect);
+			ft_redirect_append(
+				&shell->tokens->array[*index].redirect,
+				redirect);
 			return (1);
 		}
 	}
@@ -136,7 +140,7 @@ static int	ft_token_is_redirect(
  */
 int	ft_token_handle_op(char **ptr, t_shell *shell)
 {
-	size_t *index;
+	size_t	*index;
 	int		result;
 
 	if (!ptr || !*ptr || !**ptr || !shell)
