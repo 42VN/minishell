@@ -6,11 +6,25 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 14:38:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 16:29:05 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_redirect_classify(t_redirect *redirect,  char op, int count)
+{
+	if (!redirect)
+		return ;
+	if (op == '<' && count == 1)
+		redirect->type = RD_IN;
+	else if (op == '>' && count == 1)
+		redirect->type = RD_OUT;
+	else if (op == '<' && count == 2)
+		redirect->type = RD_HEREDOC;
+	else if (op == '>' && count == 2)
+		redirect->type = RD_APPEND;
+}
 
 t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 {
@@ -23,18 +37,16 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 		shell->err_type = ERR_MEMORY;
 		return (NULL);
 	}
-	if (op == '<' && count == 1)
-		redirect->type = RD_IN;
-	else if (op == '>' && count == 1)
-		redirect->type = RD_OUT;
-	else if (op == '<' && count == 2)
-		redirect->type = RD_HEREDOC;
-	else if (op == '>' && count == 2)
-		redirect->type = RD_APPEND;
+	ft_redirect_classify(redirect, op, count);
 	ft_skip_strchr(str, ' ');
 	start = *str;
 	while (**str && !ft_is_op(*str) && !ft_isspace(**str))
 		(*str)++;
+	if (*str == start)
+	{
+		free(redirect);
+		return (NULL);
+	}
 	redirect->path = ft_substr(start, 0, *str - start);
 	return (redirect);
 }

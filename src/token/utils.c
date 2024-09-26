@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 14:18:28 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 15:42:06 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ int		ft_token_type_is_op(t_token_type type)
 	else if (type == CMD)
 		return (1);
 	else if (type == PIPE || type == AND || type == OR)
+		return (1);
+	else
+		return (0);
+}
+
+int		ft_token_type_is_br(t_token_type type)
+{
+	if (type == BR_OPEN || BR_CLOSE)
 		return (1);
 	else
 		return (0);

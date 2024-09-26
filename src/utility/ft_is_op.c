@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:28:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 15:24:41 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 15:33:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ int	ft_is_op_bracket(char *str)
 	if (!str || !*str)
 		return (0);
 	if (*str == '(' || *str == ')')
+		return (1);
+	return (0);
+}
+
+int		ft_is_op_not_br(char *str)
+{
+	if (!str || !*str)
+		return (0);
+	if (*str == '>' || *str == '<')
+		return (1);
+	if (*str == '&' || *str == '|')
 		return (1);
 	return (0);
 }
