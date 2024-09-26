@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 14:28:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 15:05:02 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
  */
 static int	ft_count_op(char **str, char op)
 {
-	int		count;
+	int	count;
+	int	is_redirect;
 
 	if (!str || !*str || !**str)
 		return (0);
 	count = 0;
+	is_redirect = 0;
+	if (ft_is_op_redirect(*str))
+		is_redirect = 1;
 	while (**str == op)
 	{
 		(*str)++;
@@ -30,7 +34,8 @@ static int	ft_count_op(char **str, char op)
 	ft_skip_strchr(str, ' ');
 	if (**str && ft_is_op(*str))
 	{
-		return (0);
+		if (is_redirect && (**str == '&' || **str == '|' || count > 2))
+			return (0);
 	}
 	return (count);
 }
@@ -63,7 +68,6 @@ static int	ft_token_is_logic(
 			return (1);
 		}
 	}
-	shell->tokens->array[*index].type  = INVALID;
 	return (0);
 }
 
@@ -78,16 +82,23 @@ static int	ft_token_is_bracket(
 	if (**str == '(')
 	{
 		shell->tokens->array[*index].type = BR_OPEN;
-		(*str)++;
-		return (1);
+		shell->tokens->br_open++;
 	}
 	else if (**str == ')')
 	{
+		if (shell->tokens->br_open <= 0)
+			return (0);
 		shell->tokens->array[*index].type = BR_CLOSE;
+		shell->tokens->br_open--;
+	}
+	if (**str == '(' || **str == ')')
+	{
 		(*str)++;
+		if (!*str && shell->tokens->br_open != 0)
+			return (0);
+		shell->tokens->cur_pos++;
 		return (1);
 	}
-	shell->tokens->array[*index].type  = INVALID;
 	return (0);
 }
 
@@ -117,7 +128,6 @@ static int	ft_token_is_redirect(
 			return (1);
 		}
 	}
-	shell->tokens->array[*index].type = INVALID;
 	return (0);
 }
 
@@ -126,22 +136,22 @@ static int	ft_token_is_redirect(
  */
 int	ft_token_handle_op(char **ptr, t_shell *shell)
 {
-	size_t			*index;
+	size_t *index;
+	int		result;
 
 	if (!ptr || !*ptr || !**ptr || !shell)
 		return (0);
 	index = &shell->tokens->cur_pos;
+	if (*index > 0
+		&& shell->tokens->array[*index].type != NONE
+		&& (ft_is_op_bracket(*ptr) || ft_is_op_logic(*ptr)))
+	{
+		shell->tokens->cur_pos++;
+	}
 	if (**ptr == '>' || **ptr == '<')
 		return (ft_token_is_redirect(ptr, shell, index));
 	if (**ptr == '(' || **ptr == ')')
-	{
-		if (ft_token_is_bracket(ptr, shell, index))
-		{
-			shell->tokens->cur_pos++;
-			return (1);
-		}
-		return (0);
-	}
+		return (ft_token_is_bracket(ptr, shell, index));
 	if (**ptr == '&' || **ptr == '|')
 		return (ft_token_is_logic(ptr, shell, index));
 	return (0);
