@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:07:54 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 14:40:16 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 15:13:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef enum e_token_type
 	AND = 4,					// &&				#bonus
 	BR_OPEN = 5,				// ( 				#bonus
 	BR_CLOSE = 6,				// ) 				#bonus
-	INVALID = -1
 }	t_token_type; // bo RD
 
 typedef enum e_redirect_type
@@ -81,6 +80,7 @@ typedef struct s_tokens
 	size_t	cur_pos;
 	size_t	to_add;
 	int		is_cmd;
+	int		br_open;
 }	t_tokens;
 
 //----------------------------------------------------

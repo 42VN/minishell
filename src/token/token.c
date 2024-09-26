@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 14:28:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/26 14:53:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,23 @@ int	ft_token_add(t_shell *shell, char **input)
 		return (0);
 	if (ft_is_op(*input))
 	{
+		// printf("OP: %c\n", **input);
 		if (!ft_token_handle_op(input, shell))
 		{
-			ft_printf_fd(2, "minishell: parse error near %c\n", **input);
+			ft_printf_fd(2, "minishell: op parse error near %c\n", **input);
 			return (0);
 		}
+		// printf("After OP handler: [%s]\n", *input);
 	}
 	else
 	{
+		// printf("CMD: %c\n", **input);
 		if (!ft_token_handle_cmd(input, shell))
 		{
-			ft_printf_fd(2, "minishell: parse error near %c\n", **input);
+			ft_printf_fd(2, "minishell: cmd parse error near %c\n", **input);
 			return (0);
 		}
+		// printf("After CMD handler: [%s]\n", *input);
 	}
 	return (1);
 }

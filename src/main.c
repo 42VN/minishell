@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/24 14:48:18 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:12:40 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	minishell(t_shell *shell)
 
 	while (!shell->aborted)
 	{
-		input = ft_prompt(PROMPT);
+		input = readline(PROMPT);
 		if (!input)
 		{
 			printf("exit\n");
