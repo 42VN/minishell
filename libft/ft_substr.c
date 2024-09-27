@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 10:43:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/04/19 12:30:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/27 23:11:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = 0;
 	else if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
-	res = (char *)malloc(sizeof(char) * (len + 1));
+	res = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!res)
 		return (0);
 	i = start;

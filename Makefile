@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
+#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/27 11:48:31 by hitran           ###   ########.fr        #
+#    Updated: 2024/09/27 14:54:53 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ ENV_FILES			=	envp_dup.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
-TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c
+TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c error.c
 EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c execute_command.c execute_pipe.c find_command_path.c
 PARSE_FILES			=	ft_av_dup.c parse.c
 # execute_pipe.c execute_redirect.c 

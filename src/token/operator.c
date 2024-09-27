@@ -6,37 +6,35 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 17:27:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/27 22:51:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /**
- * Count the consecutive occurrences of the operator `op`.
+ * Count the consecutive occurrences of the operator `op` and skip them
  */
-static int	ft_count_op(char **str, char op)
+static int	ft_count_op_skip(char **str, char op)
 {
 	int	count;
-	int	is_redirect;
 
-	if (!str || !*str || !**str)
-		return (0);
 	count = 0;
-	is_redirect = 0;
-	if (ft_is_op_redirect(*str))
-		is_redirect = 1;
 	while (**str == op)
 	{
+		if (count == 2 && (ft_is_op_redirect(op) || ft_is_op_logic(op)))
+			return (0);
 		(*str)++;
 		count++;
 	}
 	ft_skip_strchr(str, ' ');
-	if (**str && ft_is_op(*str))
+	if (**str && ft_is_op(**str))
 	{
-		if (is_redirect && (**str == '&' || **str == '|' || count > 2))
+		if (ft_is_op_logic(op) && ft_is_op_logic(**str))
 			return (0);
-	}
+		else if (ft_is_op_redirect(op))
+			return (0);
+	}	
 	return (count);
 }
 
@@ -51,22 +49,26 @@ static int	ft_token_is_logic(
 	int		count;
 	char	op;
 
+	if (!str || !*str || (**str != '&' && **str != '|'))
+		return (0);
 	op = **str;
-	if (op == '&' || op == '|')
+	count = ft_count_op_skip(str, **str);
+	if (count == 2 && op == '&')
 	{
-		count = ft_count_op(str, op);
-		if (count == 2 && op == '&')
-			shell->tokens->array[*index].type = AND;
-		else if (count == 2 && op == '|')
-			shell->tokens->array[*index].type = OR;
-		else if (count == 1 && op == '|')
+		shell->tokens->array[*index].type = AND;
+		shell->tokens->is_cmd = 1;
+		shell->tokens->cur_pos++;
+		return (1);
+	}
+	else if (op == '|' && (count == 1 || count == 2))
+	{
+		if (count == 1)
 			shell->tokens->array[*index].type = PIPE;
-		if (count == 2 || count == 1)
-		{
-			shell->tokens->is_cmd = 1;
-			shell->tokens->cur_pos++;
-			return (1);
-		}
+		else if (count == 2)
+			shell->tokens->array[*index].type = OR;
+		shell->tokens->is_cmd = 1;
+		shell->tokens->cur_pos++;
+		return (1);
 	}
 	return (0);
 }
@@ -79,6 +81,8 @@ static int	ft_token_is_bracket(
 	t_shell *shell,
 	size_t	*index)
 {
+	if (!str || !*str || (**str != '(' && **str != ')'))
+		return (0);
 	if (**str == '(')
 	{
 		if (!ft_token_check_closing_br(*str))
@@ -93,15 +97,12 @@ static int	ft_token_is_bracket(
 		shell->tokens->array[*index].type = BR_CLOSE;
 		shell->tokens->br_open--;
 	}
-	if (**str == '(' || **str == ')')
-	{
-		(*str)++;
-		if (!*str && shell->tokens->br_open != 0)
-			return (0);
-		shell->tokens->cur_pos++;
-		return (1);
-	}
-	return (0);
+	(*str)++;
+	if (!*str && shell->tokens->br_open != 0)
+		return (0);
+	if (!ft_token_increment_pos(shell))
+		return (0);
+	return (1);
 }
 
 /**
@@ -116,11 +117,13 @@ static int	ft_token_is_redirect(
 	char			op;
 	t_redirect		*redirect;
 
+	if (!str || !*str || (**str != '>' && **str != '<'))
+		return (0);
 	op = **str;
 	if (op == '<' || op == '>')
 	{
 		shell->tokens->array[*index].type = CMD;
-		count = ft_count_op(str, op);
+		count = ft_count_op_skip(str, op);
 		if (count == 2 || count == 1)
 		{
 			redirect = ft_token_redirect(shell, str, op, count);
@@ -145,13 +148,9 @@ int	ft_token_handle_op(char **ptr, t_shell *shell)
 
 	if (!ptr || !*ptr || !**ptr || !shell)
 		return (0);
+	if (!ft_token_check_op(shell, *ptr))
+		return (0);
 	index = &shell->tokens->cur_pos;
-	if (*index > 0
-		&& shell->tokens->array[*index].type != NONE
-		&& (ft_is_op_bracket(*ptr) || ft_is_op_logic(*ptr)))
-	{
-		shell->tokens->cur_pos++;
-	}
 	if (**ptr == '>' || **ptr == '<')
 		return (ft_token_is_redirect(ptr, shell, index));
 	if (**ptr == '(' || **ptr == ')')

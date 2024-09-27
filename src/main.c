@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/27 12:01:58 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/27 14:08:59 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static void	minishell(t_shell *shell)
 		if (*input)
 		{
 			if (tokenize(shell, input))
-				;
-				// ft_token_print(shell);
-			shell->ast = build_ast(shell->tokens->array);
-			printf("\n----PRINT AST-------\n");
-			print_ast(shell->ast);
+				// ;
+				ft_token_print(shell);
+			// shell->ast = build_ast(shell->tokens->array);
+			// printf("\n----PRINT AST-------\n");
+			// print_ast(shell->ast);
 			// execute_ast(shell, shell->ast);
 			ft_token_free(shell);
 		}

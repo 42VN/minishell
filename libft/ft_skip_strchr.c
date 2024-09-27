@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:00:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/22 19:41:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/28 00:23:59 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,17 @@ void	ft_skip_strchr(char **s, char delimiter)
 		(*s)++;
 }
 
-const char	*ft_skip_quote(const char **s, int has_quote)
+const char	*ft_skip_quote(const char **s)
 {
 	char	quote;
 
 	quote = **s;
-	if (has_quote == 0)
-		(*s)++;
+	(*s)++;
 	while (**s)
 	{
 		if (**s == quote)
 		{
-			if (has_quote == 0)
-				(*s)++;
+			(*s)++;
 			return (*s);
 		}
 		else if (**s == '\\' && *(*s + 1))
@@ -42,6 +40,7 @@ const char	*ft_skip_quote(const char **s, int has_quote)
 	}
 	return (NULL);
 }
+
 
 void	*ft_memcpy_esc(void	*dst, void const *src, size_t n)
 {

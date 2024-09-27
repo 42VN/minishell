@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 16:58:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/27 22:27:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	ft_token_print(t_shell *shell)
 	i = 0;
 	if (!shell->tokens)
 		return ;
+	printf("Pos: %zu, Size: %zu\n", shell->tokens->cur_pos, shell->tokens->size);
 	while (i <= shell->tokens->cur_pos)
 	{
-		if (shell->tokens->array[i].type == NONE)
-			return ;
 		type = shell->tokens->array[i].type;
 		if (type == CMD)
 			type_str = "CMD";

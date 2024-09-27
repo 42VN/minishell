@@ -6,11 +6,34 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 17:26:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/28 00:44:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static char	*ft_get_string_quote(char **ptr, char **start, t_shell *shell)
+{
+	size_t	len;
+	char	*str;
+	
+	(*start)++;
+	ft_skip_quote((const char **)ptr);
+	if (!(*ptr))
+		return (NULL);
+	len = *ptr - *start - 1;
+	if (len == 0)
+		return (NULL);
+	str = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!str)
+	{
+		shell->err_type = ERR_MALLOC;
+		return (NULL);
+	}
+	ft_memcpy_esc(str, *start, len);
+	str[len] = '\0'; 
+	return (str);
+}
 
 /**
  * Extracts a string that forms part of a command from the input `ptr`.
@@ -23,16 +46,24 @@ static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
 
 	len = 0;
 	start = *ptr;
-	while (**ptr && **ptr != ' ' && !ft_is_op(*ptr))
+	if (*start == '\'' || *start == '\"')
 	{
-		(*ptr)++;
-		++len;
+		return (ft_get_string_quote(ptr, &start, shell));
 	}
-	if (len == 0)
-		return (NULL);
-	str = ft_substr(start, 0, len);
-	return (str);
+	else
+	{
+		while (**ptr && **ptr != ' ' && !ft_is_op(**ptr))
+		{
+			(*ptr)++;
+			len++;
+		}
+		if (len == 0)
+			return (NULL);
+		str = ft_substr(start, 0, len);
+		return (str);
+	}
 }
+
 
 /**
  * - Handles the creation or update of command tokens. 
@@ -48,7 +79,7 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 	if (!**ptr)
 		return (1);
 	index = &shell->tokens->cur_pos;
-	if (!ft_is_op(*ptr))
+	if (!ft_is_op(**ptr))
 	{
 		str = ft_get_str_cmd(ptr, shell);
 		if (!str)

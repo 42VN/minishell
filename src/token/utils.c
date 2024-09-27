@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 17:30:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/27 22:43:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,47 @@ int	ft_token_type_is_op(t_token_type type)
 {
 	if (type == BR_OPEN || BR_CLOSE)
 		return (1);
-	else if (type == CMD)
-		return (1);
 	else if (type == PIPE || type == AND || type == OR)
 		return (1);
 	else
 		return (0);
+}
+
+/**
+ * Function that check and update the current status of the array of tokens
+ * 
+ * Descruption:
+ * 
+ * -	Check if there are 2 consecutive operators (AND, OR, PIPE)
+ * 
+ * -	Increment the current position in the array 
+ * 		if the current string is a separator (AND, OR, PIPE, BRACKETS)
+ */
+int	ft_token_check_op(t_shell *shell, char *str)
+{
+	size_t			index;
+	t_token_type	prev_type;
+	t_token_type	cur_type;
+
+	index = shell->tokens->cur_pos;
+	if (shell->tokens->array[index].type != NONE
+		&& (ft_is_op_bracket(*str) || ft_is_op_logic(*str)))
+	{
+		if (!ft_token_increment_pos(shell))
+			return (0);
+	}
+	index = shell->tokens->cur_pos;
+	if (index > 0)
+	{
+		prev_type = shell->tokens->array[index - 1].type;
+		cur_type = shell->tokens->array[index].type;
+		if ((prev_type == PIPE || prev_type == AND || prev_type == OR)
+			&& (*str == '|' || *str == '&'))
+		{
+			return (0);
+		}
+	}
+	return (1);
 }
 
 int	ft_token_check_closing_br(char *str)
@@ -51,4 +86,18 @@ int	ft_token_check_closing_br(char *str)
 		str++;
 	}
 	return (0);
+}
+
+/**
+ * Function that safely update the current position of the array of tokens
+ */
+int	ft_token_increment_pos(t_shell *shell)
+{
+	size_t	new_pos;
+
+	new_pos = shell->tokens->cur_pos + 1;
+	if (!ft_token_realloc(shell))
+		return (0);
+	shell->tokens->cur_pos = new_pos;
+	return (1);
 }

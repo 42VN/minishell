@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 17:29:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/28 00:44:36 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_token_init(t_shell *shell)
 	shell->tokens = ft_calloc(1, sizeof(t_tokens));
 	if (!shell->tokens)
 		return (ft_error_ret("tokenize: ft_token_init: malloc",
-				shell, ERR_MEMORY, 0));
+				shell, ERR_MALLOC, 0));
 	shell->tokens->size = 5;
 	shell->tokens->to_add = 5;
 	shell->tokens->cur_pos = 0;
@@ -32,9 +32,9 @@ static int	ft_token_init(t_shell *shell)
 		= (t_token *)ft_calloc(shell->tokens->size, sizeof(t_token));
 	if (!shell->tokens->array)
 	{
-		shell->err_type = ERR_MEMORY;
+		shell->err_type = ERR_MALLOC;
 		return (ft_error_ret("tokenize: ft_token_init: malloc",
-				shell, ERR_MEMORY, 0));
+				shell, ERR_MALLOC, 0));
 	}
 	return (1);
 }
@@ -50,19 +50,21 @@ int	ft_token_add(t_shell *shell, char **input)
 {
 	if (!ft_token_realloc(shell))
 		return (0);
-	if (ft_is_op(*input))
+	if (ft_is_op(**input))
 	{
+		// printf("OP is: %s\n", *input);
 		if (!ft_token_handle_op(input, shell))
 		{
-			ft_printf_fd(2, "minishell: op parse error near %c\n", **input);
+			ft_token_parse_error(*input);
 			return (0);
 		}
 	}
 	else
 	{
+		// printf("CMD is: %s\n", *input);
 		if (!ft_token_handle_cmd(input, shell))
 		{
-			ft_printf_fd(2, "minishell: cmd parse error near %c\n", **input);
+			ft_token_parse_error(*input);
 			return (0);
 		}
 	}
@@ -81,5 +83,7 @@ int	tokenize(t_shell *shell, char *line)
 		if (*line && !ft_token_add(shell, &line))
 			return (0);
 	}
+	if (shell->tokens->array[shell->tokens->cur_pos].type == NONE)
+		shell->tokens->cur_pos--;
 	return (1);
 }

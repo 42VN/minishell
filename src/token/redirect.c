@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 17:28:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/28 00:38:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 	redirect = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
 	if (!redirect)
 	{
-		shell->err_type = ERR_MEMORY;
+		shell->err_type = ERR_MALLOC;
 		return (NULL);
 	}
 	ft_redirect_classify(redirect, op, count);
 	ft_skip_strchr(str, ' ');
 	start = *str;
-	while (**str && !ft_is_op(*str) && !ft_isspace(**str))
+	while (**str && !ft_is_op(**str) && !ft_isspace(**str))
 		(*str)++;
 	if (*str == start)
 	{

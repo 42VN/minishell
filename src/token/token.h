@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/26 17:18:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/27 16:35:48 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ int			ft_token_handle_cmd(char **ptr, t_shell *shell);
 //-----------------------------------------------------
 int			ft_token_realloc(t_shell *shell);
 int			ft_token_type_is_op(t_token_type type);
+int			ft_token_check_op(t_shell *shell, char *str);
 int			ft_token_check_closing_br(char *str);
+int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
-
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------
 void		ft_token_print(t_shell *shell);
 void		ft_redirect_print(t_redirect **head);
-
+void		ft_token_parse_error(char *ptr);
 //----------------------------------------------------
 // TOKEN 
 //-----------------------------------------------------

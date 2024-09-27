@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:30:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/22 19:46:35 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/27 23:08:04 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 size_t	ft_wordcount_delimiter(
 	const char *s,
-	char delimiter,
-	int has_quote)
+	char delimiter)
 {
 	size_t	count;
 
@@ -28,7 +27,7 @@ size_t	ft_wordcount_delimiter(
 			count++;
 			if (*s == '\'' || *s == '\"')
 			{
-				if (ft_skip_quote(&s, has_quote) == NULL)
+				if (ft_skip_quote(&s) == NULL)
 					break ;
 			}
 			else
@@ -127,13 +126,12 @@ static char	**ft_split_helper(
 
 char	**ft_split_esc(
 	const char *s,
-	char delimiter,
-	int has_quote)
+	char delimiter)
 {
 	char	**res;
 	size_t	size;
 
-	size = ft_wordcount_delimiter(s, delimiter, has_quote);
+	size = ft_wordcount_delimiter(s, delimiter);
 	res = (char **)malloc((size + 1) * sizeof(char *));
 	if (!res)
 	{
