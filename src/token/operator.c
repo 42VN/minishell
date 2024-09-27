@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/27 22:51:58 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/28 00:50:39 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_count_op_skip(char **str, char op)
 			return (0);
 		else if (ft_is_op_redirect(op))
 			return (0);
-	}	
+	}
 	return (count);
 }
 

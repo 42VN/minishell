@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/28 00:44:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/09/28 00:50:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_get_string_quote(char **ptr, char **start, t_shell *shell)
 {
 	size_t	len;
 	char	*str;
-	
+
 	(*start)++;
 	ft_skip_quote((const char **)ptr);
 	if (!(*ptr))
@@ -31,7 +31,7 @@ static char	*ft_get_string_quote(char **ptr, char **start, t_shell *shell)
 		return (NULL);
 	}
 	ft_memcpy_esc(str, *start, len);
-	str[len] = '\0'; 
+	str[len] = '\0';
 	return (str);
 }
 
@@ -63,7 +63,6 @@ static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
 		return (str);
 	}
 }
-
 
 /**
  * - Handles the creation or update of command tokens. 
