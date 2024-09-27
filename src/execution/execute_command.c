@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/24 15:04:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/27 11:55:17 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	get_redirect(t_shell *shell, t_redirect *redirect, int *fd)
 	}
 }
 
-void	excecute_command(t_shell *shell, t_token token)
+void	execute_command(t_shell *shell, t_token token)
 {
 	char	*command_path;
 	pid_t	pid;
@@ -74,7 +74,7 @@ void	excecute_command(t_shell *shell, t_token token)
 			redirect_fd(fd[0], STDIN_FILENO);
 		if (fd[1] > 2)
 			redirect_fd(fd[1], STDOUT_FILENO);
-		command_path = find_command_path(shell->envp, token.split_cmd);
+		command_path = find_command_path(shell->envp, token.cmd);
 		execve(command_path, token.split_cmd, shell->envp);
 		// exec_error(shell, command_path);
 	}

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:31:14 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/23 15:03:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/27 11:49:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ static void	left_process(t_shell *shell, t_ast *ast, int *pipe_fd)
 	pid_t	pid;
 
 	pid = fork();
-	if (pid == -1)
-		handle_fork_error(pipe_fd);
-	else if (pid == 0)
+	// if (pid == -1)
+	// 	handle_fork_error(pipe_fd);
+	// else if (pid == 0)
+	if (pid == 0)
 	{
 		close(pipe_fd[0]);
 		redirect_fd(pipe_fd[1], 1);
@@ -34,9 +35,10 @@ static void	right_process(t_shell *shell, t_ast *ast, int *pipe_fd)
 	int		status;
 
 	pid = fork();
-	if (pid == -1)
-		handle_fork_error(pipe_fd);
-	else if (pid == 0)
+	// if (pid == -1)
+	// 	handle_fork_error(pipe_fd);
+	// else if (pid == 0)
+	if (pid == 0)
 	{
 		close(pipe_fd[1]);
 		redirect_fd(pipe_fd[0], 0);

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/24 15:03:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/27 11:53:06 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,17 @@ int	update_status(int new_status)
 // 	if (fd[1] > 2)
 // 		close (fd[1]);
 // }
+
+void	ft_free_triptr(char ***str)
+{
+	int	i;
+
+	i = 0;
+	if (*str)
+	{
+		while ((*str)[i] != NULL)
+			free((*str)[i++]);
+		free(*str);
+		*str = NULL;
+	}
+}

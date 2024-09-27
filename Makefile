@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/24 14:50:36 by hitran           ###   ########.fr        #
+#    Updated: 2024/09/27 11:48:31 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c
-EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c
+EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c execute_command.c execute_pipe.c find_command_path.c
 PARSE_FILES			=	ft_av_dup.c parse.c
 # execute_pipe.c execute_redirect.c 
 
@@ -50,7 +50,8 @@ SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES)) \
 						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES)) \
 						$(addprefix $(AST_DIR)/, $(AST_FILES)) \
-						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES))
+						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES)) \
+						$(addprefix $(EXEC_DIR)/, $(EXEC_FILES))
 
 OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 

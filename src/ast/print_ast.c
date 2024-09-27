@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 22:18:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/24 14:58:26 by hitran           ###   ########.fr       */
+/*   Updated: 2024/09/27 11:20:50 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ char	*type_string(t_token_type type)
 	char *str;
 	if (type == CMD)
 		str= "CMD";
+	else if (type == AND)
+		str= "AND";
+	else if (type == OR)
+		str= "OR";
 	else if (type == RD_IN)
 		str= "RD_IN";
 	else if (type == RD_OUT)
