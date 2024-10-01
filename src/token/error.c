@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/27 16:47:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/01 10:04:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	ft_token_parse_error(char *ptr)
 	if (!str)
 		ft_printf_fd(2, "minishell: ft_token_parse_error: malloc\n");
 	if (*str)
-		ft_printf_fd(2, "minishell: op parse error near %s\n", str);
+		ft_printf_fd(2, "minishell: syntax error near unexpected token %s\n", str);
 	else
-		ft_printf_fd(2, "minishell: op parse error near newline\n");
+		ft_printf_fd(2, "minishell: syntax error near unexpected token newline\n");
 	free(str);
 }

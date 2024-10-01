@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:09:42 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/28 00:38:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/01 10:03:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_token_realloc(t_shell *shell)
 
 	if (shell->tokens->cur_pos < shell->tokens->size - 1)
 		return (1);
-	printf("REALLOCATE MEMORY\n");
 	new_size = shell->tokens->size * shell->tokens->to_add;
 	new_array = (t_token *)ft_calloc(new_size, sizeof(t_token));
 	if (!new_array)
