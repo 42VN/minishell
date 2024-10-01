@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/28 00:50:39 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/01 10:23:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,12 @@ int	ft_token_handle_op(char **ptr, t_shell *shell)
 	if (**ptr == '(' || **ptr == ')')
 		return (ft_token_is_bracket(ptr, shell, index));
 	if (**ptr == '&' || **ptr == '|')
-		return (ft_token_is_logic(ptr, shell, index));
+	{
+		if (!ft_token_is_logic(ptr, shell, index))
+			return (0);
+		if (ft_token_is_last(*ptr))
+			return (0);		
+		return (1);
+	}
 	return (0);
 }
