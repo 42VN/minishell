@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/27 16:23:16 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/12 16:12:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@
 // ENVP 
 //-----------------------------------------------------
 
-char	**envp_dup(char **envp);
+char	*env_get(char **envp, char *key, int include_key);
+char	**env_dup(char **envp);
+void	env_print(char **envp);
 
 //----------------------------------------------------
 // SHELL 

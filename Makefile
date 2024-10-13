@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/09/27 14:54:53 by ktieu            ###   ########.fr        #
+#    Updated: 2024/10/12 16:00:55 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ PARSE_DIR			=	$(SRC_DIR)/parse
 OBJ_DIR				=	obj
 
 SRC_BASE_FILES		=	main.c
-ENV_FILES			=	envp_dup.c
+ENV_FILES			=	env_dup.c env_get.c env_print.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
