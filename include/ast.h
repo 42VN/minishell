@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trung.h                                            :+:      :+:    :+:   */
+/*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 09:02:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/27 11:56:34 by hitran           ###   ########.fr       */
+/*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/13 15:07:02 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRUNG_H
-# define TRUNG_H
+#ifndef AST_H
+# define AST_H
 
 # include <sys/wait.h>
+
+/**
+ * Data structure for AST (Abstract Syntax Tree)
+ */
+typedef struct s_ast
+{
+	t_token			token;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}	t_ast;
+
 //---------------------------------||   AST   ||------------------------------//
 
 t_ast	*build_ast(t_token *tokens);

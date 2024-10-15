@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_av_dup.c                                        :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 18:39:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 14:40:52 by ktieu            ###   ########.fr       */
+/*   Created: 2024/10/13 14:32:25 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/13 15:08:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-char	**ft_av_dup(char **av)
+ // Forward declaration of t_shell
+struct s_shell;
+typedef struct s_shell t_shell;
+
+
+typedef enum e_builtin_type
 {
-	char	**res;
-	int		i;
+	BI_UNDEFINED = 0,
+	BI_CD = 1,
+	BI_PWD = 2,
+	BI_ECHO = 3,
+	BI_EXIT = 4,
+	BI_ENV = 5,
+	BI_EXPORT = 6,
+	BI_UNSET = 7
+}   t_builtin_type;
 
-	i = 0;
-	while (av && av[i])
-		++i;
-	res = (char **)ft_calloc(i + 1, sizeof(char *));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (av && av[i])
-	{
-		res[i] = ft_strdup(av[i]);
-		if (!res[i])
-		{
-			ft_multi_free_null(&res);
-			return (NULL);
-		}
-		++i;
-	}
-	return (res);
-}
+t_builtin_type	get_builtin(char *str);
+
+#endif

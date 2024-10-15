@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/27 14:08:59 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/13 15:06:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,16 @@ static void	minishell(t_shell *shell)
 		}
 		if (*input)
 		{
+			// if (
+			// 	ft_strnstr(input, "env", sizeof("echo"))
+			// 	|| ft_strnstr(input, "unset", sizeof("echo"))
+			// 	|| ft_strnstr(input, "export", sizeof("echo"))
+			// )
+			// {
+				
+			// }
+
 			if (tokenize(shell, input))
-				// ;
 				ft_token_print(shell);
 			// shell->ast = build_ast(shell->tokens->array);
 			// printf("\n----PRINT AST-------\n");

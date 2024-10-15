@@ -6,6 +6,10 @@
 		"tuple": "c",
 		"type_traits": "c",
 		"utility": "c",
-		"system_error": "c"
+		"system_error": "c",
+		"minishell.h": "c",
+		"builtin.h": "c",
+		"wait.h": "c",
+		"stdlib.h": "c"
 	}
 }

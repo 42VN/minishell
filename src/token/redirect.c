@@ -6,10 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/28 00:38:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/13 14:28:23 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/builtin.h"
 #include "../../include/minishell.h"
 
 void	ft_redirect_classify(t_redirect *redirect, char op, int count)

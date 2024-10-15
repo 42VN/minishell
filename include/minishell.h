@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/12 16:12:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/13 15:03:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,22 @@
 #include <readline/history.h>
 
 #include "../libft/libft.h"
-#include "./types.h"
-#include "../src/token/token.h"
-#include "trung.h"
+#include "builtin.h"
+#include "token.h"
+#include "ast.h"
 
 #define PROMPT "minishell> "
+
+typedef struct s_shell
+{
+	char		**envp;
+	char		*cwd;
+	int			aborted;
+	int			exitcode;
+	t_err_type	err_type;
+	t_tokens	*tokens;
+	t_ast		*ast;
+}	t_shell;
 
 //----------------------------------------------------
 // ENVP 
@@ -37,6 +48,8 @@
 char	*env_get(char **envp, char *key, int include_key);
 char	**env_dup(char **envp);
 void	env_print(char **envp);
+int		env_set(t_shell *shell, char *key, char *value);
+void 	env_unset(t_shell *shell, char *key);
 
 //----------------------------------------------------
 // SHELL 

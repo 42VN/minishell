@@ -6,10 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/01 10:04:31 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/13 14:27:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/builtin.h"
 #include "../../include/minishell.h"
 
 void	ft_token_parse_error(char *ptr)

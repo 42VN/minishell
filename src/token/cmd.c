@@ -6,10 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/28 00:50:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/13 14:28:02 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/builtin.h"
 #include "../../include/minishell.h"
 
 static char	*ft_get_string_quote(char **ptr, char **start, t_shell *shell)
