@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:31:14 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/27 11:49:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/17 21:25:16 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	left_process(t_shell *shell, t_ast *ast, int *pipe_fd)
 		close(pipe_fd[0]);
 		redirect_fd(pipe_fd[1], 1);
 		execute_ast(shell, ast->left);
+		exit(EXIT_SUCCESS);
 	}
-	close(pipe_fd[1]);
 }
 
 static void	right_process(t_shell *shell, t_ast *ast, int *pipe_fd)
@@ -43,8 +43,8 @@ static void	right_process(t_shell *shell, t_ast *ast, int *pipe_fd)
 		close(pipe_fd[1]);
 		redirect_fd(pipe_fd[0], 0);
 		execute_ast(shell, ast->right);
+		exit(EXIT_SUCCESS);
 	}
-	close(pipe_fd[0]);
 	waitpid(pid, &status, 0);
 	update_status((status >> 8) & 255);
 }
@@ -59,4 +59,6 @@ void	execute_pipe(t_shell *shell, t_ast *ast)
 	right_process(shell, ast, pipe_fd);
 	while (wait(NULL) > 0)
 		;
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 }

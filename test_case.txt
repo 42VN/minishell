@@ -18,3 +18,15 @@ a &|&
 cat < in | grep data && || echo "fail"
 (echo "start" && | echo "end")
 echo "A" && echo "B" || echo "C" 
+
+
+./minishell 
+minishell> (< Makefile cat | grep main > out ) && echo success
+minishell> success
+
+minishell> ls && echo success
+minishell> success
+echo  include  libft  LICENSE  Makefile  minishell  obj  out  outfile  README.md  src  test_case.txt
+
+minishell> ls || echo fail
+minishell> echo  include  libft  LICENSE  Makefile  minishell  obj  out  outfile  README.md  src  test_case.txt

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/27 11:55:17 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/17 21:29:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	create_pipe(int *pipe_id)
 
 void	redirect_fd(int from_fd, int to_fd)
 {
+	// printf("from = %d, to = %d\n", from_fd, to_fd);
 	if (dup2(from_fd, to_fd) == -1)
 	{
-		perror("Error: fork");
+		perror("Error: dup2");
 		close(from_fd);
 		exit(1);
 	}
@@ -43,7 +44,7 @@ void	get_redirect(t_shell *shell, t_redirect *redirect, int *fd)
 			create_pipe(pipe_fd);
 			write(pipe_fd[1], redirect->path, strlen(redirect->path));
 			close (pipe_fd[1]);
-			redirect_fd(pipe_fd[0], fd[0]);
+			fd[0] = pipe_fd[0];
 		}
 		else if (redirect->type == RD_IN)
 			fd[0] = open(redirect->path, O_RDONLY);
@@ -62,7 +63,10 @@ void	execute_command(t_shell *shell, t_token token)
 	char	*command_path;
 	pid_t	pid;
 	int		fd[2];
+	char 	**splitted_cmd;
 
+	fd[0] = -1;
+	fd[1] = -1;
 	pid = fork();
 	// if (pid == -1)
 	// 	fork_error(shell);
@@ -70,12 +74,19 @@ void	execute_command(t_shell *shell, t_token token)
 	if (pid == 0)
 	{
 		get_redirect(shell, token.redirect, fd);
-		if (fd[0] > 2)
+		if (fd[0] != -1)
+		{
+			// printf("redirect fd[0]\n");
 			redirect_fd(fd[0], STDIN_FILENO);
-		if (fd[1] > 2)
+		}
+		if (fd[1] != -1)
+		{
+			// printf("redirect fd[1]\n");
 			redirect_fd(fd[1], STDOUT_FILENO);
-		command_path = find_command_path(shell->envp, token.cmd);
-		execve(command_path, token.split_cmd, shell->envp);
+		}
+		splitted_cmd = ft_split(token.cmd, ' ');
+		command_path = find_command_path(shell->envp, splitted_cmd[0]);
+		execve(command_path, splitted_cmd, shell->envp);
 		// exec_error(shell, command_path);
 	}
 }
