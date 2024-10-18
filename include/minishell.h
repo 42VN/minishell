@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/13 15:03:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/18 09:28:49 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ int		ft_is_op_redirect(char c);
 int		ft_is_op_logic(char c);
 int		ft_is_op_bracket(char c);
 char	*ft_strjoin_space(char const *s1, char const *s2);
+
 #endif

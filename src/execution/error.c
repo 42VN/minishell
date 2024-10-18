@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_logic.c                                    :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 08:31:14 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/24 15:03:25 by hitran           ###   ########.fr       */
+/*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
+/*   Updated: 2024/10/18 10:25:32 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_logic(t_shell *shell, t_ast *ast)
+void	open_error(t_shell *shell, char *path, int *fd)
 {
-	if (ast->token.type == AND)
-	{
-		if (ast->left)
-			execute_ast(shell, ast->left);
-		if (update_status(-1) == 0 && ast->right)
-			execute_ast(shell, ast->right);
-	}
-	else if (ast->token.type == OR)
-	{
-		if (ast->left)
-			execute_ast(shell, ast->left);
-		if (update_status(-1) != 0 && ast->right)
-			execute_ast(shell, ast->right);
-	}
+	shell_cleanup(shell);
+	if (fd[0] > 2)
+		close (fd[0]);
+	if (fd[1] > 2)
+		close (fd[1]);
+}
+
+void exec_error(shell, command_path)
+{
+	shell_cleanup(shell);
+	exit (EXIT_FAILURE); //will be updated to errno
+}
+	
+void fork_error(shell)
+{
+	shell_cleanup(shell);
+	exit (EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/10/13 15:01:29 by ktieu            ###   ########.fr        #
+#    Updated: 2024/10/18 09:51:19 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,7 @@ SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c error.c
-EXEC_FILES			= 	execute_ast.c execute_logic.c execute_utils.c execute_command.c execute_pipe.c find_command_path.c
-# execute_pipe.c execute_redirect.c 
+EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \

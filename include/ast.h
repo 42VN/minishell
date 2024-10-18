@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/13 15:07:02 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/18 10:20:55 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ t_ast	*build_ast(t_token *tokens);
 //---------------------------------||EXECUTION||------------------------------//
 
 void	execute_ast(t_shell *shell, t_ast *ast);
-void	execute_logic(t_shell *shell, t_ast *ast);
-int		update_status(int new_status);
-void	execute_pipe(t_shell *shell, t_ast *ast);
 char	*find_command_path(char **envp, char *command);
 void	execute_command(t_shell *shell, t_token token);
 
@@ -48,5 +45,13 @@ void	print_ast(t_ast *ast);
 void	redirect_fd(int from_fd, int to_fd);
 void	ft_free_triptr(char ***str);
 void	create_pipe(int *pipe_id);
+pid_t	init_child(t_shell *shell);
+int		update_status(int new_status);
+
+//---------------------------------||  ERROR  ||------------------------------//
+
+void	open_error(t_shell *shell, char *path, int *fd);
+void exec_error(shell, command_path);
+void fork_error(shell);
 
 #endif

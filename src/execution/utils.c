@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/27 11:53:06 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/18 10:24:33 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ int	update_status(int new_status)
 	return (status);
 }
 
-// void	open_error(t_shell *shell, char *path, int *fd)
-// {
-// 	free_shell(shell);
-// 	if (fd[0] > 2)
-// 		close (fd[0]);
-// 	if (fd[1] > 2)
-// 		close (fd[1]);
-// }
-
 void	ft_free_triptr(char ***str)
 {
 	int	i;
@@ -42,4 +33,34 @@ void	ft_free_triptr(char ***str)
 		free(*str);
 		*str = NULL;
 	}
+}
+
+pid_t	init_child(t_shell *shell)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		fork_error(shell);
+	return (pid);
+}
+
+void	create_pipe(int *pipe_id)
+{
+	if (pipe(pipe_id) == -1)
+	{
+		perror("Error: pipe");
+		exit (1);
+	}
+}
+
+void	redirect_fd(int from_fd, int to_fd)
+{
+	if (dup2(from_fd, to_fd) == -1)
+	{
+		perror("Error: dup2");
+		close(from_fd);
+		exit(1);
+	}
+	close(from_fd);
 }
