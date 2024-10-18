@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/17 14:21:41 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/18 16:10:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,13 @@ static void	minishell(t_shell *shell)
 			printf("exit\n");
 			break ;
 		}
+		if (ft_strcmp(input, "exit") == 0)
+		{
+			free(input);
+			break ;
+		}
 		if (*input)
 		{
-			// if (
-			// 	ft_strnstr(input, "env", sizeof("echo"))
-			// 	|| ft_strnstr(input, "unset", sizeof("echo"))
-			// 	|| ft_strnstr(input, "export", sizeof("echo"))
-			// )
-			// {
-				
-			// }
-
 			if (tokenize(shell, input))
 				;//ft_token_print(shell);
 			shell->ast = build_ast(shell->tokens->array);
@@ -42,11 +38,6 @@ static void	minishell(t_shell *shell)
 			// print_ast(shell->ast);
 			execute_ast(shell, shell->ast);
 			ft_token_free(shell);
-		}
-		if (ft_strcmp(input, "exit") == 0)
-		{
-			free(input);
-			break ;
 		}
 		free(input);
 	}

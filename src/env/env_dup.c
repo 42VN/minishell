@@ -6,11 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:54:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/12 13:54:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:07:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 char	**env_dup(char **envp)
 {
@@ -35,4 +35,15 @@ char	**env_dup(char **envp)
 		++i;
 	}
 	return (res);
+}
+
+char	**env_dup_sorted(char **envp)
+{
+	char	**sorted_envp;
+
+	sorted_envp = env_dup(envp);
+	if (!sorted_envp)
+		return (NULL);
+	env_sort(sorted_envp);
+	return (sorted_envp);
 }

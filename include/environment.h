@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_unset.c                                        :+:      :+:    :+:   */
+/*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 14:02:43 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 16:08:29 by ktieu            ###   ########.fr       */
+/*   Created: 2024/10/18 15:41:23 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/18 16:06:22 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
-void env_unset(t_shell *shell, char *key)
-{
-	int		i;
-	size_t	key_len;
+struct s_shell;
+typedef struct s_shell t_shell;
 
-	if (!key || !*key)
-		return ;
-	i = 0;
-	key_len = ft_strlen(key);
-	while (shell->envp[i])
-	{
-		if (ft_strncmp(key, shell->envp[i], key_len) == 0)
-		{
-			if (*(shell->envp[i] + key_len) == '='
-				|| *(shell->envp[i] + key_len) == '\0')
-			{
-				shell->envp[i] = '\0';
-				return ;
-			}
-		}
-		++i;
-	}
-}
+char	*env_get(char **envp, char *key, int include_key);
+char	**env_dup(char **envp);
+char	**env_dup_sorted(char **envp);
+void	env_sort(char **envp);
+void	env_print(char **envp);
+int		env_set(t_shell *shell, char *key, char *value);
+void	env_unset(t_shell *shell, char *key);
+
+#endif

@@ -1,36 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_unset.c                                        :+:      :+:    :+:   */
+/*   env_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 14:02:43 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 16:08:29 by ktieu            ###   ########.fr       */
+/*   Created: 2024/10/18 12:48:57 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/18 16:08:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void env_unset(t_shell *shell, char *key)
+static size_t	env_arg_count(char **envp)
 {
-	int		i;
-	size_t	key_len;
+	size_t	len;
 
-	if (!key || !*key)
-		return ;
+	len = 0;
+	if (!envp)
+		return (0);
+	while (envp[len])
+		++len;
+	return (len);
+}
+
+void	env_sort(char **envp)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	char	*temp;
+
 	i = 0;
-	key_len = ft_strlen(key);
-	while (shell->envp[i])
+	len = 0;
+	len = env_arg_count(envp);
+	while (i < len)
 	{
-		if (ft_strncmp(key, shell->envp[i], key_len) == 0)
+		j = i + 1;
+		while (j < len)
 		{
-			if (*(shell->envp[i] + key_len) == '='
-				|| *(shell->envp[i] + key_len) == '\0')
+			if (ft_strcmp(envp[i], envp[j]) > 0)
 			{
-				shell->envp[i] = '\0';
-				return ;
+				temp = envp[i];
+				envp[i] = envp[j];
+				envp[j] = temp;
 			}
+			++j;
 		}
 		++i;
 	}

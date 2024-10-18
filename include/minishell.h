@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 09:28:49 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/18 16:08:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -24,9 +23,10 @@
 #include <readline/history.h>
 
 #include "../libft/libft.h"
-#include "builtin.h"
 #include "token.h"
 #include "ast.h"
+#include "builtin.h"
+#include "environment.h"
 
 #define PROMPT "minishell> "
 
@@ -41,15 +41,6 @@ typedef struct s_shell
 	t_ast		*ast;
 }	t_shell;
 
-//----------------------------------------------------
-// ENVP 
-//-----------------------------------------------------
-
-char	*env_get(char **envp, char *key, int include_key);
-char	**env_dup(char **envp);
-void	env_print(char **envp);
-int		env_set(t_shell *shell, char *key, char *value);
-void 	env_unset(t_shell *shell, char *key);
 
 //----------------------------------------------------
 // SHELL 

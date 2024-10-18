@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_unset.c                                        :+:      :+:    :+:   */
+/*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 14:02:43 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 16:08:29 by ktieu            ###   ########.fr       */
+/*   Created: 2024/10/18 12:32:02 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/18 12:39:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void env_unset(t_shell *shell, char *key)
+int	exec_builtin(
+	t_shell *shell,
+	t_builtin_type type,
+	char **args)
 {
-	int		i;
-	size_t	key_len;
+	int	exit_code;
 
-	if (!key || !*key)
-		return ;
-	i = 0;
-	key_len = ft_strlen(key);
-	while (shell->envp[i])
-	{
-		if (ft_strncmp(key, shell->envp[i], key_len) == 0)
-		{
-			if (*(shell->envp[i] + key_len) == '='
-				|| *(shell->envp[i] + key_len) == '\0')
-			{
-				shell->envp[i] = '\0';
-				return ;
-			}
-		}
-		++i;
-	}
+	exit_code = 0;
+	if (type == BI_ENV || type == BI_EXPORT || type == BI_UNSET)
+		exit_code = 0;
+	shell->exitcode = exit_code;
+	return (1);
 }

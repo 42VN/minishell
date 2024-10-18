@@ -6,11 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:35 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/12 16:20:29 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:08:15 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Function to get the value from the key-pair value from env list

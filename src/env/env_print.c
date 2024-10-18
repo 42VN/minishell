@@ -6,11 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:55:16 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/12 13:57:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:08:19 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	env_print(char **envp)
 {

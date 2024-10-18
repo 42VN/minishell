@@ -6,11 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/12 17:37:15 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/18 16:08:22 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Functin to get the index of the key (var) from env list
