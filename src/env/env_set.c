@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 16:08:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/25 02:05:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,34 @@ int	env_set(t_shell *shell, char *key, char *value)
 	res = (char *)ft_calloc(1, len);
 	if (!res)
 		return (0);
-	ft_strlcpy(res, key, ft_strlen(key));
-	ft_strlcpy(res + ft_strlen(key), "=", 1);
-	ft_strlcpy(res + ft_strlen(key) + 1, value, ft_strlen(value));
+	ft_strlcat(res, key, len);
+	ft_strlcat(res, "=", len);
+	ft_strlcat(res, value, len);
+	index = env_get_index(shell->envp, key);
+	if (index == -1)
+	{
+		if (!env_pushback(shell, key))
+			return (ft_free_null_ret(&res, 0));
+	}
+	else
+	{
+		free(shell->envp[index]);
+		shell->envp[index] = res;
+	}
+	return (1);
+}
+
+int	env_set_none(t_shell *shell, char *key)
+{
+	size_t	len;
+	int		index;
+	char	*res;
+
+	len = ft_strlen(key) + 1;
+	res = (char *)ft_calloc(1, len);
+	if (!res)
+		return (0);
+	ft_strlcat(res, key, len);
 	index = env_get_index(shell->envp, key);
 	if (index == -1)
 	{
