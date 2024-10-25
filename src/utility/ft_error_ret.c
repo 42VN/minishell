@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 17:13:26 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/12 18:11:08 by ktieu            ###   ########.fr       */
+/*   Created: 2024/10/25 13:14:53 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/25 13:14:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	ft_error_ret(
 	{
 		shell->err_type = type;
 	}
-	ft_printf_fd(2, "Error: %s\n", str);
+	ft_printf_fd(2, "minishell: %s\n", str);
 	return (return_code);
 }

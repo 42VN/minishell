@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:35 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 16:08:15 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/25 22:15:41 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*env_get(char **envp, char *key, int include_key)
 	len = ft_strlen(key);
 	while (envp[i])
 	{
-		if (ft_strcmp(key, envp[i]) == 0
+		if (ft_strncmp(key, envp[i], len) == 0
 			&& *(envp[i] + len) == '=')
 		{
 			if (include_key)

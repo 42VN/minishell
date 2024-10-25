@@ -6,29 +6,29 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 16:08:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/25 22:59:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-#include "../libft/libft.h"
-#include "token.h"
-#include "ast.h"
-#include "builtin.h"
-#include "environment.h"
+# include "../libft/libft.h"
+# include "token.h"
+# include "ast.h"
+# include "builtin.h"
+# include "environment.h"
 
-#define PROMPT "minishell> "
+# define PROMPT "minishell> "
 
 typedef struct s_shell
 {
@@ -41,7 +41,6 @@ typedef struct s_shell
 	t_ast		*ast;
 }	t_shell;
 
-
 //----------------------------------------------------
 // SHELL 
 //-----------------------------------------------------
@@ -53,7 +52,7 @@ void	shell_cleanup(t_shell *shell);
 // UTILS 
 //-----------------------------------------------------
 
-void 	ft_exit(char *str, int exitcode);
+void	ft_exit(char *str, int exitcode);
 int		ft_error_ret(
 			char *str,
 			t_shell *shell,

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 02:05:44 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/25 12:22:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	env_get_index(char **envp, char *key)
 	return (-1);
 }
 
-static int	env_pushback(t_shell *shell, char *key)
+static int	env_pushback(t_shell *shell, char *pair)
 {
 	char	**new_envp;
 	int		len;
@@ -45,7 +45,7 @@ static int	env_pushback(t_shell *shell, char *key)
 	if (!new_envp)
 		return (0);
 	ft_memcpy(new_envp, shell->envp, len * sizeof(char *));
-	new_envp[len] = key;
+	new_envp[len] = pair;
 	free(shell->envp);
 	shell->envp = new_envp;
 	return (1);
@@ -74,7 +74,7 @@ int	env_set(t_shell *shell, char *key, char *value)
 	index = env_get_index(shell->envp, key);
 	if (index == -1)
 	{
-		if (!env_pushback(shell, key))
+		if (!env_pushback(shell, res))
 			return (ft_free_null_ret(&res, 0));
 	}
 	else

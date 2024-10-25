@@ -6,16 +6,14 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/18 15:08:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/25 22:58:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
- // Forward declaration of t_shell
-struct s_shell;
-typedef struct s_shell t_shell;
+typedef struct s_shell	t_shell;
 
 /**
  * Type of a token
@@ -76,7 +74,6 @@ typedef struct s_tokens
 {
 	t_token	*array;
 	size_t	size;
-	size_t	cur_token;
 	size_t	cur_pos;
 	size_t	to_add;
 	int		is_cmd;
