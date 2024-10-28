@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:32:25 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 22:58:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/28 23:33:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,20 @@ int				builtin_env(
 					t_shell *shell,
 					t_builtin_type type,
 					char **split_cmd);
+
+int	execute_builtin(t_shell *shell, char **token);
+int	builtin_echo(char **token);
+int	builtin_cd(t_shell *shell, char **token);
+int	builtin_pwd(t_shell *shell);
+// int	builtin_export(t_shell *shell, char **token);
+// int	builtin_unset(t_shell *shell, char **token);
+// int	builtin_env(t_shell *shell, char **token);
+int	builtin_exit(t_shell *shell, char **token);
+
+//---------------------------------||  UTILS  ||------------------------------//
+
+int		cd_error(char *s, int cd_erroror_num);
+char	*get_envp_variable(char **envp, char *key);
+int		update_pwd(t_shell *shell);
+
 #endif

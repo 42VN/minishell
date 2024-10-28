@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/10/25 22:38:26 by ktieu            ###   ########.fr        #
+#    Updated: 2024/10/28 23:39:42 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c error.c
-BUILTIN_FILES		=	builtin.c env.c
+BUILTIN_FILES		=	builtin.c env.c	cd_utils.c cd.c echo.c execute_builtin.c exit.c pwd.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 
 

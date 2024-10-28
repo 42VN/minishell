@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/18 10:25:32 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/28 23:42:25 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	open_error(t_shell *shell, char *path, int *fd)
 		close (fd[1]);
 }
 
-void exec_error(shell, command_path)
+void exec_error(t_shell *shell, char *command_path)
 {
 	shell_cleanup(shell);
+	free (command_path);
 	exit (EXIT_FAILURE); //will be updated to errno
 }
 	
-void fork_error(shell)
+void fork_error(t_shell *shell)
 {
 	shell_cleanup(shell);
 	exit (EXIT_FAILURE);
