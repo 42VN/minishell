@@ -6,66 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 09:31:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/30 14:34:23 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtin.h"
 #include "../../include/minishell.h"
 
-// static char	*ft_get_string_quote(char **ptr, char **start, t_shell *shell)
-// {
-// 	size_t	len;
-// 	char	*str;
-
-// 	(*start)++;
-// 	ft_skip_quote((const char **)ptr);
-// 	if (!(*ptr))
-// 		return (NULL);
-// 	len = *ptr - *start - 1;
-// 	if (len == 0)
-// 		return (NULL);
-// 	str = (char *)ft_calloc(len + 1, sizeof(char));
-// 	if (!str)
-// 	{
-// 		shell->err_type = ERR_MALLOC;
-// 		return (NULL);
-// 	}
-// 	ft_memcpy_esc(str, *start, len);
-// 	str[len] = '\0';
-// 	return (str);
-// }
-
-// /**
-//  * Extracts a string that forms part of a command from the input `ptr`.
-//  */
-// static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
-// {
-// 	char	*str;
-// 	char	*start;
-// 	size_t	len;
-
-// 	len = 0;
-// 	start = *ptr;
-// 	if (*start == '\'' || *start == '\"')
-// 	{
-// 		return (ft_get_string_quote(ptr, &start, shell));
-// 	}
-// 	else
-// 	{
-// 		while (**ptr && **ptr != ' ' && !ft_is_op(**ptr))
-// 		{
-// 			(*ptr)++;
-// 			len++;
-// 		}
-// 		if (len == 0)
-// 			return (NULL);
-// 		str = ft_substr(start, 0, len);
-// 		if (!str)
-// 			return (ft_error_ret("ft_get_str_cmd: malloc", shell, ERR_MALLOC, 0));
-// 		return (str);
-// 	}
-// }
 
 static int	ft_quote_err(char quote, t_shell *shell)
 {
@@ -75,7 +22,7 @@ static int	ft_quote_err(char quote, t_shell *shell)
 	return (0);
 }
 
-static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
+static char	*ft_make_str_cmd(char **ptr, t_shell *shell)
 {
 	char	*res;
 	char	*start;
@@ -100,6 +47,44 @@ static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
 	if (!res)
 		return (ft_error_ret("ft_get_str_cmd: malloc", shell, ERR_MALLOC, 0));
 	*ptr = start;
+	return (res);
+}
+
+static char	*ft_alter_quote(char *cmd, t_shell *shell)
+{
+	char	*res;
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(cmd);
+	res = (char *)ft_calloc(1, sizeof(char) * (len + 1));
+	if (!res)
+		return (ft_error_ret("ft_alter_quote: malloc", shell, ERR_MALLOC, 0));
+	i = 0;
+	while (*cmd)
+	{
+		if (*cmd != '\'' && *cmd != '\"')
+			res[i++] = *cmd;
+		cmd++;
+	}
+	return (res);
+}
+
+static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
+{
+	char 	*str;
+	char	*res;
+
+	str = ft_make_str_cmd(ptr, shell);
+	if (!str)
+		return (NULL);
+	res = ft_alter_quote(str, shell);
+	if (!res)
+	{
+		free(str);
+		return (NULL);
+	}
+	free(str);
 	return (res);
 }
 

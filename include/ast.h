@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 22:59:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/30 11:37:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		update_status(int new_status);
 //---------------------------------||  ERROR  ||------------------------------//
 
 void	open_error(t_shell *shell, char *path, int *fd);
-void 	exec_error(shell, command_path);
-void 	fork_error(shell);
+// void 	exec_error(shell, command_path);
+// void 	fork_error(shell);
 
 #endif
