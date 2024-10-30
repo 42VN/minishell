@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:28:29 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:44:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	cd_home(t_shell *shell)
 
 	path = get_envp_variable(shell->envp, "HOME");
 	if (!path)
-		return (cd_error("minishell: cd: HOME not set\n", 1));
+		return (builtin_error("minishell: cd: HOME not set\n", 1));
 	if (chdir(path))
 	{
 		perror("minishell: cd");
@@ -34,10 +34,10 @@ int	cd_tilde(t_shell *shell, char *token)
 
 	home = get_envp_variable(shell->envp, "HOME");
 	if (!home)
-		return (cd_error("minishell: cd: HOME not set\n", 1));
+		return (builtin_error("minishell: cd: HOME not set\n", 1));
 	path = ft_strjoin(home, (token + 1));
 	if (!path)
-		return (cd_error("minishell: cd: memory allocation failed\n", 1));
+		return (builtin_error("minishell: cd: memory allocation failed\n", 1));
 	if (chdir(path))
 	{
 		perror("minishell: cd");
@@ -54,7 +54,7 @@ int	cd_oldpwd(t_shell *shell)
 
 	path = get_envp_variable(shell->envp, "OLDPWD");
 	if (!path)
-		return (cd_error("minishell: cd: OLDPWD not set\n", 1));
+		return (builtin_error("minishell: cd: OLDPWD not set\n", 1));
 	if (chdir(path))
 	{
 		perror("minishell: cd");
@@ -81,7 +81,7 @@ int	builtin_cd(t_shell *shell, char **token)
 {
 	// printf("home = %s\n", get_envp_variable(shell->envp, "HOME"));
 	if (token[1] && token[2])
-		return (cd_error("minishell: cd: too many arguments\n", 2));
+		return (builtin_error("minishell: cd: too many arguments\n", 2));
 	else if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))
 		return (cd_home(shell));
 	else if (token[1][0] == '~')

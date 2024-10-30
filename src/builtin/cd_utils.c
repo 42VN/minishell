@@ -6,16 +6,16 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/28 23:30:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:44:52 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd_error(char *s, int cd_erroror_num)
+int	builtin_error(char *s, int error_num)
 {
 	write(STDERR_FILENO, s, ft_strlen(s));
-	update_status(cd_erroror_num);
+	update_status(error_num);
 	return (EXIT_FAILURE);
 }
 
@@ -84,13 +84,13 @@ int	update_pwd(t_shell *shell)
 
 	new_pwd = getcwd(NULL, 0);
 	if (!new_pwd)
-		return (cd_error("minishell: getcwd failed\n", 1));
+		return (builtin_error("minishell: getcwd failed\n", 1));
 	free(shell->old_pwd);
 	shell->old_pwd = shell->cwd;
 	shell->cwd = ft_strdup(new_pwd);
 	free (new_pwd);
 	if (!shell->cwd)
-		return (cd_error("minishell: strdup failed\n", 1));
+		return (builtin_error("minishell: strdup failed\n", 1));
 	update_envp(shell, "OLDPWD=", shell->old_pwd);
 	update_envp(shell, "PWD=", shell->cwd);
 	return (EXIT_SUCCESS);

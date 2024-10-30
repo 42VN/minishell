@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:08:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:19:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:49:14 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	execute_builtin(t_shell *shell, char **token)
 	// 	return (builtin_unset(shell, token));
 	// else if (!ft_strcmp(token[0], "env"))
 	// 	return (builtin_env(shell, token));
-	// else if (!ft_strcmp(token[0], "exit"))
-	// 	return (builtin_exit(shell, token));
-	return (0);
+	else if (!ft_strcmp(token[0], "exit"))
+		return (builtin_exit(shell, token));
+	return (EXIT_FAILURE);
 }

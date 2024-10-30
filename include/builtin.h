@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:32:25 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/28 23:33:58 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:44:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	builtin_exit(t_shell *shell, char **token);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
-int		cd_error(char *s, int cd_erroror_num);
+int		builtin_error(char *s, int error_num);
 char	*get_envp_variable(char **envp, char *key);
 int		update_pwd(t_shell *shell);
 
