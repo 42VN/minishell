@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/10/28 23:39:42 by hitran           ###   ########.fr        #
+#    Updated: 2024/10/30 21:08:19 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LINKER				=	-lreadline -L$(LIBFT_DIR) -lft
 #                     File and Directory Rules                                 #
 # **************************************************************************** #
 
-SRC_DIR				=	./src
+SRC_DIR				=	src
 ENV_DIR				=	$(SRC_DIR)/env
 SHELL_DIR			=	$(SRC_DIR)/shell
 BUILTIN_DIR			=	$(SRC_DIR)/builtin
@@ -41,7 +41,7 @@ AST_FILES			=	build_ast.c	print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c error.c
 BUILTIN_FILES		=	builtin.c env.c	cd_utils.c cd.c echo.c execute_builtin.c exit.c pwd.c
-EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
+EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c split_command.c utils.c split_utils.c
 
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \

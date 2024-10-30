@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/28 23:43:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:09:06 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_ast	*build_ast(t_token *tokens);
 void	execute_ast(t_shell *shell, t_ast *ast);
 char	*find_command_path(char **envp, char *command);
 void	execute_command(t_shell *shell, t_token token);
+char	**split_command(char *command);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
@@ -47,6 +48,10 @@ void	ft_free_triptr(char ***str);
 void	create_pipe(int *pipe_id);
 pid_t	init_child(t_shell *shell);
 int		update_status(int new_status);
+int	ft_is_all_white_spaces(char *s);
+void	handle_cmd_error(char **command, char *message, int free_pt);
+int	skip_quotes(char *str, int i);
+int	skip_word(char *str, int i);
 
 //---------------------------------||  ERROR  ||------------------------------//
 

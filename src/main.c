@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/28 23:36:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 20:53:20 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ static void	minishell(t_shell *shell)
 			free(input);
 			break ;
 		}
-		
+		if (ft_strcmp(input, ""))
+			add_history(input);
 		if (*input)
 		{
 			
 			if (tokenize(shell, input))
 			{
-				ft_token_print(shell);
+				// ft_token_print(shell);
 				// shell->ast = build_ast(shell->tokens->array);
 				shell->tokens->array[0].split_cmd = ft_split(shell->tokens->array[0].cmd, ' ');
 				if (ft_strnstr(input, "export", ft_strlen("export"))
@@ -47,10 +48,10 @@ static void	minishell(t_shell *shell)
 					builtin_env(shell, type, shell->tokens->array[0].split_cmd);
 				}
 				ft_multi_free_null(&shell->tokens->array[0].split_cmd);
-				// shell->ast = build_ast(shell->tokens->array);
+				shell->ast = build_ast(shell->tokens->array);
 				// printf("\n----PRINT AST-------\n");
 				// print_ast(shell->ast);
-				// execute_ast(shell, shell->ast);
+				execute_ast(shell, shell->ast);
 			}
 	
 			

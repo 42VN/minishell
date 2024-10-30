@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:08:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/28 23:38:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:19:04 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	execute_builtin(t_shell *shell, char **token)
 	else if (!ft_strcmp(token[0], "cd"))
 		return (builtin_cd(shell, token));
 	else if (!ft_strcmp(token[0], "pwd"))	//done
-		return (printf("%s\n", shell->cwd));
+		return (builtin_pwd(shell));
 	// else if (!ft_strcmp(token[0], "export"))
 	// 	return (builtin_export(shell, token));
 	// else if (!ft_strcmp(token[0], "unset"))
