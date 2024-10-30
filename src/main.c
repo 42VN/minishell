@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 22:23:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/30 09:33:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,10 @@ static void	minishell(t_shell *shell)
 				// print_ast(shell->ast);
 				// execute_ast(shell, shell->ast);
 			}
-	
-			
 			ft_token_free(shell);
 		}
 		free(input);
+		input = NULL;
 	}
 	return ;
 }

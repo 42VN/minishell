@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 22:58:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/29 13:04:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ typedef enum e_redirect_type
 
 typedef enum e_err_type
 {
-	ERR_MALLOC,
-	ERR_FORK,
-	ERR_PIPE
+	ERR_NONE = 0,
+	ERR_SYNTAX = 1,
+	ERR_MALLOC = 2,
+	ERR_FORK = 3,
+	ERR_PIPE = 4
 }	t_err_type;
 
 //----------------------------------------------------
