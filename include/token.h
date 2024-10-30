@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 13:04:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:12:33 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int			ft_token_check_op(t_shell *shell, char *str);
 int			ft_token_check_closing_br(char *str);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
+char		*ft_find_op_quote(char *cmd);
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------

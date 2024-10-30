@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 14:34:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/30 16:30:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_quote_err(char quote, t_shell *shell)
 	return (0);
 }
 
-static char	*ft_make_str_cmd(char **ptr, t_shell *shell)
+static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 {
 	char	*res;
 	char	*start;
@@ -35,38 +35,51 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell)
 	{
 		if (*start == '\'' || *start == '\"')
 		{
+			*quote = *start;
 			quote_end = ft_strchr(start + 1, *start);
 			if (quote_end)
 				start = quote_end;
 			else
-				return (ft_quote_err(*quote_end, shell));
+				return (ft_quote_err(*quote, shell));
 		}
 		start++;
 	}
 	res = ft_substr(*ptr, 0, start - (*ptr));
 	if (!res)
-		return (ft_error_ret("ft_get_str_cmd: malloc", shell, ERR_MALLOC, 0));
+		return (ft_error_ret("ft_make_str_cmd: malloc", shell, ERR_MALLOC, 0));
 	*ptr = start;
 	return (res);
 }
 
-static char	*ft_alter_quote(char *cmd, t_shell *shell)
+/**
+ * Function to remove the most outer enclosing quotes
+ * Only works if the first character is a quote
+ */
+static char	*ft_alter_quote(
+	char *cmd,
+	char quote,
+	t_shell *shell,
+	size_t len)
 {
 	char	*res;
 	size_t	i;
-	size_t	len;
+	size_t	j;
 
-	len = ft_strlen(cmd);
-	res = (char *)ft_calloc(1, sizeof(char) * (len + 1));
+	i = 0;
+	j = 0;
+	res = (char *)ft_calloc(1, sizeof(char) * (len + 1)); // Allocate enough memory
 	if (!res)
 		return (ft_error_ret("ft_alter_quote: malloc", shell, ERR_MALLOC, 0));
-	i = 0;
-	while (*cmd)
+	while (cmd[i])
 	{
-		if (*cmd != '\'' && *cmd != '\"')
-			res[i++] = *cmd;
-		cmd++;
+		if (cmd[i] != quote)
+		{
+			res[j] = cmd[i];
+			++j;
+		}
+		++i;
 	}
+	res[j] = '\0';
 	return (res);
 }
 
@@ -74,19 +87,27 @@ static char	*ft_get_str_cmd(char **ptr, t_shell *shell)
 {
 	char 	*str;
 	char	*res;
+	char	quote;
 
-	str = ft_make_str_cmd(ptr, shell);
+	quote = '\0';
+	str = ft_make_str_cmd(ptr, shell, &quote);
 	if (!str)
 		return (NULL);
-	res = ft_alter_quote(str, shell);
-	if (!res)
+	if (quote != '\0')
 	{
+		res = ft_alter_quote(str, quote, shell, ft_strlen(str));
+		if (!res)
+		{
+			free(str);
+			return (NULL);
+		}
 		free(str);
-		return (NULL);
 	}
-	free(str);
+	else
+		res = str;
 	return (res);
 }
+
 
 /**
  * - Handles the creation or update of command tokens. 
