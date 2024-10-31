@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/31 14:15:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:34:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 		execute_ast(shell, ast->right);
 		exit(EXIT_SUCCESS);
 	}
-	wait_and_close(pipe_fd, pid);
 }
 
 void	execute_ast(t_shell *shell, t_ast *ast)
