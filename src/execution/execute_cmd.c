@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/31 14:29:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 15:14:21 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	execute_command(t_shell *shell, t_token token)
 	char	*command_path;
 	pid_t	pid;
 	int		fd[2];
-	// char 	**split_cmd;
 
 	fd[0] = -2;
 	fd[1] = -2;
@@ -66,6 +65,6 @@ void	execute_command(t_shell *shell, t_token token)
 			execve(command_path, token.split_cmd, shell->envp);
 			exec_error(shell, command_path);
 		}
+		waitpid(pid, NULL, 0);
 	}
-	// exit (EXIT_SUCCESS);
 }
