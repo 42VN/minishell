@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:44:52 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 14:53:02 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,65 +17,6 @@ int	builtin_error(char *s, int error_num)
 	write(STDERR_FILENO, s, ft_strlen(s));
 	update_status(error_num);
 	return (EXIT_FAILURE);
-}
-
-char	*get_envp_variable(char **envp, char *key)
-{
-	size_t	len;
-
-	len = ft_strlen(key);
-	while (*envp)
-	{
-		if (!ft_strncmp(*envp, key, len) && envp[len] == '=')
-			return (*envp + len + 1);
-		envp++;
-	}
-	return (NULL);
-}
-
-static void add_envp_variable(t_shell *shell, const char *new)
-{
-	int		len;
-	char	**new_envp;
-
-	len = 0;
-	while (shell->envp && shell->envp[len])
-		len++;
-	new_envp = malloc((len + 2) * sizeof(char *));
-	if (!new_envp)
-		return ;
-	new_envp[len] = strdup(new);
-	new_envp[len + 1] = NULL;
-	while (--len >= 0)
-	{
-		new_envp[len] = strdup(shell->envp[len]);
-		free (shell->envp[len]);
-	}
-	free(shell->envp);
-	shell->envp = new_envp;
-}
-
-static void	update_envp(t_shell *shell, char *key, char *value)
-{
-	char	*temp;
-	char	**cur;
-
-	temp = ft_strjoin(key, value);
-	cur = shell->envp;
-	while (*cur)
-	{
-		if (!ft_strncmp(*cur, key, ft_strlen(key)))
-		{
-			free (*cur);
-			*cur = ft_strdup(temp);
-			free (temp);
-			return ;
-		}
-		cur++;
-	}
-	add_envp_variable(shell, temp);
-	free(temp);
-	temp = NULL;
 }
 
 int	update_pwd(t_shell *shell)
@@ -91,7 +32,7 @@ int	update_pwd(t_shell *shell)
 	free (new_pwd);
 	if (!shell->cwd)
 		return (builtin_error("minishell: strdup failed\n", 1));
-	update_envp(shell, "OLDPWD=", shell->old_pwd);
-	update_envp(shell, "PWD=", shell->cwd);
+	env_set(shell, "OLDPWD", shell->old_pwd);
+	env_set(shell, "PWD", shell->cwd);
 	return (EXIT_SUCCESS);
 }

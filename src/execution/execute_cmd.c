@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:49:32 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 14:29:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ void	execute_command(t_shell *shell, t_token token)
 
 	fd[0] = -2;
 	fd[1] = -2;
-	pid = init_child(shell);
-	if (pid == 0)
+	redirect_io(shell, token.redirect, fd);
+	token.split_cmd = split_command(token.cmd);
+	if(execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
 	{
-		redirect_io(shell, token.redirect, fd);
-		token.split_cmd = split_command(token.cmd);
-		if(execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
+		pid = init_child(shell);
+		if (pid == 0)
 		{
 			command_path = find_command_path(shell->envp, token.split_cmd[0]);
 			execve(command_path, token.split_cmd, shell->envp);
 			exec_error(shell, command_path);
 		}
-		exit (EXIT_SUCCESS);
 	}
+	// exit (EXIT_SUCCESS);
 }
