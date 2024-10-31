@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:53:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 13:53:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:34:15 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	builtin_unset(t_shell *shell, char **split_cmd)
 
 	i = 1;
 	if (!split_cmd[1])
-		return (ft_error_ret(
-			"ft_builtin_unset: Invalid argument",
-			shell, ERR_MALLOC, 1));
+		return (0);
 	while (split_cmd[i])
 	{
 		equal = ft_strchr(split_cmd[i], '=');

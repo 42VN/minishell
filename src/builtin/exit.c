@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 22:24:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 15:22:51 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ int	builtin_exit(t_shell *shell, char **token)
 		shell_cleanup(shell);
 		exit(error_num);
 	}
+	
 }
