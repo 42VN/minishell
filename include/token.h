@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/28 23:36:25 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 13:13:10 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ typedef enum e_redirect_type
 
 typedef enum e_err_type
 {
-	ERR_MALLOC,
-	ERR_FORK,
-	ERR_PIPE
+	ERR_NONE = 0,
+	ERR_SYNTAX = 1,
+	ERR_MALLOC = 2,
+	ERR_FORK = 3,
+	ERR_PIPE = 4
 }	t_err_type;
 
 //----------------------------------------------------
@@ -107,6 +109,7 @@ int			ft_token_check_op(t_shell *shell, char *str);
 int			ft_token_check_closing_br(char *str);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
+char		*ft_find_op_quote(char *cmd);
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------

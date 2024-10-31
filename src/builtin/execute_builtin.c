@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:08:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:49:14 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 14:22:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	execute_builtin(t_shell *shell, char **token)
 		return (builtin_cd(shell, token));
 	else if (!ft_strcmp(token[0], "pwd"))	//done
 		return (builtin_pwd(shell));
-	// else if (!ft_strcmp(token[0], "export"))
-	// 	return (builtin_export(shell, token));
-	// else if (!ft_strcmp(token[0], "unset"))
-	// 	return (builtin_unset(shell, token));
-	// else if (!ft_strcmp(token[0], "env"))
-	// 	return (builtin_env(shell, token));
+	else if (!ft_strcmp(token[0], "export"))
+		return (builtin_export(shell, token));
+	else if (!ft_strcmp(token[0], "unset"))
+		return (builtin_unset(shell, token));
+	else if (!ft_strcmp(token[0], "env"))
+		return (builtin_env(shell, token));
 	else if (!ft_strcmp(token[0], "exit"))
 		return (builtin_exit(shell, token));
 	return (EXIT_FAILURE);

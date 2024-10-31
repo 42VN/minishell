@@ -6,14 +6,14 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 11:30:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/27 23:08:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/29 13:33:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 size_t	ft_wordcount_delimiter(
-	const char *s,
+	char *s,
 	char delimiter)
 {
 	size_t	count;
@@ -41,8 +41,8 @@ size_t	ft_wordcount_delimiter(
 }
 
 static void	ft_cal_word_quote(
-	const char **s,
-	const char **start,
+	char **s,
+	char **start,
 	size_t *current_word_len,
 	char quote
 )
@@ -74,8 +74,8 @@ static void	ft_cal_word_quote(
 }
 
 static void	ft_cal_word_alloc(
-	const char **s,
-	const char **start,
+	char **s,
+	char **start,
 	char delimiter,
 	size_t *current_word_len)
 {
@@ -95,13 +95,13 @@ static void	ft_cal_word_alloc(
 
 static char	**ft_split_helper(
 	char **res,
-	const char *s,
+	char *s,
 	char delimiter,
 	size_t i
 )
 {
 	size_t		current_word_len;
-	const char	*start;
+	char	*start;
 
 	while (*s)
 	{
@@ -125,7 +125,7 @@ static char	**ft_split_helper(
 }
 
 char	**ft_split_esc(
-	const char *s,
+	char *s,
 	char delimiter)
 {
 	char	**res;

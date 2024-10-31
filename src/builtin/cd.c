@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:44:08 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 13:45:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	cd_home(t_shell *shell)
 {
 	char	*path;
 
-	path = get_envp_variable(shell->envp, "HOME");
+	path = env_get(shell->envp, "HOME", 0);
 	if (!path)
 		return (builtin_error("minishell: cd: HOME not set\n", 1));
 	if (chdir(path))
@@ -32,7 +32,7 @@ int	cd_tilde(t_shell *shell, char *token)
 	char	*home;
 	char	*path;
 
-	home = get_envp_variable(shell->envp, "HOME");
+	home = env_get(shell->envp, "HOME", 0);
 	if (!home)
 		return (builtin_error("minishell: cd: HOME not set\n", 1));
 	path = ft_strjoin(home, (token + 1));
@@ -52,7 +52,7 @@ int	cd_oldpwd(t_shell *shell)
 {
 	char	*path;
 
-	path = get_envp_variable(shell->envp, "OLDPWD");
+	path = env_get(shell->envp, "OLDPWD", 0);
 	if (!path)
 		return (builtin_error("minishell: cd: OLDPWD not set\n", 1));
 	if (chdir(path))
@@ -79,7 +79,7 @@ int	cd_path(t_shell *shell, char *path)
 
 int	builtin_cd(t_shell *shell, char **token)
 {
-	// printf("home = %s\n", get_envp_variable(shell->envp, "HOME"));
+	printf("home = %s\n", env_get(shell->envp, "HOME", 0)	);
 	if (token[1] && token[2])
 		return (builtin_error("minishell: cd: too many arguments\n", 2));
 	else if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))

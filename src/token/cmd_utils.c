@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_ret.c                                     :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 13:14:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 14:44:11 by ktieu            ###   ########.fr       */
+/*   Created: 2024/10/30 16:09:49 by ktieu             #+#    #+#             */
+/*   Updated: 2024/10/30 16:12:37 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/builtin.h"
 #include "../../include/minishell.h"
 
-int	ft_error_ret(
-	char *str,
-	t_shell *shell,
-	t_err_type type,
-	int return_code)
+char	*ft_find_op_quote(char *cmd)
 {
-	if (shell && type != ERR_NONE)
-		shell->err_type = type;
-	ft_printf_fd(2, "minishell: %s\n", str);
-	return (return_code);
+	int		i;
+	char	*op_quote;
+	
+	i = 0;
+	op_quote = NULL;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\'' || cmd[i] == '\"')
+		{
+			op_quote = cmd + i;
+			break;
+		}
+		i++;
+	}
+	return (op_quote);
 }

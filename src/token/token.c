@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 12:08:35 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/29 15:13:51 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,13 @@ int	ft_token_add(t_shell *shell, char **input)
 	{
 		// printf("OP is: %s\n", *input);
 		if (!ft_token_handle_op(input, shell))
-		{
-			ft_token_parse_error(*input);
 			return (0);
-		}
 	}
 	else
 	{
 		// printf("CMD is: %s\n", *input);
 		if (!ft_token_handle_cmd(input, shell))
-		{
-			ft_token_parse_error(*input);
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -82,7 +76,11 @@ int	tokenize(t_shell *shell, char *line)
 	{
 		ft_skip_strchr(&line, ' ');
 		if (*line && !ft_token_add(shell, &line))
+		{
+			if (shell->err_type != ERR_MALLOC)
+				ft_token_parse_error(line);
 			return (0);
+		}
 	}
 	if (shell->tokens->array[shell->tokens->cur_pos].type == NONE)
 		shell->tokens->cur_pos--;

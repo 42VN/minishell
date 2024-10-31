@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 21:09:06 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/31 13:16:33 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,16 @@ char	**split_command(char *command);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
-int		locate_logic(t_token *tokens, int index);
-int		locate_pipe(t_token *tokens, int index);
-int		is_redirect(t_token_type type);
-int		locate_redirect(t_token *tokens, int index);
 void	print_ast(t_ast *ast);
 void	redirect_fd(int from_fd, int to_fd);
 void	ft_free_triptr(char ***str);
 void	create_pipe(int *pipe_id);
 pid_t	init_child(t_shell *shell);
 int		update_status(int new_status);
-int	ft_is_all_white_spaces(char *s);
+int		ft_is_all_white_spaces(char *s);
 void	handle_cmd_error(char **command, char *message, int free_pt);
-int	skip_quotes(char *str, int i);
-int	skip_word(char *str, int i);
+int		skip_quotes(char *str, int i);
+int		skip_word(char *str, int i);
 
 //---------------------------------||  ERROR  ||------------------------------//
 
