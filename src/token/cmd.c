@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 13:23:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:13:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include "../../include/minishell.h"
 
 
-static void	ft_quote_err(char quote, t_shell *shell)
+static char	*ft_quote_err(char quote, t_shell *shell)
 {
 	shell->err_type = ERR_SYNTAX;
 	ft_printf_fd(2, "minishell: unexpected EOF while ");
 	ft_printf_fd(2, "looking for matching `%c'\n", quote);
+	return (NULL);
 }
 
 static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
@@ -39,13 +40,13 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 			if (quote_end)
 				start = quote_end;
 			else
-				return (ft_quote_err(*quote, shell), NULL);
+				return (ft_quote_err(*quote, shell));
 		}
 		start++;
 	}
 	res = ft_substr(*ptr, 0, start - (*ptr));
 	if (!res)
-		return (ft_error_ret("ft_make_str_cmd: malloc", shell, ERR_MALLOC, 0), NULL);
+		return (ft_error_ret_null("ft_make_str_cmd: malloc", shell, ERR_MALLOC));
 	*ptr = start;
 	return (res);
 }
