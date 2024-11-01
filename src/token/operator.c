@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/13 14:28:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 14:01:55 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Count the consecutive occurrences of the operator `op` and skip them

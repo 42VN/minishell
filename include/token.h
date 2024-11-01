@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 13:13:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 15:27:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ typedef struct s_tokens
 	int		is_cmd;
 	int		br_open;
 }	t_tokens;
+
+//----------------------------------------------------
+// PARSE 
+//-----------------------------------------------------
+char		*ft_quote_err(char quote, t_shell *shell);
+char		*ft_token_parse(char **ptr, t_shell *shell);
 
 //----------------------------------------------------
 // REDIRECT 

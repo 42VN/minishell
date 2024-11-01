@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_utils.c                                        :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 16:09:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 16:12:37 by ktieu            ###   ########.fr       */
+/*   Created: 2024/11/01 14:01:23 by ktieu             #+#    #+#             */
+/*   Updated: 2024/11/01 14:09:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-char	*ft_find_op_quote(char *cmd)
+int	heredoc_prompt(t_shell *shell)
 {
-	int		i;
-	char	*op_quote;
-	
-	i = 0;
-	op_quote = NULL;
-	while (cmd[i])
-	{
-		if (cmd[i] == '\'' || cmd[i] == '\"')
-		{
-			op_quote = cmd + i;
-			break;
-		}
-		i++;
-	}
-	return (op_quote);
+	return (1);	
 }

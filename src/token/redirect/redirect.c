@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/13 14:28:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 15:56:55 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	ft_redirect_classify(t_redirect *redirect, char op, int count)
 {
@@ -30,8 +29,8 @@ void	ft_redirect_classify(t_redirect *redirect, char op, int count)
 t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 {
 	t_redirect	*redirect;
-	char		*start;
-
+	char		*path;
+	
 	redirect = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
 	if (!redirect)
 	{
@@ -40,15 +39,18 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 	}
 	ft_redirect_classify(redirect, op, count);
 	ft_skip_strchr(str, ' ');
-	start = *str;
-	while (**str && !ft_is_op(**str) && !ft_isspace(**str))
-		(*str)++;
-	if (*str == start)
+	if (**str == '\0')
 	{
 		free(redirect);
 		return (NULL);
 	}
-	redirect->path = ft_substr(start, 0, *str - start);
+	path = ft_token_parse(str, shell);
+	if (!path && shell->err_type == ERR_MALLOC)
+	{
+		free(redirect);
+		return (NULL);
+	}
+	redirect->path = path;
 	return (redirect);
 }
 

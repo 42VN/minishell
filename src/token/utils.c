@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 15:14:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 14:02:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Function joins the current cmd in a token with a new one.

@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 15:03:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 14:01:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	ft_token_free(t_shell *shell)
 {
