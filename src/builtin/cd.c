@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/31 14:36:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/01 12:23:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	cd_path(t_shell *shell, char *path)
 
 int	builtin_cd(t_shell *shell, char **token)
 {
-	// printf("home = %s\n", env_get(shell->envp, "HOME", 0)	);
 	if (token[1] && token[2])
 		return (builtin_error("minishell: cd: too many arguments\n", 2));
 	else if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))

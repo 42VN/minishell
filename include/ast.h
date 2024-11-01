@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 15:30:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 12:18:37 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**split_command(char *command);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
-void	print_ast(t_ast *ast);
+// void	print_ast(t_ast *ast);
 void	redirect_fd(int from_fd, int to_fd);
 void	ft_free_triptr(char ***str);
 void	create_pipe(int *pipe_id);
