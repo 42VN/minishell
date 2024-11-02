@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 13:06:06 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/02 15:02:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_count_op_skip(char **str, char op)
 	{
 		if (ft_is_op_logic(op) && ft_is_op_logic(**str))
 			return (0);
-		else if (ft_is_op_redirect(op))
+		else if (ft_is_op_redirect(op))	
 			return (0);
 	}
 	return (count);
@@ -95,6 +95,8 @@ static int	ft_token_is_bracket(
 	else if (**str == ')')
 	{
 		if (shell->tokens->br_open <= 0)
+			return (0);
+		if (*index > 0 && shell->tokens->array[*index - 1].type == BR_OPEN)
 			return (0);
 		shell->tokens->array[*index].type = BR_CLOSE;
 		shell->tokens->br_open--;

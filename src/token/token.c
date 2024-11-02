@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 13:11:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/02 15:01:52 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	tokenize(t_shell *shell, char *line)
 		if (*line && !ft_token_add(shell, &line))
 		{
 			if (shell->err_type != ERR_MALLOC)
-				ft_token_parse_error(line);
+				ft_token_parse_error(shell, line);
 			return (0);
 		}
 	}

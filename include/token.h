@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 13:05:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/02 15:01:17 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ typedef struct s_token
 
 typedef struct s_tokens
 {
-	t_token	*array;
-	size_t	size;
-	size_t	cur_pos;
-	size_t	to_add;
-	int		is_cmd;
-	int		br_open;
+	t_token				*array;
+	size_t				size;
+	size_t				cur_pos;
+	size_t				to_add;
+	int					is_cmd;
+	int					br_open;
 }	t_tokens;
 
 //----------------------------------------------------
@@ -120,7 +120,7 @@ void		ft_token_free(t_shell *shell);
 //-----------------------------------------------------
 void		ft_token_print(t_shell *shell);
 void		ft_redirect_print(t_redirect **head);
-void		ft_token_parse_error(char *ptr);
+void		ft_token_parse_error(t_shell *shell, char *ptr);
 //----------------------------------------------------
 // TOKEN 
 //-----------------------------------------------------
