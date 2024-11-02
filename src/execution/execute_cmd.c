@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/01 12:38:23 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:02:43 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static void	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 		redirect_fd(fd[1], STDOUT_FILENO);
 }
 
-int	execute_builtin(t_shell *shell, char **token)
+static int	execute_builtin(t_shell *shell, char **token)
 {
 	if (!token || !token[0])
-		return (0);
+		return (EXIT_FAILURE);
 	if (!ft_strcmp(token[0], "echo"))
 		return (builtin_echo(token));
 	else if (!ft_strcmp(token[0], "cd"))
@@ -72,6 +72,7 @@ void	execute_command(t_shell *shell, t_token token)
 	char	*command_path;
 	pid_t	pid;
 	int		fd[2];
+	int		status;
 
 	fd[0] = -2;
 	fd[1] = -2;
@@ -88,6 +89,8 @@ void	execute_command(t_shell *shell, t_token token)
 			execve(command_path, token.split_cmd, shell->envp);
 			exec_error(shell, command_path);
 		}
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			update_status(shell, WEXITSTATUS(status));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/01 12:18:37 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/02 14:57:11 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define AST_H
 
 # include <sys/wait.h>
+typedef struct s_shell	t_shell;
 
 /**
  * Data structure for AST (Abstract Syntax Tree)
@@ -34,7 +35,6 @@ t_ast	*build_ast(t_token *tokens);
 void	execute_ast(t_shell *shell, t_ast *ast);
 char	*find_command_path(char **envp, char *command);
 void	execute_command(t_shell *shell, t_token token);
-char	**split_command(char *command);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
@@ -43,11 +43,7 @@ void	redirect_fd(int from_fd, int to_fd);
 void	ft_free_triptr(char ***str);
 void	create_pipe(int *pipe_id);
 pid_t	init_child(t_shell *shell);
-int		update_status(int new_status);
-int		ft_is_all_white_spaces(char *s);
-void	handle_cmd_error(char **command, char *message, int free_pt);
-int		skip_quotes(char *str, int i);
-int		skip_word(char *str, int i);
+int		update_status(t_shell *shell, int new_status); //0111
 
 //---------------------------------||  ERROR  ||------------------------------//
 

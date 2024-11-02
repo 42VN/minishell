@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/31 14:34:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:02:31 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,26 @@ static void	execute_logic(t_shell *shell, t_ast *ast)
 	{
 		if (ast->left)
 			execute_ast(shell, ast->left);
-		if (update_status(-1) == 0 && ast->right)
+		if (!shell->exitcode && ast->right)
 			execute_ast(shell, ast->right);
 	}
 	else if (ast->token.type == OR)
 	{
 		if (ast->left)
 			execute_ast(shell, ast->left);
-		if (update_status(-1) != 0 && ast->right)
+		if (shell->exitcode && ast->right)
 			execute_ast(shell, ast->right);
 	}
 }
 
-static void	wait_and_close(int *pipe_fd, pid_t *pid)
+static void	wait_update(t_shell *shell, pid_t pid)
 {
 	int		status;
 
-	waitpid(pid[1], &status, 0);
-	update_status((status >> 8) & 255);
-	waitpid(pid[0], NULL, 0);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		update_status(shell, WEXITSTATUS(status));
 }
-
 static void	execute_pipe(t_shell *shell, t_ast *ast)
 {
 	int		pipe_fd[2];
@@ -53,7 +50,7 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 		close(pipe_fd[0]);
 		redirect_fd(pipe_fd[1], 1);
 		execute_ast(shell, ast->left);
-		exit(EXIT_SUCCESS);
+		exit(shell->exitcode);
 	}
 	pid[1] = init_child(shell);
 	if (pid[1] == 0)
@@ -61,8 +58,11 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 		close(pipe_fd[1]);
 		redirect_fd(pipe_fd[0], 0);
 		execute_ast(shell, ast->right);
-		exit(EXIT_SUCCESS);
+		exit(shell->exitcode);
 	}
+	close (pipe_fd[0]);
+	close (pipe_fd[1]);
+	wait_update(shell, pid[1]);
 }
 
 void	execute_ast(t_shell *shell, t_ast *ast)
@@ -77,4 +77,6 @@ void	execute_ast(t_shell *shell, t_ast *ast)
 		execute_ast(shell, ast->right);
 	else if (ast->token.type == CMD)
 		execute_command(shell, ast->token);
+	while (wait(NULL) > 0)
+		;
 }

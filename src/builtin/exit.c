@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/31 15:22:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/02 15:01:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ int	builtin_exit(t_shell *shell, char **token)
 		write(STDERR_FILENO, "minishell: exit: ", 17);
 		write(STDERR_FILENO, token[1], ft_strlen(token[1]));
 		write(STDERR_FILENO, ": numeric argument required\n", 28);
-		update_status(2);
+		update_status(shell, 2);
 	}
 	else if (token[1] && token[2])
 	{
 		shell_cleanup(shell);
-		exit (builtin_error("exit\n", 1));
+		exit (builtin_error(shell, "exit\n", 1));
 	}
 	else
 	{
@@ -94,7 +94,7 @@ int	builtin_exit(t_shell *shell, char **token)
 		if (token[1] && token[1][0])
 			error_num = exit_status_calculator(token[1]);
 		write(STDERR_FILENO, "exit\n", 5);
-		update_status(error_num);
+		update_status(shell, error_num);
 		shell_cleanup(shell);
 		exit(error_num);
 	}

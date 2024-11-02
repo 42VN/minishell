@@ -6,19 +6,17 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/18 10:24:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/02 15:03:05 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	update_status(int new_status)
+int	update_status(t_shell *shell, int new_status)
 {
-	static int	status;
-
-	if (new_status > -1)
-		status = new_status;
-	return (status);
+	if (new_status >=  0)
+		shell->exitcode = new_status;
+	return (shell->exitcode);
 }
 
 void	ft_free_triptr(char ***str)
