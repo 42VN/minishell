@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/01 15:58:26 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/02 15:37:12 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,7 @@ ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	#print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
-TOKEN_FILES			=	parse.c token.c free.c mem.c  utils.c operator.c cmd.c error.c print.c \
-						redirect/redirect.c redirect/heredoc.c
+TOKEN_FILES			=	parse.c token.c free.c mem.c  utils.c operator.c cmd.c error.c print.c redirect.c
 BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 EXP_FILES			=	exp.c
