@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/01 15:27:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/02 13:05:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,10 @@ int			ft_token_handle_cmd(char **ptr, t_shell *shell);
 //-----------------------------------------------------
 int			ft_token_realloc(t_shell *shell);
 int			ft_token_is_last(char *str);
-int			ft_token_check_op(t_shell *shell, char *str);
-int			ft_token_check_closing_br(char *str);
+int			ft_check_op(t_shell *shell, char *str);
+int			ft_check_op_bracket(char *str, t_shell *shell, size_t index);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
-char		*ft_find_op_quote(char *cmd);
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------

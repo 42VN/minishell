@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/01 15:28:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/02 12:55:09 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 			shell->tokens->array[*index].type = CMD;
 			shell->tokens->array[*index].cmd = str;
 		}
+		return (1);
 	}
-	return (1);
+	return (0);
 }
