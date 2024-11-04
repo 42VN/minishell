@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/04 13:52:04 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/04 23:18:06 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,11 @@ OBJ_DIR				=	obj
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
-AST_FILES			=	build_ast.c	#print_ast.c
+AST_FILES			=	build_ast.c	read_heredoc.c #print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
 TOKEN_FILES			=	parse.c token.c free.c mem.c  utils.c operator.c cmd.c error.c print.c redirect.c
 BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c
-EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
+EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c split_command.c split_utils.c
 EXP_FILES			=	exp.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/04 13:51:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/05 00:31:09 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/wait.h>
 typedef struct s_shell	t_shell;
+#include <errno.h>
 
 /**
  * Data structure for AST (Abstract Syntax Tree)
@@ -27,7 +28,7 @@ typedef struct s_ast
 }	t_ast;
 
 //---------------------------------||   AST   ||------------------------------//
-
+int	read_heredoc(t_token *tokens, int size);
 t_ast	*build_ast(t_token *tokens);
 
 //---------------------------------||EXECUTION||------------------------------//
@@ -36,6 +37,11 @@ void	execute_ast(t_shell *shell, t_ast *ast);
 char	*find_command_path(char **envp, char *command);
 void	execute_command(t_shell *shell, t_token token);
 
+char	**split_command(char *command);
+int	ft_is_all_white_spaces(char *s);
+void	handle_cmd_error(char **command, char *message, int free_pt);
+int	skip_quotes(char *str, int i);
+int	skip_word(char *str, int i);
 //---------------------------------||  UTILS  ||------------------------------//
 
 // void	print_ast(t_ast *ast);

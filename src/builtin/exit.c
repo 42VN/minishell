@@ -6,95 +6,100 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/02 15:01:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/04 23:04:06 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_number(int nb)
+int	not_numberic(char *s)
 {
-	if (nb >= '0' && nb <= '9')
-		return (1);
+	long	number;
+	long	check;
+	int		sign;
+
+	number = 0;
+	sign = 1;
+	while (*s == ' ' || (*s >= 9 && *s <= 13))
+		s++;
+	if (*s == '+' || *s == '-')
+		s++;
+	while (*s)
+	{
+		if (*s < '0' || *s > '9')
+			return (1);
+		check = number * 10 + *s - '0';
+		if (check / 10 != number)
+			return (1);
+		number = check;
+		s++;
+	}
 	return (0);
 }
 
-int	only_number(char *s)
+long	ft_atol(const char *s)
 {
-	int	i;
+	long	number;
+	long	check;
+	int		sign;
 
-	i = 0;
-	if (s[i] == '+' || s[i] == '-')
-		i++;
-	while (s[i])
-		if (!is_number(s[i++]))
-			return (0);
-	return (1);
-}
-
-long long	ft_atoll(const char *nptr)
-{
-	long long	nb;
-	int			mult;
-
-	nb = 0;
-	mult = 1;
-	while ((*nptr > 8 && *nptr < 14) || *nptr == ' ')
-		nptr++;
-	if (*nptr == '-')
-		mult = -mult;
-	if (*nptr == '-' || *nptr == '+')
-		nptr++;
-	while (*nptr >= '0' && *nptr <= '9')
+	number = 0;
+	sign = 1;
+	while (*s == ' ' || (*s >= 9 && *s <= 13))
+		s++;
+	if (*s == '+' || *s == '-')
 	{
-		nb = (nb * 10) + (*nptr - '0');
-		nptr++;
+		if (*s == '-')
+			sign = -1;
+		s++;
 	}
-	return (nb * mult);
+	while (*s >= '0' && *s <= '9')
+	{
+		check = number * 10 + *s++ - '0';
+		if (check / 10 != number)
+			return (2);
+		number = check;
+	}
+	return (number * sign);
 }
 
-int	is_long(char *argv)
+long long	to_8bits(long nb)
 {
-	if (ft_strlen(argv) > 20
-		|| ft_atoll(argv) > LONG_MAX
-		|| ft_atoll(argv) < LONG_MIN)
-		return (0);
-	return (1);
-}
-
-long long	exit_status_calculator(char *token)
-{
-	long long	nb;
-
-	nb = ft_atoll(token);
-	while (nb < 0)
-		nb = 256 + nb;
+	nb %= 256;
+	if (nb < 0)
+		nb += 256;
 	return (nb);
+}
+
+int exit_error(t_shell *shell, char *token, char *message, int error_num)
+{
+	write(STDERR_FILENO, "minishell: exit: ", 17);
+	if (token)
+	{
+		write(STDERR_FILENO, token, ft_strlen(token));
+		write(STDERR_FILENO, ": ", 2);
+	}
+	write(STDERR_FILENO, message, ft_strlen(message));
+	write(STDERR_FILENO, "\n", 1);	
+	update_status(shell, error_num);
+	shell_cleanup(shell);
+	return (error_num);
 }
 
 int	builtin_exit(t_shell *shell, char **token)
 {
 	int error_num;
 	
-	if (token[1] && (!only_number(token[1]) || !is_long(token[1])))
-	{
-		write(STDERR_FILENO, "minishell: exit: ", 17);
-		write(STDERR_FILENO, token[1], ft_strlen(token[1]));
-		write(STDERR_FILENO, ": numeric argument required\n", 28);
-		update_status(shell, 2);
-	}
+	write(STDERR_FILENO, "exit\n", 5);
+	if (token[1] && not_numberic(token[1]))
+		exit (exit_error(shell, token[1], "numeric argument required", 2));
 	else if (token[1] && token[2])
-	{
-		shell_cleanup(shell);
-		exit (builtin_error(shell, "exit\n", 1));
-	}
+		return (exit_error(shell, NULL, "too many arguments", 1));
 	else
 	{
 		error_num = -1;
 		if (token[1] && token[1][0])
-			error_num = exit_status_calculator(token[1]);
-		write(STDERR_FILENO, "exit\n", 5);
-		update_status(shell, error_num);
+			error_num = to_8bits(ft_atol(token[1]));
 		shell_cleanup(shell);
 		exit(error_num);
 	}

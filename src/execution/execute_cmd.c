@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/02 15:02:43 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 00:31:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	open_heredoc(char *heredoc)
 	int	pipe_fd[2];
 
 	create_pipe(pipe_fd);
-	write(pipe_fd[1], heredoc, strlen(heredoc));
+	write(pipe_fd[1], heredoc, ft_strlen(heredoc));
 	close (pipe_fd[1]);
 	return (pipe_fd[0]);
 }
@@ -37,7 +37,10 @@ static void	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 		else if (redirect->type == RD_APPEND)
 			fd[1] = open(redirect->path, O_CREAT | O_RDWR | O_APPEND, 0644);
 		if (fd[0] == -1 || fd[1] == -1)
+		{
 			open_error(shell, redirect->path, fd);
+			return ;
+		}
 		redirect = redirect->next;
 	}
 	if (fd[0] != -2)
@@ -77,7 +80,7 @@ void	execute_command(t_shell *shell, t_token token)
 	fd[0] = -2;
 	fd[1] = -2;
 	redirect_io(shell, token.redirect, fd);
-	token.split_cmd = ft_split(token.cmd, ' ');
+	token.split_cmd = split_command(token.cmd);
 	if (!token.split_cmd)
 		exit (EXIT_FAILURE);
 	if(execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)

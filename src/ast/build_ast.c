@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/02 14:58:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 00:22:15 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ t_ast	*build_ast(t_token *tokens)
 	size = get_tokens_size(tokens);
 	if (!size)
 		return (NULL);
+	read_heredoc(tokens, size);
+		// return (NULL);
 	if (inside_parenthesis(tokens, size))
 	{
 		temp = extract_tokens(tokens, 1, size - 1);
