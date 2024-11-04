@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 15:01:17 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/04 15:02:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_tokens
 // PARSE 
 //-----------------------------------------------------
 char		*ft_quote_err(char quote, t_shell *shell);
-char		*ft_token_parse(char **ptr, t_shell *shell);
+char		*ft_token_parse(char **ptr, t_shell *shell, int parse_quote);
 
 //----------------------------------------------------
 // REDIRECT 
