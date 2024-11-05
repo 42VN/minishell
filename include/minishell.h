@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 15:10:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/05 14:06:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "ast.h"
 # include "builtin.h"
 # include "environment.h"
+# include "expansion.h"
 
 # define PROMPT "minishell> "
 

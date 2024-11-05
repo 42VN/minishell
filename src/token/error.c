@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 15:01:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/05 12:59:53 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	ft_token_parse_error(t_shell *shell, char *ptr)
 		ft_printf_fd(2, "minishell: syntax error caused by missing )\n");
 	else if (*ptr == '>' || *ptr == '<')
 		ft_redirect_err(ptr);
+	else if (*ptr == '\'' || *ptr == '\"')
+		ft_printf_fd(2, "minishell: syntax error: unexpected end of file\n");
 	else
 		ft_printf_fd(2, "minishell: syntax error near unexpected token %c\n", *ptr);
 	free(str);
