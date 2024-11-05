@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/05 10:37:45 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 11:00:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ void	open_error(t_shell *shell, char *path, int *fd)
 		close (fd[1]);
 }
 
-void exec_error(t_shell *shell, char *command_path)
+void exec_error(t_shell *shell, char **splitted_cmd, char *command_path)
 {
 	shell_cleanup(shell);
-	free (command_path);
+	if (splitted_cmd)
+		ft_free_triptr(&splitted_cmd);
+	if (command_path)
+		free (command_path);
 	exit (126);
 }
 	

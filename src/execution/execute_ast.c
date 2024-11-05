@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/02 15:02:31 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 13:08:12 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 
 void	execute_ast(t_shell *shell, t_ast *ast)
 {
+	// printf("start execute ast\n");
 	if (ast->token.type == AND || ast->token.type == OR)
 		execute_logic(shell, ast);
 	else if (ast->token.type == PIPE)

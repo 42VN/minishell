@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 22:18:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/27 11:20:50 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 12:58:38 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,28 @@ char	*type_string(t_token_type type)
 		str= "AND";
 	else if (type == OR)
 		str= "OR";
-	else if (type == RD_IN)
-		str= "RD_IN";
-	else if (type == RD_OUT)
-		str= "RD_OUT";
 	else if (type == PIPE)
 		str= "PIPE";
-	else if (type == RD_APPEND)
-		str= "RD_APPEND";
-	else if (type == RD_HEREDOC)
-		str= "RD_HEREDOC";
 	else if (type == BR_OPEN)
 		str= "BR_OPEN";
 	else if (type == BR_CLOSE)
 		str= "BR_CLOSE";
+	else
+		str = NULL;
+	return (str);
+}
+
+char	*redirect_string(t_redirect_type type)
+{
+	char *str;
+	if (type == RD_IN)
+		str= "RD_IN";
+	else if (type == RD_OUT)
+		str= "RD_OUT";
+	else if (type == RD_APPEND)
+		str= "RD_APPEND";
+	else if (type == RD_HEREDOC)
+		str= "RD_HEREDOC";
 	else
 		str = NULL;
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/04 23:04:06 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 10:53:16 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int exit_error(t_shell *shell, char *token, char *message, int error_num)
 
 int	builtin_exit(t_shell *shell, char **token)
 {
-	int error_num;
+	// int error_num;
 	
 	write(STDERR_FILENO, "exit\n", 5);
 	if (token[1] && not_numberic(token[1]))
@@ -97,11 +97,13 @@ int	builtin_exit(t_shell *shell, char **token)
 		return (exit_error(shell, NULL, "too many arguments", 1));
 	else
 	{
-		error_num = -1;
+		// error_num = 0;
 		if (token[1] && token[1][0])
-			error_num = to_8bits(ft_atol(token[1]));
+			shell->exitcode = to_8bits(ft_atol(token[1]));
+			// error_num = to_8bits(ft_atol(token[1]));
 		shell_cleanup(shell);
-		exit(error_num);
+		exit(shell->exitcode);
+		// exit(error_num);
 	}
 	
 }

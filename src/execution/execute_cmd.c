@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/05 10:40:09 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 11:00:41 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	execute_command(t_shell *shell, t_token token)
 		{
 			command_path = find_command_path(shell->envp, token.split_cmd[0]);
 			execve(command_path, token.split_cmd, shell->envp);
-			exec_error(shell, command_path);
+			exec_error(shell, token.split_cmd, command_path);
 		}
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
@@ -99,4 +99,5 @@ void	execute_command(t_shell *shell, t_token token)
 	}
 	redirect_fd(tmp[0], STDIN_FILENO);
 	redirect_fd(tmp[1], STDOUT_FILENO);
+	ft_free_triptr(&token.split_cmd);
 }
