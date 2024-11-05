@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/05 00:31:58 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/05 10:40:09 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ void	execute_command(t_shell *shell, t_token token)
 	pid_t	pid;
 	int		fd[2];
 	int		status;
+	const int	tmp[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
 	fd[0] = -2;
 	fd[1] = -2;
-	redirect_io(shell, token.redirect, fd);
+	redirect_io(shell, token.redirect, fd); //check fail
 	token.split_cmd = split_command(token.cmd);
 	if (!token.split_cmd)
-		exit (EXIT_FAILURE);
+		exit (EXIT_FAILURE); //check fail
 	if(execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
 	{
 		pid = init_child(shell);
@@ -96,4 +97,6 @@ void	execute_command(t_shell *shell, t_token token)
 		if (WIFEXITED(status))
 			update_status(shell, WEXITSTATUS(status));
 	}
+	redirect_fd(tmp[0], STDIN_FILENO);
+	redirect_fd(tmp[1], STDOUT_FILENO);
 }
