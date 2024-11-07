@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/05 21:54:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 10:29:17 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ int exit_error(t_shell *shell, char *token, char *message, int error_num)
 	write(STDERR_FILENO, message, ft_strlen(message));
 	write(STDERR_FILENO, "\n", 1);	
 	update_status(shell, error_num);
+	if (shell->ast)
+		ast_cleanup(&shell->ast);
+	ft_token_free(shell);
 	shell_cleanup(shell);
 	return (error_num);
 }
@@ -90,13 +93,25 @@ int	builtin_exit(t_shell *shell, char **token)
 {
 	write(STDERR_FILENO, "exit\n", 5);
 	if (token[1] && not_numberic(token[1]))
-		exit (exit_error(shell, token[1], "numeric argument required", 2));
+	{
+		exit_error(shell, token[1], "numeric argument required", 2);
+		ft_free_triptr(&token);
+		exit (shell->exitcode);
+	}
 	else if (token[1] && token[2])
-		return (exit_error(shell, NULL, "too many arguments", 1));
+	{
+		exit_error(shell, NULL, "too many arguments", 1);
+		// ft_free_triptr(&token);
+		return (0);
+	}
 	else
 	{
 		if (token[1] && token[1][0])
 			shell->exitcode = to_8bits(ft_atol(token[1]));
+		if (shell->ast)
+			ast_cleanup(&shell->ast);
+		ft_free_triptr(&token);
+		ft_token_free(shell);
 		shell_cleanup(shell);
 		exit(shell->exitcode);
 	}

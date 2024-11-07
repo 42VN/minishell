@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/05 13:22:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 11:32:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ typedef struct s_ast
 }	t_ast;
 
 //---------------------------------||   AST   ||------------------------------//
-int	read_heredoc(t_token *tokens, int size);
+int		read_heredoc(t_token *tokens, int size);
 t_ast	*build_ast(t_token *tokens);
 char	*type_string(t_token_type type);
 void	print_ast(t_ast *ast);
 char	*redirect_string(t_redirect_type type);
-int	get_tokens_size(t_token *tokens);
-void ast_cleanup(t_ast *ast);
-void tokens_cleanup(t_token *tokens);
+int		get_tokens_size(t_token *tokens);
+void 	ast_cleanup(t_ast **ast);
 
 //---------------------------------||EXECUTION||------------------------------//
 
@@ -44,10 +43,10 @@ char	*find_command_path(char **envp, char *command);
 void	execute_command(t_shell *shell, t_token token);
 
 char	**split_command(char *command);
-int	ft_is_all_white_spaces(char *s);
+int		ft_is_all_white_spaces(char *s);
 void	handle_cmd_error(char **command, char *message, int free_pt);
-int	skip_quotes(char *str, int i);
-int	skip_word(char *str, int i);
+int		skip_quotes(char *str, int i);
+int		skip_word(char *str, int i);
 //---------------------------------||  UTILS  ||------------------------------//
 
 // void	print_ast(t_ast *ast);
@@ -60,8 +59,7 @@ int		update_status(t_shell *shell, int new_status); //0111
 //---------------------------------||  ERROR  ||------------------------------//
 
 void	open_error(t_shell *shell, char *path, int *fd);
-// void 	exec_error(t_shell *shell, char *command_path);
 void 	fork_error(t_shell *shell);
-void exec_error(t_shell *shell, char **splitted_cmd, char *command_path);
+void 	exec_error(t_shell *shell, char **splitted_cmd, char *command_path);
 
 #endif

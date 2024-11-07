@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_command_path.c                                :+:      :+:    :+:   */
+/*   find_cmd_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/09/24 15:05:26 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 09:39:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	**find_envp_path(char **envp, char *command)
 	{
 		write(2, command, ft_strlen(command));
 		write(2, ": No such file or directory\n", 26);
-		exit (EXIT_FAILURE);
+		// exit (EXIT_FAILURE);
+		return (NULL);
 	}
 	return (ft_split(*envp + 5, ':'));
 }
@@ -71,13 +72,15 @@ char	*find_command_path(char **envp, char *command)
 		}
 	}
 	envp_paths = find_envp_path(envp, command);
+	if (!envp_paths)
+		return (NULL);
 	command_path = get_command_path(envp_paths, command);
 	ft_free_triptr(&envp_paths);
 	if (!command_path)
 	{
 		write(2, command, ft_strlen(command));
 		write(2, ": Command not found\n", 20);
-		exit (EXIT_FAILURE);
+		// exit (EXIT_FAILURE);
 	}
 	return (command_path);
 }

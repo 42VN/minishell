@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/05 11:00:41 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 10:29:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	open_heredoc(char *heredoc)
 	return (pipe_fd[0]);
 }
 
-static void	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
+static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
 	int	pipe_fd[2];
 
@@ -39,7 +39,7 @@ static void	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 		if (fd[0] == -1 || fd[1] == -1)
 		{
 			open_error(shell, redirect->path, fd);
-			return ;
+			return (EXIT_FAILURE);
 		}
 		redirect = redirect->next;
 	}
@@ -47,6 +47,7 @@ static void	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 		redirect_fd(fd[0], STDIN_FILENO);
 	if (fd[1] != -2)
 		redirect_fd(fd[1], STDOUT_FILENO);
+	return (EXIT_SUCCESS);
 }
 
 static int	execute_builtin(t_shell *shell, char **token)
@@ -80,16 +81,27 @@ void	execute_command(t_shell *shell, t_token token)
 
 	fd[0] = -2;
 	fd[1] = -2;
-	redirect_io(shell, token.redirect, fd); //check fail
+	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE)
+		return ; //check fail
 	token.split_cmd = split_command(token.cmd);
 	if (!token.split_cmd)
-		exit (EXIT_FAILURE); //check fail
+		return ;
+		// exit (EXIT_FAILURE); //check fail
 	if(execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
 	{
 		pid = init_child(shell);
 		if (pid == 0)
 		{
 			command_path = find_command_path(shell->envp, token.split_cmd[0]);
+			if (!command_path)
+			{
+				ft_free_triptr(&token.split_cmd);
+				if (shell->ast)
+					ast_cleanup(&shell->ast);
+				ft_token_free(shell);
+				shell_cleanup(shell);
+				exit (EXIT_FAILURE);
+			}			
 			execve(command_path, token.split_cmd, shell->envp);
 			exec_error(shell, token.split_cmd, command_path);
 		}
@@ -99,5 +111,6 @@ void	execute_command(t_shell *shell, t_token token)
 	}
 	redirect_fd(tmp[0], STDIN_FILENO);
 	redirect_fd(tmp[1], STDOUT_FILENO);
-	ft_free_triptr(&token.split_cmd);
+	if (token.split_cmd)
+		ft_free_triptr(&token.split_cmd);
 }

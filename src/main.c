@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/05 21:37:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 11:25:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ static void	minishell(t_shell *shell)
 			{
 				// ft_token_print(shell);
 				read_heredoc(shell->tokens->array, get_tokens_size(shell->tokens->array));
-				shell->ast = build_ast(shell->tokens->array);
+				shell->ast = build_ast(shell->tokens->array);//, 0);
 				execute_ast(shell, shell->ast);
 			}
+			if (shell->ast)
+				ast_cleanup(&shell->ast);
 			ft_token_free(shell);
-			ast_cleanup(shell->ast);
 		}
 		free(input);
 		input = NULL;

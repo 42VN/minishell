@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/02 15:01:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 09:33:16 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	cd_home(t_shell *shell)
 	path = env_get(shell->envp, "HOME", 0);
 	if (!path)
 		return (builtin_error(shell, "minishell: cd: HOME not set\n", 1));
+	if (chdir(path))
 	{
 		perror("minishell: cd");
 		return (EXIT_FAILURE);
