@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:27:58 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 09:57:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 11:52:37 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	set_shell_level(t_shell *shell, char **envp)
 	res = ft_itoa(num);
 	if (!res)
 		return (ft_error_ret("shell_init: malloc", shell, ERR_MALLOC, 0));
-	env_set(envp, "SHLVL", res);
+	env_set(shell, "SHLVL", res);
 	return (1);
 }
 
