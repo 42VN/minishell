@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/05 13:07:35 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:00:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	here_doc(t_redirect *redirect)
 			break ;
 		}
 		heredoc = join_and_free(heredoc, line);
-		// printf("%s\n", heredoc);
 	}
 	if (!here_doc)
 		return (0);
@@ -63,7 +62,6 @@ int	start_heredoc(t_redirect *redirect)
 {
 	while (redirect)
 	{
-		// printf("type = %s\n", redirect_string(redirect->type));
 		if (redirect->type == RD_HEREDOC)
 			if (!here_doc(redirect))
 				return (0);
@@ -79,10 +77,8 @@ int	read_heredoc(t_token *tokens, int size)
 	index = 0;
 	while (index < size)
 	{
-		// printf("index = %d, sizze = %d\n", index, size);
 		if (tokens[index].type == CMD)
 		{
-			// printf("cmd = %s\n", tokens[index].cmd);
 			if (!start_heredoc(tokens[index].redirect))
 				return (0);
 		}

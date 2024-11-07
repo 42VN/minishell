@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 11:32:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:09:35 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ char	*redirect_string(t_redirect_type type);
 int		get_tokens_size(t_token *tokens);
 void 	ast_cleanup(t_ast **ast);
 
+
+void	free_token(t_token **tokens);
+int		locate_operator(t_token *tokens, int index, int priority);
+int		get_tokens_size(t_token *tokens);
+t_token	*extract_tokens(t_token *tokens, int start, int end);
+void	ast_cleanup(t_ast **ast);
+
 //---------------------------------||EXECUTION||------------------------------//
 
 void	execute_ast(t_shell *shell, t_ast *ast);
@@ -55,6 +62,7 @@ void	ft_free_triptr(char ***str);
 void	create_pipe(int *pipe_id);
 pid_t	init_child(t_shell *shell);
 int		update_status(t_shell *shell, int new_status); //0111
+void	free_all(t_shell *shell);
 
 //---------------------------------||  ERROR  ||------------------------------//
 

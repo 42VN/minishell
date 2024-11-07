@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 11:04:43 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:08:56 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	wait_update(t_shell *shell, pid_t pid)
 	if (WIFEXITED(status))
 		update_status(shell, WEXITSTATUS(status));
 }
+
 static void	execute_pipe(t_shell *shell, t_ast *ast)
 {
 	int		pipe_fd[2];
@@ -50,11 +51,7 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 		close(pipe_fd[0]);
 		redirect_fd(pipe_fd[1], 1);
 		execute_ast(shell, ast->left);
-		if (shell->ast)
-			ast_cleanup(&shell->ast);
-		// ft_free_triptr(&token);
-		ft_token_free(shell);
-		shell_cleanup(shell);
+		free_all(shell);
 		exit(shell->exitcode);
 	}
 	pid[1] = init_child(shell);
@@ -63,11 +60,7 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 		close(pipe_fd[1]);
 		redirect_fd(pipe_fd[0], 0);
 		execute_ast(shell, ast->right);
-		if (shell->ast)
-			ast_cleanup(&shell->ast);
-		// ft_free_triptr(&token);
-		ft_token_free(shell);
-		shell_cleanup(shell);
+		free_all(shell);
 		exit(shell->exitcode);
 	}
 	close (pipe_fd[0]);
@@ -77,7 +70,6 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 
 void	execute_ast(t_shell *shell, t_ast *ast)
 {
-	// printf("start execute ast\n");
 	if (ast->token.type == AND || ast->token.type == OR)
 		execute_logic(shell, ast);
 	else if (ast->token.type == PIPE)

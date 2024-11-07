@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:27:58 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 12:00:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:32:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	set_shell_level(t_shell *shell, char **envp)
 
 int	shell_init(t_shell *shell, char **envp)
 {
-
 	ft_memset(shell, 0, sizeof(t_shell));
 	shell->err_type = ERR_NONE;
 	shell->envp = env_dup(envp);

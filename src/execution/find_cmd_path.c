@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 09:39:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:04:59 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static char	**find_envp_path(char **envp, char *command)
 	{
 		write(2, command, ft_strlen(command));
 		write(2, ": No such file or directory\n", 26);
-		// exit (EXIT_FAILURE);
 		return (NULL);
 	}
 	return (ft_split(*envp + 5, ':'));
@@ -80,7 +79,6 @@ char	*find_command_path(char **envp, char *command)
 	{
 		write(2, command, ft_strlen(command));
 		write(2, ": Command not found\n", 20);
-		// exit (EXIT_FAILURE);
 	}
 	return (command_path);
 }

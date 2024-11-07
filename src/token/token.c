@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 15:01:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:38:20 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,16 @@ int	ft_token_add(t_shell *shell, char **input)
 		return (0);
 	if (ft_is_op(**input))
 	{
-		// printf("OP is: %s\n", *input);
 		if (!ft_token_handle_op(input, shell))
 			return (0);
 	}
 	else
 	{
-		// printf("CMD is: %s\n", *input);
 		if (!ft_token_handle_cmd(input, shell))
 			return (0);
 	}
 	return (1);
 }
-
 
 int	tokenize(t_shell *shell, char *line)
 {
@@ -75,7 +72,6 @@ int	tokenize(t_shell *shell, char *line)
 	{
 		while (ft_isspace(*line))
 			line++;
-		// ft_skip_strchr(&line, ' ');
 		if (*line && !ft_token_add(shell, &line))
 		{
 			if (shell->err_type != ERR_MALLOC)

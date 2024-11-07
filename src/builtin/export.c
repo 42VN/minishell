@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 14:12:39 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:31:59 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ static int	export_is_valid(char *str)
 	return (1);
 }
 
-
 /**
  * Function for <export> stadalone command.
  */
-static int export_standalone(char **envp)
+static int	export_standalone(char **envp)
 {
 	int		i;
 	char	**sorted_envp;
@@ -47,7 +46,7 @@ static int export_standalone(char **envp)
 			equal = ft_strchr(sorted_envp[i], '=');
 			if (equal)
 			{
-				write(STDOUT_FILENO, sorted_envp[i], (equal - sorted_envp[i]) + 1);
+				write(1, sorted_envp[i], (equal - sorted_envp[i]) + 1);
 				printf("\"%s\"\n", equal + 1);
 			}
 			else
@@ -63,7 +62,7 @@ static int	export_variable(t_shell *shell, char *arg)
 	char	*equal;
 	char	*key;
 	char	*value_str;
-	
+
 	if (!export_is_valid(arg))
 		return (1);
 	equal = ft_strchr(arg, '=');
@@ -73,7 +72,7 @@ static int	export_variable(t_shell *shell, char *arg)
 		env_unset(shell, key);
 		return (0);
 	}
-	key = ft_substr(arg, 0, (equal - arg)); 
+	key = ft_substr(arg, 0, (equal - arg));
 	*equal = '\0';
 	equal++;
 	value_str = equal;
@@ -88,7 +87,7 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 	int		i;
 	char	*equal;
 	char	*key;
-	
+
 	i = 1;
 	if (!split_cmd[1])
 		return (export_standalone(shell->envp));
@@ -97,11 +96,13 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 		equal = ft_strchr(split_cmd[i], '=');
 		key = ft_substr(split_cmd[i], 0, equal - split_cmd[i]);
 		if (!key)
-			return (ft_error_ret("ft_builtin_export: malloc", shell, ERR_MALLOC, 1));
+			return (ft_error_ret("ft_builtin_export: malloc",
+					shell, ERR_MALLOC, 1));
 		equal = NULL;
 		if (export_variable(shell, split_cmd[i]) == 1)
 		{
-			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", split_cmd[1]);
+			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
+				split_cmd[1]);
 			return (1);
 		}
 		ft_free_null(&key);
@@ -113,7 +114,7 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 int	builtin_export(t_shell *shell, char **split_cmd)
 {
 	int	exit_code;
-	
+
 	if (!shell || !split_cmd || !split_cmd[0])
 	{
 		ft_putstr_fd("minishell: builtin_env: Invalid parameter(s)\n", 2);
@@ -122,4 +123,3 @@ int	builtin_export(t_shell *shell, char **split_cmd)
 	exit_code = ft_builtin_export(shell, split_cmd);
 	return (exit_code);
 }
-

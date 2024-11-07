@@ -6,66 +6,11 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 11:30:49 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 20:58:17 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void free_token(t_token **tokens)
-{
-	if (!tokens || !*tokens)
-		return ;
-	free(*tokens);
-	*tokens = NULL;
-}
-
-static int	locate_operator(t_token *tokens, int index, int priority)
-{
-	int	depth;
-	
-	depth = 0;
-	while (--index >= 0)
-	{
-		if (tokens[index].type == BR_OPEN)
-			depth++;
-		else if (tokens[index].type == BR_CLOSE)
-			depth--;
-		if (depth == 0 && priority == 0 
-				&& (tokens[index].type == AND || tokens[index].type == OR))
-			return (index);
-		else if (depth == 0 && priority == 1 && tokens[index].type == PIPE)
-			return (index);
-	}
-	return (-1);
-}
-
-int	get_tokens_size(t_token *tokens)
-{
-	int	index;
-
-	index = 0;
-	if (!tokens)
-		return (0);
-	while (tokens[index].type || tokens[index].cmd)
-		index++;
-	return (index);
-}
-
-static t_token	*extract_tokens(t_token *tokens, int start, int end)
-{
-	t_token	*res;
-	int		index;
-
-	if (end - start <= 0)
-		return (NULL);
-	res = (t_token *)ft_calloc(end - start + 1, sizeof(t_token));
-	index = 0;
-	while (start < end)
-		res[index++] = tokens[start++];
-	ft_memset(&res[index], 0, sizeof(t_token));
-	return (res);
-}
 
 static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 {
@@ -78,8 +23,8 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 	left = extract_tokens(tokens, 0, index);
 	right = extract_tokens(tokens, index + 1, size);
 	ast->token = tokens[index];
-	ast->left = build_ast(left);//, 0);
-	ast->right = build_ast(right);//, 0);
+	ast->left = build_ast(left);
+	ast->right = build_ast(right);
 	if (left)
 		free_token (&left);
 	if (right)
@@ -90,7 +35,7 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 int	inside_parenthesis(t_token *tokens, int index)
 {
 	int	depth;
-	
+
 	if (tokens[0].type != BR_OPEN || tokens[index -1].type != BR_CLOSE)
 		return (0);
 	depth = 0;
@@ -106,11 +51,11 @@ int	inside_parenthesis(t_token *tokens, int index)
 	return (1);
 }
 
-t_ast	*build_ast(t_token *tokens)//, int need_free)
+t_ast	*build_ast(t_token *tokens)
 {
 	t_ast	*ast;
 	int		size;
-	t_token *temp;
+	t_token	*temp;
 
 	if (!tokens)
 		return (NULL);
@@ -120,7 +65,7 @@ t_ast	*build_ast(t_token *tokens)//, int need_free)
 	if (inside_parenthesis(tokens, size))
 	{
 		temp = extract_tokens(tokens, 1, size - 1);
-		ast = build_ast(temp);//, 0);
+		ast = build_ast(temp);
 		if (temp)
 			free_token (&temp);
 		return (ast);
@@ -132,7 +77,5 @@ t_ast	*build_ast(t_token *tokens)//, int need_free)
 		return (ast);
 	if (tokens[0].type == CMD)
 		ast->token = tokens[0];
-	// if (need_free)
-	// 	free_token(&tokens);
 	return (ast);
 }

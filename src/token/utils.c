@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 13:09:15 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:40:36 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_check_op(t_shell *shell, char *str)
 int	ft_check_op_bracket(char *str, t_shell *shell, size_t index)
 {
 	t_token_type	type;
-	
+
 	if (index > 0)
 	{
 		type = shell->tokens->array[index - 1].type;

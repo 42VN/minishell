@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 10:29:30 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:21:27 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,44 +71,47 @@ static int	execute_builtin(t_shell *shell, char **token)
 	return (EXIT_FAILURE);
 }
 
+void	execute_non_builtin(t_shell *shell, t_token token)
+{
+	char		*command_path;
+	pid_t		pid;
+	int			fd[2];
+	int			status;
+
+	pid = init_child(shell);
+	if (pid == 0)
+	{
+		command_path = find_command_path(shell->envp, token.split_cmd[0]);
+		if (!command_path)
+		{
+			ft_free_triptr(&token.split_cmd);
+			free_all(shell);
+			exit (EXIT_FAILURE);
+		}
+		execve(command_path, token.split_cmd, shell->envp);
+		exec_error(shell, token.split_cmd, command_path);
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		update_status(shell, WEXITSTATUS(status));
+}
+
 void	execute_command(t_shell *shell, t_token token)
 {
-	char	*command_path;
-	pid_t	pid;
-	int		fd[2];
-	int		status;
+	char		*command_path;
+	int			fd[2];
+	int			status;
 	const int	tmp[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
 	fd[0] = -2;
 	fd[1] = -2;
 	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE)
-		return ; //check fail
+		return ;
 	token.split_cmd = split_command(token.cmd);
 	if (!token.split_cmd)
 		return ;
-		// exit (EXIT_FAILURE); //check fail
-	if(execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
-	{
-		pid = init_child(shell);
-		if (pid == 0)
-		{
-			command_path = find_command_path(shell->envp, token.split_cmd[0]);
-			if (!command_path)
-			{
-				ft_free_triptr(&token.split_cmd);
-				if (shell->ast)
-					ast_cleanup(&shell->ast);
-				ft_token_free(shell);
-				shell_cleanup(shell);
-				exit (EXIT_FAILURE);
-			}			
-			execve(command_path, token.split_cmd, shell->envp);
-			exec_error(shell, token.split_cmd, command_path);
-		}
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			update_status(shell, WEXITSTATUS(status));
-	}
+	if (execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
+		execute_non_builtin(shell, token);
 	redirect_fd(tmp[0], STDIN_FILENO);
 	redirect_fd(tmp[1], STDOUT_FILENO);
 	if (token.split_cmd)

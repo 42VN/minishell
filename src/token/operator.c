@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/02 15:02:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:40:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ static int	ft_count_op_skip(char **str, char op)
 	}
 	while (ft_isspace(**str))
 		(*str)++;
-	// ft_skip_strchr(str, ' ');
 	if (**str && ft_is_op(**str))
 	{
 		if (ft_is_op_logic(op) && ft_is_op_logic(**str))
 			return (0);
-		else if (ft_is_op_redirect(op))	
+		else if (ft_is_op_redirect(op))
 			return (0);
 	}
 	return (count);
@@ -164,7 +163,7 @@ int	ft_token_handle_op(char **ptr, t_shell *shell)
 		if (!ft_token_is_logic(ptr, shell, index))
 			return (0);
 		if (ft_token_is_last(*ptr))
-			return (0);		
+			return (0);
 		return (1);
 	}
 	return (0);

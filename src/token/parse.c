@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:27:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/04 15:03:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:37:23 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 	}
 	res = ft_substr(*ptr, 0, start - (*ptr));
 	if (!res)
-		return (ft_error_ret_null("ft_make_str_cmd: malloc", shell, ERR_MALLOC));
+		return (ft_error_ret_null("ft_make_str_cmd: malloc", shell, 0));
 	*ptr = start;
 	return (res);
 }
@@ -67,7 +67,8 @@ static char	*ft_alter_quote(
 	j = 0;
 	res = (char *)ft_calloc(1, sizeof(char) * (len + 1));
 	if (!res)
-		return (ft_error_ret("ft_alter_quote: malloc", shell, ERR_MALLOC, 0), NULL);
+		return (ft_error_ret("ft_alter_quote: malloc",
+				shell, ERR_MALLOC, 0), NULL);
 	while (cmd[i])
 	{
 		if (cmd[i] != quote)
@@ -90,11 +91,12 @@ static char	*ft_alter_quote(
  * 
  * Description:
  * 
- * -	Remove the most outer quotes, only take the inner string including inner quotes
+ * -	Remove the most outer quotes, only take the inner string including 
+ * inner quotes
  */
 char	*ft_token_parse(char **ptr, t_shell *shell, int parse_quote)
 {
-	char 	*str;
+	char	*str;
 	char	*res;
 	char	quote;
 

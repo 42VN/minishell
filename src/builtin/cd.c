@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 09:33:16 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 20:51:45 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	cd_tilde(t_shell *shell, char *token)
 		return (builtin_error(shell, "minishell: cd: HOME not set\n", 1));
 	path = ft_strjoin(home, (token + 1));
 	if (!path)
-		return (builtin_error(shell, "minishell: cd: memory allocation failed\n", 1));
+		return (builtin_error(shell,
+				"minishell: cd: memory allocation failed\n", 1));
 	if (chdir(path))
 	{
 		perror("minishell: cd");
@@ -59,11 +60,10 @@ int	cd_oldpwd(t_shell *shell)
 	{
 		perror("minishell: cd");
 		update_status(shell, 1);
-		return (EXIT_FAILURE); 
+		return (EXIT_FAILURE);
 	}
 	printf("%s\n", path);
 	return (update_pwd(shell));
-
 }
 
 int	cd_path(t_shell *shell, char *path)

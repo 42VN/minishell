@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 13:49:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/31 13:54:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:29:49 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
- 
+
 int	builtin_env(t_shell *shell, char **split_cmd)
 {
 	if (!shell || !split_cmd || !split_cmd[0])

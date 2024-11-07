@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/02 15:03:05 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/07 21:05:13 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	update_status(t_shell *shell, int new_status)
 {
-	if (new_status >=  0)
+	if (new_status >= 0)
 		shell->exitcode = new_status;
 	return (shell->exitcode);
 }

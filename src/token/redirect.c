@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/04 15:05:05 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:33:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 {
 	t_redirect	*redirect;
 	char		*path;
-	
+
 	redirect = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
 	if (!redirect)
 	{
