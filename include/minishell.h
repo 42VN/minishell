@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/05 14:06:18 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:50:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,10 @@ int		ft_is_op_logic(char c);
 int		ft_is_op_bracket(char c);
 char	*ft_strjoin_space(char const *s1, char const *s2);
 
+
+char	**ft_split_cmd(char *command);
+int		ft_is_all_white_spaces(char *s);
+void	handle_cmd_error(char **command, char *message, int free_pt);
+int		skip_quotes(char *str, int i);
+int		skip_word(char *str, int i);
 #endif

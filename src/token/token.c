@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:38:20 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 13:51:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
+	size_t	index;
+
+	index = shell->tokens->cur_pos;
 	if (!ft_token_realloc(shell))
 		return (0);
 	if (ft_is_op(**input))
@@ -59,6 +62,9 @@ int	ft_token_add(t_shell *shell, char **input)
 		if (!ft_token_handle_cmd(input, shell))
 			return (0);
 	}
+	shell->tokens->array[index].split_cmd = ft_split_cmd(shell->tokens->array[index].cmd);
+	if (!shell->tokens->array[index].split_cmd)
+		return (ft_error_ret("ft_split_cmd: malloc", shell, ERR_MALLOC, 0));
 	return (1);
 }
 

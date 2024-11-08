@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 11:43:58 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 13:49:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ void	execute_ast(t_shell *shell, t_ast *ast);
 char	*find_command_path(char **envp, char *command);
 void	execute_command(t_shell *shell, t_token token);
 
-char	**split_command(char *command);
-int		ft_is_all_white_spaces(char *s);
-void	handle_cmd_error(char **command, char *message, int free_pt);
-int		skip_quotes(char *str, int i);
-int		skip_word(char *str, int i);
 //---------------------------------||  UTILS  ||------------------------------//
 
 // void	print_ast(t_ast *ast);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_command.c                                    :+:      :+:    :+:   */
+/*   ft_split_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 22:37:08 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/30 21:34:45 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 13:50:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	**split_word(char *command, char **array, int words, int order)
 	return (array);
 }
 
-char	**split_command(char *command)
+char	**ft_split_cmd(char *command)
 {
 	int		words;
 	char	**array;
