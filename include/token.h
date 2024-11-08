@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 16:12:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 19:41:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ typedef struct s_shell	t_shell;
 typedef enum e_token_type
 {
 	NONE = 0,
-	CMD = 1,					// command
-	PIPE = 2,					// |
-	OR = 3,						// ||				#bonus
-	AND = 4,					// &&				#bonus
-	BR_OPEN = 5,				// ( 				#bonus
-	BR_CLOSE = 6,				// ) 				#bonus
-}	t_token_type; // bo RD
+	CMD = 1,
+	PIPE = 2,
+	OR = 3,
+	AND = 4,
+	BR_OPEN = 5,
+	BR_CLOSE = 6,
+}	t_token_type;
 
 typedef enum e_redirect_type
 {
-	RD_IN,					// <
-	RD_OUT,					// >
-	RD_HEREDOC,				// <<
-	RD_APPEND,				// >>
+	RD_IN,
+	RD_OUT,
+	RD_HEREDOC,
+	RD_APPEND,
 }	t_redirect_type;
 
 typedef enum e_err_type
@@ -74,13 +74,18 @@ typedef struct s_token
 
 typedef struct s_tokens
 {
-	t_token	*array;
-	size_t	size;
-	size_t	cur_pos;
-	size_t	to_add;
-	int		is_cmd;
-	int		br_open;
+	t_token				*array;
+	size_t				size;
+	size_t				cur_pos;
+	size_t				to_add;
+	int					is_cmd;
+	int					br_open;
 }	t_tokens;
+
+//----------------------------------------------------
+// PARSE 
+//-----------------------------------------------------
+char		*ft_token_parse(char **ptr, t_shell *shell, int parse_quote);
 
 //----------------------------------------------------
 // REDIRECT 
@@ -105,17 +110,16 @@ int			ft_token_handle_cmd(char **ptr, t_shell *shell);
 //-----------------------------------------------------
 int			ft_token_realloc(t_shell *shell);
 int			ft_token_is_last(char *str);
-int			ft_token_check_op(t_shell *shell, char *str);
-int			ft_token_check_closing_br(char *str);
+int			ft_check_op(t_shell *shell, char *str);
+int			ft_check_op_bracket(char *str, t_shell *shell, size_t index);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
-char		*ft_find_op_quote(char *cmd);
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------
 void		ft_token_print(t_shell *shell);
 void		ft_redirect_print(t_redirect **head);
-void		ft_token_parse_error(char *ptr);
+void		ft_token_parse_error(t_shell *shell, char *ptr);
 //----------------------------------------------------
 // TOKEN 
 //-----------------------------------------------------

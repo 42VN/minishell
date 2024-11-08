@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 15:13:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:15:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static int	ft_token_init(t_shell *shell)
 {
@@ -48,23 +47,29 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
+	size_t	index;
+
+	index = shell->tokens->cur_pos;
 	if (!ft_token_realloc(shell))
 		return (0);
 	if (ft_is_op(**input))
 	{
-		// printf("OP is: %s\n", *input);
 		if (!ft_token_handle_op(input, shell))
 			return (0);
 	}
 	else
 	{
-		// printf("CMD is: %s\n", *input);
 		if (!ft_token_handle_cmd(input, shell))
 			return (0);
 	}
+	if (shell->tokens->array[shell->tokens->cur_pos].cmd)
+	{
+		shell->tokens->array[index].split_cmd = ft_split_cmd(shell->tokens->array[index].cmd);
+		if (!shell->tokens->array[index].split_cmd)
+			return (ft_error_ret("ft_split_cmd: malloc", shell, ERR_MALLOC, 0));
+	}
 	return (1);
 }
-
 
 int	tokenize(t_shell *shell, char *line)
 {
@@ -74,11 +79,12 @@ int	tokenize(t_shell *shell, char *line)
 		return (0);
 	while (*line)
 	{
-		ft_skip_strchr(&line, ' ');
+		while (ft_isspace(*line))
+			line++;
 		if (*line && !ft_token_add(shell, &line))
 		{
 			if (shell->err_type != ERR_MALLOC)
-				ft_token_parse_error(line);
+				ft_token_parse_error(shell, line);
 			return (0);
 		}
 	}

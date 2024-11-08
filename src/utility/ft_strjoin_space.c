@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_space.c                                   :+:      :+:    :+:   */
+/*   ft_strjoin_space.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:22:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/09/18 18:23:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:25:13 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 char	*ft_strjoin_space(char const *s1, char const *s2)
 {

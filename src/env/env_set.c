@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 12:22:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 19:17:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,25 @@ static int	env_pushback(t_shell *shell, char *pair)
 	return (1);
 }
 
+static int	env_set_helper(
+	t_shell *shell,
+	char *res,
+	int index
+)
+{
+	if (index == -1)
+	{
+		if (!env_pushback(shell, res))
+			return (ft_free_null_ret(&res, 0));
+	}
+	else
+	{
+		free(shell->envp[index]);
+		shell->envp[index] = res;
+	}
+	return (1);
+}
+
 /**
  * Function to set a new variable inside the env list 
  * 
@@ -70,19 +89,15 @@ int	env_set(t_shell *shell, char *key, char *value)
 		return (0);
 	ft_strlcat(res, key, len);
 	ft_strlcat(res, "=", len);
-	ft_strlcat(res, value, len);
-	index = env_get_index(shell->envp, key);
-	if (index == -1)
-	{
-		if (!env_pushback(shell, res))
-			return (ft_free_null_ret(&res, 0));
-	}
-	else
+	if (!value || !*value)
 	{
 		free(shell->envp[index]);
 		shell->envp[index] = res;
+		return (1);
 	}
-	return (1);
+	ft_strlcat(res, value, len);
+	index = env_get_index(shell->envp, key);
+	return (env_set_helper(shell, res, index));
 }
 
 int	env_set_none(t_shell *shell, char *key)

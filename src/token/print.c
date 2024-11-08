@@ -6,12 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:15:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/13 14:28:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/01 15:45:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	ft_redirect_print(t_redirect **head)
 {
@@ -33,7 +32,7 @@ void	ft_redirect_print(t_redirect **head)
 			str = "RD_APPEND";
 		else if (temp->type == RD_HEREDOC)
 			str = "RD_HEREDOC";
-		printf("Path %d: %s, Type: %s\n", i, temp->path, str);
+		printf("Path %d: [%s], Type: %s\n", i, temp->path, str);
 		temp = temp->next;
 		++i;
 	}

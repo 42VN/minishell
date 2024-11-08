@@ -6,13 +6,13 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:40:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/10/21 09:46:44 by hitran           ###   ########.fr       */
+/*   Updated: 2024/10/30 21:50:00 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_echo(char **token)
+int	builtin_echo(char **token)
 {
 	int	index;
 
@@ -27,4 +27,5 @@ void	builtin_echo(char **token)
 	}
 	if (token[1] && ft_strcmp(token[1], "-n"))
 		printf("\n");
+	return (EXIT_SUCCESS);
 }

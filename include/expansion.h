@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 15:12:26 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 10:00:19 by hitran           ###   ########.fr       */
+/*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
+/*   Updated: 2024/11/08 15:37:01 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EXPANSION_H
+# define EXPANSION_H
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
+int		exp_valid_dollar_var(char c);
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
+void	exp_dollar(
+			t_shell *shell,
+			char **res,
+			char *cmd);
+void	expansion(t_shell *shell);
+
+#endif

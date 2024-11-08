@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/25 22:59:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:50:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "ast.h"
 # include "builtin.h"
 # include "environment.h"
+# include "expansion.h"
 
 # define PROMPT "minishell> "
 
@@ -34,6 +35,7 @@ typedef struct s_shell
 {
 	char		**envp;
 	char		*cwd;
+	char		*old_pwd;
 	int			aborted;
 	int			exitcode;
 	t_err_type	err_type;
@@ -58,6 +60,10 @@ int		ft_error_ret(
 			t_shell *shell,
 			t_err_type type,
 			int return_code);
+char	*ft_error_ret_null(
+			char *str,
+			t_shell *shell,
+			t_err_type type);
 char	*ft_prompt(char *prefix);
 int		ft_is_op(char c);
 int		ft_is_op_redirect(char c);
@@ -65,4 +71,10 @@ int		ft_is_op_logic(char c);
 int		ft_is_op_bracket(char c);
 char	*ft_strjoin_space(char const *s1, char const *s2);
 
+
+char	**ft_split_cmd(char *command);
+int		ft_is_all_white_spaces(char *s);
+void	handle_cmd_error(char **command, char *message, int free_pt);
+int		skip_quotes(char *str, int i);
+int		skip_word(char *str, int i);
 #endif

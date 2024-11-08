@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 21:16:11 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 20:51:06 by hitran           ###   ########.fr       */
+/*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
+/*   Updated: 2024/11/05 14:13:09 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_pwd(t_shell *shell)
+int	exp_valid_dollar_var(char c)
 {
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		perror("minishell: getcwd");
-		shell_cleanup(shell);
-		exit (EXIT_FAILURE);
-	}
-	printf("%s\n", cwd);
-	free(cwd);
-	cwd = NULL;
-	return (EXIT_SUCCESS);
+	if (ft_isalnum(c) || c == '_')
+		return (1);
+	return (0);
 }

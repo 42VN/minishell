@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 21:16:11 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 20:51:06 by hitran           ###   ########.fr       */
+/*   Created: 2024/10/31 13:53:33 by ktieu             #+#    #+#             */
+/*   Updated: 2024/11/07 21:32:21 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_pwd(t_shell *shell)
+int	builtin_unset(t_shell *shell, char **split_cmd)
 {
-	char	*cwd;
+	int		i;
+	char	*equal;
+	char	*key;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	i = 1;
+	if (!split_cmd[1])
+		return (0);
+	while (split_cmd[i])
 	{
-		perror("minishell: getcwd");
-		shell_cleanup(shell);
-		exit (EXIT_FAILURE);
+		equal = ft_strchr(split_cmd[i], '=');
+		key = ft_substr(split_cmd[i], 0, equal - split_cmd[i]);
+		if (!key)
+			return (ft_error_ret("ft_builtin_unset: malloc",
+					shell, ERR_MALLOC, 1));
+		equal = NULL;
+		env_unset(shell, key);
+		ft_free_null(&key);
+		++i;
 	}
-	printf("%s\n", cwd);
-	free(cwd);
-	cwd = NULL;
-	return (EXIT_SUCCESS);
+	return (0);
 }

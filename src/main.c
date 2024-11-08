@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 09:33:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 18:15:39 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,28 @@ static void	minishell(t_shell *shell)
 			free(input);
 			break ;
 		}
-		
+		if (ft_strcmp(input, ""))
+			add_history(input);
 		if (*input)
 		{
 			
 			if (tokenize(shell, input))
 			{
 				ft_token_print(shell);
-				// shell->ast = build_ast(shell->tokens->array);
-				shell->tokens->array[0].split_cmd = ft_split(shell->tokens->array[0].cmd, ' ');
-				if (ft_strnstr(input, "export", ft_strlen("export"))
-					|| ft_strnstr(input, "env", ft_strlen("env"))
-					|| ft_strnstr(input, "unset", ft_strlen("export"))
-				)
-				{
-					t_builtin_type type = get_builtin(shell->tokens->array[0].split_cmd[0]);
-					builtin_env(shell, type, shell->tokens->array[0].split_cmd);
-				}
-				ft_multi_free_null(&shell->tokens->array[0].split_cmd);
-				// shell->ast = build_ast(shell->tokens->array);
-				// printf("\n----PRINT AST-------\n");
-				// print_ast(shell->ast);
-				// execute_ast(shell, shell->ast);
+				// expansion(shell);
+				// ft_token_print(shell);
+				read_heredoc(shell->tokens->array, get_tokens_size(shell->tokens->array));
+				shell->ast = build_ast(shell->tokens->array);//, 0);
+				execute_ast(shell, shell->ast);
 			}
+			if (shell->ast)
+				ast_cleanup(&shell->ast);
 			ft_token_free(shell);
 		}
 		free(input);
 		input = NULL;
 	}
+	rl_clear_history();
 	return ;
 }
 

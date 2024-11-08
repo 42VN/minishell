@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/30 11:37:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:49:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define AST_H
 
 # include <sys/wait.h>
+# include <errno.h>
+
+typedef struct s_shell	t_shell;
 
 /**
  * Data structure for AST (Abstract Syntax Tree)
@@ -26,8 +29,18 @@ typedef struct s_ast
 }	t_ast;
 
 //---------------------------------||   AST   ||------------------------------//
-
+int		read_heredoc(t_token *tokens, int size);
 t_ast	*build_ast(t_token *tokens);
+char	*type_string(t_token_type type);
+void	print_ast(t_ast *ast);
+char	*redirect_string(t_redirect_type type);
+int		get_tokens_size(t_token *tokens);
+void	ast_cleanup(t_ast **ast);
+void	free_token(t_token **tokens);
+int		locate_operator(t_token *tokens, int index, int priority);
+int		get_tokens_size(t_token *tokens);
+t_token	*extract_tokens(t_token *tokens, int start, int end);
+void	ast_cleanup(t_ast **ast);
 
 //---------------------------------||EXECUTION||------------------------------//
 
@@ -37,21 +50,19 @@ void	execute_command(t_shell *shell, t_token token);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
-int		locate_logic(t_token *tokens, int index);
-int		locate_pipe(t_token *tokens, int index);
-int		is_redirect(t_token_type type);
-int		locate_redirect(t_token *tokens, int index);
-void	print_ast(t_ast *ast);
+// void	print_ast(t_ast *ast);
 void	redirect_fd(int from_fd, int to_fd);
 void	ft_free_triptr(char ***str);
-void	create_pipe(int *pipe_id);
-pid_t	init_child(t_shell *shell);
-int		update_status(int new_status);
+// void	create_pipe(int *pipe_id);
+// pid_t	init_child(t_shell *shell);
+int		update_status(t_shell *shell, int new_status); //0111
+void	free_all(t_shell *shell);
+void	wait_update(t_shell *shell, pid_t pid);
 
 //---------------------------------||  ERROR  ||------------------------------//
 
 void	open_error(t_shell *shell, char *path, int *fd);
-// void 	exec_error(shell, command_path);
-// void 	fork_error(shell);
+int		fork_error(t_shell *shell);//, char **splitted_command);
+void	exec_error(t_shell *shell, char **splitted_cmd, char *command_path);
 
 #endif

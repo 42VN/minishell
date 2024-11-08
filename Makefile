@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/10/30 16:12:11 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/08 19:51:53 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LINKER				=	-lreadline -L$(LIBFT_DIR) -lft
 #                     File and Directory Rules                                 #
 # **************************************************************************** #
 
-SRC_DIR				=	./src
+SRC_DIR				=	src
 ENV_DIR				=	$(SRC_DIR)/env
 SHELL_DIR			=	$(SRC_DIR)/shell
 BUILTIN_DIR			=	$(SRC_DIR)/builtin
@@ -32,17 +32,18 @@ UTIL_DIR			=	$(SRC_DIR)/utility
 AST_DIR				=	$(SRC_DIR)/ast
 TOKEN_DIR			=	$(SRC_DIR)/token
 EXEC_DIR			=	$(SRC_DIR)/execution
+EXP_DIR				=	$(SRC_DIR)/expansion
 OBJ_DIR				=	obj
 
 SRC_BASE_FILES		=	main.c
 ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
-AST_FILES			=	build_ast.c	print_ast.c
-UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c
-TOKEN_FILES			=	token.c free.c mem.c print.c utils.c operator.c redirect.c cmd.c error.c cmd_utils.c
-BUILTIN_FILES		=	builtin.c env.c
+AST_FILES			=	build_ast.c	read_heredoc.c ast_utils.c
+UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c ft_split_cmd.c ft_split_cmd_utils.c
+TOKEN_FILES			=	parse.c token.c free.c mem.c  utils.c operator.c cmd.c error.c print.c redirect.c
+BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
-
+EXP_FILES			=	exp.c utils.c exp_dollar.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
@@ -51,7 +52,8 @@ SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(AST_DIR)/, $(AST_FILES)) \
 						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES)) \
 						$(addprefix $(BUILTIN_DIR)/, $(BUILTIN_FILES)) \
-						$(addprefix $(EXEC_DIR)/, $(EXEC_FILES))
+						$(addprefix $(EXEC_DIR)/, $(EXEC_FILES)) \
+						$(addprefix $(EXP_DIR)/, $(EXP_FILES))
 
 OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 
@@ -66,10 +68,10 @@ $(NAME): $(OBJ_FILES) $(LIBFT_A)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS_DEV) -c $< -o $@
+	@$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(LIBFT_A):
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -s -C $(LIBFT_DIR)
 
 # **************************************************************************** #
 #                                  Clean Rules                                 #
@@ -77,11 +79,11 @@ $(LIBFT_A):
 
 clean:
 	rm -rf $(OBJ_DIR)
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -s -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -rf $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 15:14:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:40:36 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Function joins the current cmd in a token with a new one.
@@ -50,7 +49,7 @@ int	ft_token_is_last(char *str)
  * -	Increment the current position in the array 
  * 		if the current string is a separator (AND, OR, PIPE, BRACKETS)
  */
-int	ft_token_check_op(t_shell *shell, char *str)
+int	ft_check_op(t_shell *shell, char *str)
 {
 	size_t			index;
 	t_token_type	prev_type;
@@ -77,8 +76,24 @@ int	ft_token_check_op(t_shell *shell, char *str)
 	return (1);
 }
 
-int	ft_token_check_closing_br(char *str)
+/**
+ * Conditional check for opening bracket
+ * 
+ * Description:
+ * 
+ * -	Check for previous token
+ * -	Check for closing bracket
+ */
+int	ft_check_op_bracket(char *str, t_shell *shell, size_t index)
 {
+	t_token_type	type;
+
+	if (index > 0)
+	{
+		type = shell->tokens->array[index - 1].type;
+		if (type != BR_OPEN && type != AND && type != OR)
+			return (0);
+	}
 	while (*str)
 	{
 		if (*str == ')')

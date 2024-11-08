@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/13 14:28:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/07 21:40:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtin.h"
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /**
  * Count the consecutive occurrences of the operator `op` and skip them
@@ -28,7 +27,8 @@ static int	ft_count_op_skip(char **str, char op)
 		(*str)++;
 		count++;
 	}
-	ft_skip_strchr(str, ' ');
+	while (ft_isspace(**str))
+		(*str)++;
 	if (**str && ft_is_op(**str))
 	{
 		if (ft_is_op_logic(op) && ft_is_op_logic(**str))
@@ -86,7 +86,7 @@ static int	ft_token_is_bracket(
 		return (0);
 	if (**str == '(')
 	{
-		if (!ft_token_check_closing_br(*str))
+		if (!ft_check_op_bracket(*str, shell, *index))
 			return (0);
 		shell->tokens->array[*index].type = BR_OPEN;
 		shell->tokens->br_open++;
@@ -94,6 +94,8 @@ static int	ft_token_is_bracket(
 	else if (**str == ')')
 	{
 		if (shell->tokens->br_open <= 0)
+			return (0);
+		if (*index > 0 && shell->tokens->array[*index - 1].type == BR_OPEN)
 			return (0);
 		shell->tokens->array[*index].type = BR_CLOSE;
 		shell->tokens->br_open--;
@@ -149,7 +151,7 @@ int	ft_token_handle_op(char **ptr, t_shell *shell)
 
 	if (!ptr || !*ptr || !**ptr || !shell)
 		return (0);
-	if (!ft_token_check_op(shell, *ptr))
+	if (!ft_check_op(shell, *ptr))
 		return (0);
 	index = &shell->tokens->cur_pos;
 	if (**ptr == '>' || **ptr == '<')
@@ -161,7 +163,7 @@ int	ft_token_handle_op(char **ptr, t_shell *shell)
 		if (!ft_token_is_logic(ptr, shell, index))
 			return (0);
 		if (ft_token_is_last(*ptr))
-			return (0);		
+			return (0);
 		return (1);
 	}
 	return (0);

@@ -1,30 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exp_eof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 21:16:11 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 20:51:06 by hitran           ###   ########.fr       */
+/*   Created: 2024/11/04 13:32:54 by ktieu             #+#    #+#             */
+/*   Updated: 2024/11/04 13:33:02 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_pwd(t_shell *shell)
-{
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		perror("minishell: getcwd");
-		shell_cleanup(shell);
-		exit (EXIT_FAILURE);
-	}
-	printf("%s\n", cwd);
-	free(cwd);
-	cwd = NULL;
-	return (EXIT_SUCCESS);
-}
