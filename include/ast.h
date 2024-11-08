@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:09:35 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 11:43:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define AST_H
 
 # include <sys/wait.h>
+# include <errno.h>
+
 typedef struct s_shell	t_shell;
-#include <errno.h>
 
 /**
  * Data structure for AST (Abstract Syntax Tree)
@@ -34,9 +35,7 @@ char	*type_string(t_token_type type);
 void	print_ast(t_ast *ast);
 char	*redirect_string(t_redirect_type type);
 int		get_tokens_size(t_token *tokens);
-void 	ast_cleanup(t_ast **ast);
-
-
+void	ast_cleanup(t_ast **ast);
 void	free_token(t_token **tokens);
 int		locate_operator(t_token *tokens, int index, int priority);
 int		get_tokens_size(t_token *tokens);
@@ -59,15 +58,16 @@ int		skip_word(char *str, int i);
 // void	print_ast(t_ast *ast);
 void	redirect_fd(int from_fd, int to_fd);
 void	ft_free_triptr(char ***str);
-void	create_pipe(int *pipe_id);
-pid_t	init_child(t_shell *shell);
+// void	create_pipe(int *pipe_id);
+// pid_t	init_child(t_shell *shell);
 int		update_status(t_shell *shell, int new_status); //0111
 void	free_all(t_shell *shell);
+void	wait_update(t_shell *shell, pid_t pid);
 
 //---------------------------------||  ERROR  ||------------------------------//
 
 void	open_error(t_shell *shell, char *path, int *fd);
-void 	fork_error(t_shell *shell);
-void 	exec_error(t_shell *shell, char **splitted_cmd, char *command_path);
+int		fork_error(t_shell *shell);//, char **splitted_command);
+void	exec_error(t_shell *shell, char **splitted_cmd, char *command_path);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_skip_strchr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 21:00:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/10/29 13:32:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 11:48:33 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*ft_skip_quote(char **s)
 	}
 	return (NULL);
 }
-
 
 void	*ft_memcpy_esc(void	*dst, void const *src, size_t n)
 {

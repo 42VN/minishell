@@ -6,22 +6,54 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 21:21:27 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 11:59:04 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Function to open a pipe for a heredoc
+ * Description:
+ * - Creates a pipe to simulate the heredoc behavior.
+ * - Writes the content of the heredoc string to the pipe.
+ * - Closes the write end of the pipe.
+ * Returns:
+ * - The read end of the pipe, which can be used for input redirection.
+ * - If an error occurs while creating the pipe, it frees the heredoc string and
+ *   sets it to "pipe" before returning -1.
+ */
 static int	open_heredoc(char *heredoc)
 {
 	int	pipe_fd[2];
 
-	create_pipe(pipe_fd);
+	if (pipe(pipe_fd) == -1)
+	{
+		free(heredoc);
+		heredoc = ft_strdup("pipe");
+		return (-1);
+	}
 	write(pipe_fd[1], heredoc, ft_strlen(heredoc));
 	close (pipe_fd[1]);
 	return (pipe_fd[0]);
 }
 
+/**
+ * Function to handle input and output redirection for commands
+ * Description:
+ * - Iterates over the list of redirects and opens the necessary files or pipes.
+ * - Supports:
+ * 	 input redirection (RD_IN), 
+ * 	 output redirection (RD_OUT),
+ * 	 append redirection (RD_APPEND),
+ * 	 and heredoc (RD_HEREDOC).
+ * - If a file cannot be opened or a heredoc cannot be created, 
+ * 	 it calls open_error to report the issue.
+ * - Redirects the file descriptors for stdin and stdout as needed.
+ * Returns:
+ * - EXIT_SUCCESS if all redirections are set up correctly, or 
+ * - EXIT_FAILURE if an error occurs.
+ */
 static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
 	int	pipe_fd[2];
@@ -50,6 +82,15 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * Function to execute built-in commands
+ * Description:
+ * - Checks the command token against a list of known built-in commands:
+ * 	 echo, cd, pwd, export, unset, env, exit.
+ * - Calls the corresponding built-in function if the command matches.
+ * Returns:
+ * - EXIT_FAILURE if the command is not recognized as a built-in.
+ */
 static int	execute_builtin(t_shell *shell, char **token)
 {
 	if (!token || !token[0])
@@ -71,6 +112,15 @@ static int	execute_builtin(t_shell *shell, char **token)
 	return (EXIT_FAILURE);
 }
 
+/**
+ * Function to execute non-built-in commands
+ * Description:
+ * - Forks a child process to execute a non-built-in command.
+ * - Searches for the command's path using find_command_path.
+ * - If the command is found, it executes the command using execve.
+ * - If the command is not found, it frees resources and exits with failure.
+ * - Waits for the child process to complete before returning.
+ */
 void	execute_non_builtin(t_shell *shell, t_token token)
 {
 	char		*command_path;
@@ -78,7 +128,12 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 	int			fd[2];
 	int			status;
 
-	pid = init_child(shell);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("minishell: fork2");
+		return ;
+	}
 	if (pid == 0)
 	{
 		command_path = find_command_path(shell->envp, token.split_cmd[0]);
@@ -91,11 +146,19 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 		execve(command_path, token.split_cmd, shell->envp);
 		exec_error(shell, token.split_cmd, command_path);
 	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		update_status(shell, WEXITSTATUS(status));
+	wait_update(shell, pid);
 }
 
+/**
+ * Function to execute a command, either built-in or non-built-in
+ * Description:
+ * - Handles redirection of input and output by calling redirect_io.
+ * - Splits the command into tokens using split_command.
+ * - If the command is a built-in, it calls execute_builtin.
+ * - If the command is non-built-in, it calls execute_non_builtin.
+ * - Restores the original stdin and stdout file descriptors after execution.
+ * - Frees any allocated memory for the command tokens after execution.
+ */
 void	execute_command(t_shell *shell, t_token token)
 {
 	char		*command_path;

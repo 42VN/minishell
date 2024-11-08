@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 21:05:13 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 11:00:50 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,44 @@ void	ft_free_triptr(char ***str)
 	}
 }
 
-pid_t	init_child(t_shell *shell)
-{
-	pid_t	pid;
+// pid_t	init_child(t_shell *shell)
+// {
+// 	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-		fork_error(shell);
-	return (pid);
-}
+// 	pid = fork();
+// 	pid = -1;//test
+// 	if (pid == -1)
+// 		fork_error(shell);//, NULL);
+// 	return (pid);
+// }
 
-void	create_pipe(int *pipe_id)
-{
-	if (pipe(pipe_id) == -1)
-	{
-		perror("Error: pipe");
-		exit (1);
-	}
-}
+// void	create_pipe(int *pipe_id)
+// {
+// 	int i = pipe(pipe_id); //test
+// 	i = -1; //test
+// 	if (i == -1) //test pipe(pipe_id) == -1)
+// 	{
+// 		perror("minishell: pipe");
+// 		exit (1);
+// 	}
+// }
 
 void	redirect_fd(int from_fd, int to_fd)
 {
 	if (dup2(from_fd, to_fd) == -1)
 	{
-		perror("Error: dup2");
+		perror("minishell: dup2");
 		close(from_fd);
 		exit(1);
 	}
 	close(from_fd);
+}
+
+void	wait_update(t_shell *shell, pid_t pid)
+{
+	int		status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		update_status(shell, WEXITSTATUS(status));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/04 15:02:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 11:48:02 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ typedef struct s_shell	t_shell;
 typedef enum e_token_type
 {
 	NONE = 0,
-	CMD = 1,					// command
-	PIPE = 2,					// |
-	OR = 3,						// ||				#bonus
-	AND = 4,					// &&				#bonus
-	BR_OPEN = 5,				// ( 				#bonus
-	BR_CLOSE = 6,				// ) 				#bonus
-}	t_token_type; // bo RD
+	CMD = 1,
+	PIPE = 2,
+	OR = 3,
+	AND = 4,
+	BR_OPEN = 5,
+	BR_CLOSE = 6,
+}	t_token_type;
 
 typedef enum e_redirect_type
 {
-	RD_IN,					// <
-	RD_OUT,					// >
-	RD_HEREDOC,				// <<
-	RD_APPEND,				// >>
+	RD_IN,
+	RD_OUT,
+	RD_HEREDOC,
+	RD_APPEND,
 }	t_redirect_type;
 
 typedef enum e_err_type
