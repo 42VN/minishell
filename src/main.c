@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 11:56:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/08 18:15:39 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	minishell(t_shell *shell)
 			
 			if (tokenize(shell, input))
 			{
+				ft_token_print(shell);
+				// expansion(shell);
 				// ft_token_print(shell);
 				read_heredoc(shell->tokens->array, get_tokens_size(shell->tokens->array));
 				shell->ast = build_ast(shell->tokens->array);//, 0);

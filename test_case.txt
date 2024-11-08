@@ -30,3 +30,31 @@ echo  include  libft  LICENSE  Makefile  minishell  obj  out  outfile  README.md
 
 minishell> ls || echo fail
 minishell> echo  include  libft  LICENSE  Makefile  minishell  obj  out  outfile  README.md  src  test_case.txt
+
+
+
+Note:
+
+1. Signal:
+-	Changing the behaviors for parent and child process 
+-	Heredoc is a different species
+
+2. Export
+
+-	VAR1+=value (append)
+-	export VAR1 => should be display when calling `export` but not `env`
+
+
+
+-	export hello
+	=> env		:	nothing
+	=> export	:	declare -x hello
+
+-	export hello=
+	=> env		:	hello=
+	=> export	:	declare -x hello=""
+
+-	export hello=""
+	=> env		:	hello=
+	=> export	:	declare -x hello=""
+

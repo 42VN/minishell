@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:31:59 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 19:51:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,16 @@ static int	export_variable(t_shell *shell, char *arg)
 	if (!equal)
 	{
 		key = arg;
-		env_unset(shell, key);
+		// env_unset(shell, key);
 		return (0);
 	}
 	key = ft_substr(arg, 0, (equal - arg));
 	*equal = '\0';
 	equal++;
-	value_str = equal;
+	// value_str = equal;
+	// if (ft_isspace(*value_str) || !*value_str)
+	// 	value_str = NULL;
+	export_check_value(shell, &value_str);
 	env_unset(shell, key);
 	env_set(shell, key, value_str);
 	free(key);

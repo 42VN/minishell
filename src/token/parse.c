@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:27:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:37:23 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/08 19:42:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_quote_err(char quote, t_shell *shell)
+static char	*ft_quote_err(char *quote, t_shell *shell, char **ptr)
 {
 	shell->err_type = ERR_SYNTAX;
 	ft_printf_fd(2, "minishell: unexpected EOF while ");
-	ft_printf_fd(2, "looking for matching `%c'\n", quote);
+	ft_printf_fd(2, "looking for matching `%c'\n", *quote);
+	*ptr = quote;
 	return (NULL);
 }
 
@@ -38,7 +39,7 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 			if (quote_end)
 				start = quote_end;
 			else
-				return (ft_quote_err(*quote, shell));
+				return (ft_quote_err(start, shell, ptr));
 		}
 		start++;
 	}
