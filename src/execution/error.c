@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/08 11:45:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/11 16:07:20 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	open_error(t_shell *shell, char *path, int *fd)
  */
 void	exec_error(t_shell *shell, char **splitted_cmd, char *command_path)
 {
-	if (splitted_cmd)
-		ft_free_triptr(&splitted_cmd);
+	// if (splitted_cmd)
+	// 	ft_free_triptr(&splitted_cmd);
 	if (command_path)
 		free (command_path);
 	free_all(shell);

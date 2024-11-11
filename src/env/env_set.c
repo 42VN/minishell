@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 19:17:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/11 16:49:24 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,18 @@ int	env_set(t_shell *shell, char *key, char *value)
 	if (!res)
 		return (0);
 	ft_strlcat(res, key, len);
-	ft_strlcat(res, "=", len);
+	if (value)
+		ft_strlcat(res, "=", len);
 	if (!value || !*value)
 	{
+		printf("Res no value: [%s]\n", res);
 		free(shell->envp[index]);
 		shell->envp[index] = res;
 		return (1);
 	}
 	ft_strlcat(res, value, len);
 	index = env_get_index(shell->envp, key);
+	printf("Res: [%s]\n", res);
 	return (env_set_helper(shell, res, index));
 }
 

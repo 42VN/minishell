@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:40:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/11 15:58:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_token_free(t_shell *shell)
 			free(shell->tokens->array[i].cmd);
 			shell->tokens->array[i].cmd = NULL;
 		}
+		if (shell->tokens->array[i].split_cmd)
+			ft_multi_free_null(&shell->tokens->array[i].split_cmd);
 		if (shell->tokens->array[i].redirect)
 		{
 			ft_redirect_clear(&shell->tokens->array[i].redirect);
