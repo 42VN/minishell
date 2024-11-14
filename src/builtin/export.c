@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 19:51:16 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:52:29 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static int	export_is_valid(char *str)
 {
 	if (*str == '\0' || *str == '=' || ft_isdigit(*str))
+	{
 		return (0);
+	}
 	while (*str && *str != '=')
 	{
 		if (!ft_isalnum(*str) && *str != '_')
+		{
 			return (0);
+		}
 		str++;
 	}
 	return (1);
@@ -61,26 +65,24 @@ static int	export_variable(t_shell *shell, char *arg)
 {
 	char	*equal;
 	char	*key;
-	char	*value_str;
 
 	if (!export_is_valid(arg))
 		return (1);
 	equal = ft_strchr(arg, '=');
-	if (!equal)
-	{
-		key = arg;
-		// env_unset(shell, key);
-		return (0);
-	}
 	key = ft_substr(arg, 0, (equal - arg));
-	*equal = '\0';
-	equal++;
-	// value_str = equal;
-	// if (ft_isspace(*value_str) || !*value_str)
-	// 	value_str = NULL;
-	export_check_value(shell, &value_str);
-	env_unset(shell, key);
-	env_set(shell, key, value_str);
+	if (equal)
+	{
+		equal++;
+		if (ft_isspace(*equal))
+			equal = "";
+		if ((*equal == '\'' || *equal=='\"')
+			&& (*(equal + 1) == '\'' || *(equal + 1)=='\"'))
+		{
+			equal = "";
+		}
+		env_unset(shell, key);
+	}
+	env_set(shell, key, equal);
 	free(key);
 	return (0);
 }

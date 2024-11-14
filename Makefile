@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/08 19:51:53 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/14 16:51:29 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME				=	minishell
 
 CC					=	cc
 CFLAGS				=	-O3 -Wall -Wextra -Werror -I ./include
-CFLAGS_DEV			=	-g -O3 -I ./include
+CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
 
 LIBFT_DIR			=	./libft
 LIBFT_A				=	$(LIBFT_DIR)/libft.a

@@ -12,6 +12,19 @@
 		"wait.h": "c",
 		"stdlib.h": "c",
 		"environment.h": "c",
+<<<<<<< HEAD
 		"sstream": "c"
+=======
+		"sstream": "c",
+		"libft.h": "c",
+		"deque": "c",
+		"list": "c",
+		"string": "c",
+		"unordered_map": "c",
+		"unordered_set": "c",
+		"vector": "c",
+		"string_view": "c",
+		"initializer_list": "c"
+>>>>>>> dev_kha
 	}
 }

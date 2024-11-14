@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 14:15:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:53:41 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,24 @@ int	ft_token_add(t_shell *shell, char **input)
 		if (!ft_token_handle_cmd(input, shell))
 			return (0);
 	}
-	if (shell->tokens->array[shell->tokens->cur_pos].cmd)
+
+	return (1);
+}
+
+static int	ft_token_split_cmd(t_shell *shell)
+{
+	size_t	index;
+
+	index = 0;
+	while (index <= shell->tokens->cur_pos)
 	{
-		shell->tokens->array[index].split_cmd = ft_split_cmd(shell->tokens->array[index].cmd);
-		if (!shell->tokens->array[index].split_cmd)
-			return (ft_error_ret("ft_split_cmd: malloc", shell, ERR_MALLOC, 0));
+		if (shell->tokens->array[shell->tokens->cur_pos].cmd)
+		{
+			shell->tokens->array[index].split_cmd = ft_split_esc(shell->tokens->array[index].cmd, ' ');
+			if (!shell->tokens->array[index].split_cmd)
+				return (ft_error_ret("ft_split_cmd: malloc", shell, ERR_MALLOC, 0));
+		}
+		index++;
 	}
 	return (1);
 }
@@ -90,5 +103,7 @@ int	tokenize(t_shell *shell, char *line)
 	}
 	if (shell->tokens->array[shell->tokens->cur_pos].type == NONE)
 		shell->tokens->cur_pos--;
+	if (!ft_token_split_cmd(shell))
+		return (0);
 	return (1);
 }

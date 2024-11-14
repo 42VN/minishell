@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/08 13:52:36 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/14 16:55:19 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 		command_path = find_command_path(shell->envp, token.split_cmd[0]);
 		if (!command_path)
 		{
-			ft_free_triptr(&token.split_cmd);
+			// ft_free_triptr(&token.split_cmd);
 			free_all(shell);
 			exit (EXIT_FAILURE);
 		}
@@ -174,6 +174,6 @@ void	execute_command(t_shell *shell, t_token token)
 		execute_non_builtin(shell, token);
 	redirect_fd(tmp[0], STDIN_FILENO);
 	redirect_fd(tmp[1], STDOUT_FILENO);
-	if (token.split_cmd)
-		ft_free_triptr(&token.split_cmd);
+	// if (token.split_cmd)
+	// 	ft_free_triptr(&token.split_cmd);
 }
