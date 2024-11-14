@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/14 16:52:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:23:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,24 @@ static int	env_set_helper(
 	return (1);
 }
 
+static int	env_add(t_shell *shell, int index, char *res)
+{
+	if (index == -1)
+	{
+		if (!env_pushback(shell, res))
+			return (ft_free_null_ret(&res, 0));
+	}
+	else
+	{
+		if (ft_strchr(shell->envp[index], '='))
+		{
+			free(shell->envp[index]);
+			shell->envp[index] = res;
+		}
+	}
+	return (1);
+}
+
 /**
  * Function to set a new variable inside the env list 
  * 
@@ -94,15 +112,7 @@ int	env_set(t_shell *shell, char *key, char *value)
 		ft_strlcat(res, value, len);
 	}
 	index = env_get_index(shell->envp, key);
-	if (index == -1)
-	{
-		if (!env_pushback(shell, res))
-			return (ft_free_null_ret(&res, 0));
-		return (1);
-	}
-	free(shell->envp[index]);
-	shell->envp[index] = res;
-	return (1);
+	return (env_add(shell, index, res));
 }
 
 int	env_set_none(t_shell *shell, char *key)

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/14 16:52:29 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/14 17:53:06 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,7 @@ static int	export_standalone(char **envp)
 		if (sorted_envp[i][0] != '\0')
 		{
 			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			equal = ft_strchr(sorted_envp[i], '=');
-			if (equal)
-			{
-				write(1, sorted_envp[i], (equal - sorted_envp[i]) + 1);
-				printf("\"%s\"\n", equal + 1);
-			}
-			else
-				printf("%s\n", sorted_envp[i]);
+			export_standalone_print(sorted_envp[i]);
 		}
 		++i;
 	}
