@@ -46,15 +46,15 @@ Note:
 
 
 
--	export hello
+-	✅ export hello 
 	=> env		:	nothing
 	=> export	:	declare -x hello
 
--	export hello=
+-	✅ export hello=
 	=> env		:	hello=
 	=> export	:	declare -x hello=""
 
--	export hello=""
+-	✅ export hello=""
 	=> env		:	hello=
 	=> export	:	declare -x hello=""
 
