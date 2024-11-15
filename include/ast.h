@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 13:49:46 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/15 11:28:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_ast
 }	t_ast;
 
 //---------------------------------||   AST   ||------------------------------//
-int		read_heredoc(t_token *tokens, int size);
+int		read_heredoc(t_shell *shell, t_token *tokens, int size);
 t_ast	*build_ast(t_token *tokens);
 char	*type_string(t_token_type type);
 void	print_ast(t_ast *ast);

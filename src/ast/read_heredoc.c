@@ -6,11 +6,36 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/08 11:44:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/15 11:35:46 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_warning(char *eof)
+{
+	char		*tmp;
+	int			len;
+	const char	*ms1;
+	const char	*ms2;
+
+	ms1 = "minishell: warning: here-document at line 1 delimited by "
+			"end-of-file (wanted `";
+	ms2 = "')\n";
+	len = ft_strlen(ms1) + ft_strlen(eof) + ft_strlen(ms2) + 1;
+	tmp = (char *)ft_calloc(len, 1);
+	if (!tmp)
+	{
+		ft_putstr_fd("minishell: error: allocation failed", STDERR_FILENO);
+		return ;
+	}
+	ft_strlcat(tmp, ms1, len);
+	ft_strlcat(tmp, eof, len);
+	ft_strlcat(tmp, ms2, len);
+	ft_putstr_fd(tmp, STDERR_FILENO);
+	if (tmp)
+		free(tmp);
+}
 
 /**
  * Function that joins two strings and frees them
@@ -24,7 +49,7 @@
  * Returns:
  * - New string with <s1>, <s2>, and a newline, or NULL on allocation failure
  */
-char	*join_and_free(char *s1, char *s2)
+static char	*join_and_free(char *s1, char *s2)
 {
 	char	*res;
 	int		len;
@@ -63,17 +88,27 @@ char	*join_and_free(char *s1, char *s2)
  * - 1 if heredoc is successfully read and stored
  * - 0 if an error occurs or allocation fails
  */
-int	here_doc(t_redirect *redirect)
+static int	here_doc(t_shell *shell, t_redirect *redirect)
 {
 	char	*line;
 	char	*heredoc;
 
 	heredoc = NULL;
+	set_signals(shell, HEREDOC);
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
+		{
+			print_warning(redirect->path);
 			break ;
+		}
+		if (shell->exitcode - 128 == SIGINT)
+		{
+			free(redirect->path);
+			redirect->path = ft_strdup("");
+			return (0);
+		}
 		if (!ft_strcmp(redirect->path, line))
 		{
 			free(line);
@@ -81,10 +116,11 @@ int	here_doc(t_redirect *redirect)
 		}
 		heredoc = join_and_free(heredoc, line);
 	}
-	if (!heredoc)
-		return (0);
+	// if (!heredoc)
+	// 	return (0);
 	free(redirect->path);
 	redirect->path = heredoc;
+	set_signals(shell, PARENT);
 	return (1);
 }
 
@@ -99,12 +135,12 @@ int	here_doc(t_redirect *redirect)
  * - 1 if all here-documents are successfully processed
  * - 0 if any here-doc fails or an allocation error occurs
  */
-int	start_heredoc(t_redirect *redirect)
+static int	start_heredoc(t_shell *shell, t_redirect *redirect)
 {
 	while (redirect)
 	{
 		if (redirect->type == RD_HEREDOC)
-			if (!here_doc(redirect))
+			if (!here_doc(shell, redirect))
 				return (0);
 		redirect = redirect->next;
 	}
@@ -123,7 +159,7 @@ int	start_heredoc(t_redirect *redirect)
  * - 1 if all here-documents are successfully read and stored
  * - 0 if any here-doc fails or an error occurs
  */
-int	read_heredoc(t_token *tokens, int size)
+int	read_heredoc(t_shell *shell, t_token *tokens, int size)
 {
 	int	index;
 
@@ -132,7 +168,7 @@ int	read_heredoc(t_token *tokens, int size)
 	{
 		if (tokens[index].type == CMD)
 		{
-			if (!start_heredoc(tokens[index].redirect))
+			if (!start_heredoc(shell, tokens[index].redirect))
 				return (0);
 		}
 		index++;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/14 16:51:29 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/15 11:32:21 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ AST_DIR				=	$(SRC_DIR)/ast
 TOKEN_DIR			=	$(SRC_DIR)/token
 EXEC_DIR			=	$(SRC_DIR)/execution
 EXP_DIR				=	$(SRC_DIR)/expansion
+SIG_DIR				=	$(SRC_DIR)/signals
 OBJ_DIR				=	obj
 
 SRC_BASE_FILES		=	main.c
@@ -44,6 +45,7 @@ TOKEN_FILES			=	parse.c token.c free.c mem.c  utils.c operator.c cmd.c error.c p
 BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 EXP_FILES			=	exp.c utils.c exp_dollar.c
+SIG_FILES			=	signals.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
@@ -53,7 +55,8 @@ SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
 						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES)) \
 						$(addprefix $(BUILTIN_DIR)/, $(BUILTIN_FILES)) \
 						$(addprefix $(EXEC_DIR)/, $(EXEC_FILES)) \
-						$(addprefix $(EXP_DIR)/, $(EXP_FILES))
+						$(addprefix $(EXP_DIR)/, $(EXP_FILES))\
+						$(addprefix $(SIG_DIR)/, $(SIG_FILES))
 
 OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 
