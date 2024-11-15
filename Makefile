@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
+#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/15 11:32:21 by hitran           ###   ########.fr        #
+#    Updated: 2024/11/15 12:40:41 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME				=	minishell
 CC					=	cc
 CFLAGS				=	-O3 -Wall -Wextra -Werror -I ./include
 CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
+CFLAGS_VALGRIND		=	-g -O3 -Wall -Wextra -Werror -I ./include
 
 LIBFT_DIR			=	./libft
 LIBFT_A				=	$(LIBFT_DIR)/libft.a
