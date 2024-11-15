@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/14 17:25:36 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/15 12:17:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	ft_token_split_cmd(t_shell *shell)
 	index = 0;
 	while (index <= shell->tokens->cur_pos)
 	{
-		if (shell->tokens->array[shell->tokens->cur_pos].cmd)
+		if (shell->tokens->array[index].cmd)
 		{
 			shell->tokens->array[index].split_cmd = ft_split_esc(shell->tokens->array[index].cmd, ' ');
 			if (!shell->tokens->array[index].split_cmd)
