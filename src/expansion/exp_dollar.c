@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:00 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 15:44:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/15 23:40:34 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,16 @@ static char	*exp_dollar_get_var(t_shell *shell, char *cmd, size_t *j)
 		res = ft_strdup("");
 	else
 		res = ft_strdup(env_var_val);
+	if (!res)
+		return (ft_error_ret("exp_dollar: malloc", shell, ERR_MALLOC, 0));
 	return (res);
+}
+
+static inline int	exp_is_normal_str(char c)
+{
+	if (c == '\'' || c == '\"' || c == '@' || ft_isdigit(c))
+		return (1);
+	return (0);
 }
 
 void exp_dollar(
@@ -53,7 +62,7 @@ void exp_dollar(
 	j++;
 	if (cmd[j] == '@' || ft_isdigit(cmd[j]))
 		(j)++;
-	if (cmd[j] == '\'' || cmd[j] == '\"' || cmd[j] == '@' || ft_isdigit(cmd[j]))
+	if (exp_is_normal_str(cmd[j]))
 		return;
 	else if (cmd[j] == '?')
 	{
@@ -67,7 +76,7 @@ void exp_dollar(
 	if (!str)
 		return (ft_free_null(res));
 	joined = ft_strjoin(*res, str);
-	ft_free_null(res);
-	ft_free_null(&str);
+	free(*res);
+	free(str);
 	*res = joined;
 }
