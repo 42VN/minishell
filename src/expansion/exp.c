@@ -6,24 +6,16 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/17 00:33:53 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/17 01:12:29 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	replace_exp(
-	char **cmd_arg,
-	char **res,
-	int is_exp)
+static int	exp_post_process(t_shell *shell, char **res)
 {
-	if (is_exp)
-	{
-		ft_free_null(cmd_arg);
-		*cmd_arg = *res;
-	}
-	else
-		free(*res);
+	exp_strip_quotes(*res);
+	return (1);
 }
 
 static int	exp_process(t_shell *shell, char **res, char *cmd)
@@ -44,6 +36,7 @@ static int	exp_process(t_shell *shell, char **res, char *cmd)
 			exp_single_quote(res, cmd, &k);
 		else
 			exp_normal(res, cmd, &k);
+		// printf("Post process: [%s]\n", *res);
 	}
 	return (1);
 }
@@ -58,11 +51,9 @@ static int	exp_logic(t_shell *shell, int i, int j)
 	exp_process(shell, &res, shell->tokens->array[i].split_cmd[j]);
 	if (!res)
 		return (ft_error_ret("expansion below: malloc", shell, ERR_MALLOC, 0));
-
-	if (*res)
-		printf("Res: [%s]\n", res);
-	free(res); //temp
-	// replace_exp(&shell->tokens->array[i].split_cmd[j], &res, is_exp);
+	exp_post_process(shell, &res);
+	ft_free_null(&shell->tokens->array[i].split_cmd[j]);
+	shell->tokens->array[i].split_cmd[j] = res;
 	return (1);
 }
 

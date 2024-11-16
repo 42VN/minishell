@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:39:09 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/17 00:32:41 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/17 01:48:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ void	exp_single_quote(char **res, char *cmd, size_t *i)
 	char	*joined;
 	size_t	start;
 
-	start = *i + 1; // Skip the opening single quote
+	start = *i;
 	(*i)++;
 	while (cmd[*i] && cmd[*i] != '\'')
 		(*i)++;
-	if (!cmd[*i]) // No closing quote found
+	if (!cmd[*i])
 		return (ft_free_null(res));
-	str = ft_substr(cmd, start, *i - start); // Extract content between quotes
+	(*i)++;
+	str = ft_substr(cmd, start, *i - start);
 	if (!str)
 		return (ft_free_null(res));
-	joined = ft_strjoin(*res, str); // Concatenate with the current result
+	joined = ft_strjoin(*res, str);
 	if (!joined)
 	{
 		free(str);
@@ -43,5 +44,4 @@ void	exp_single_quote(char **res, char *cmd, size_t *i)
 	free(*res);
 	free(str);
 	*res = joined;
-	(*i)++; // Skip the closing single quote
 }
