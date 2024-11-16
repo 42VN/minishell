@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/15 23:46:41 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/17 00:33:53 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,43 @@ static void	replace_exp(
 		free(*res);
 }
 
+static int	exp_process(t_shell *shell, char **res, char *cmd)
+{
+	char	*joined;
+	size_t	k;
 
-static int	exp_get_str(t_shell *shell, int i, int j)
+	k = 0;
+	if (*cmd == '~')
+		exp_tiddle_front(shell, res, cmd, &k);
+	while (cmd[k])
+	{
+		if (cmd[k] == '$')
+			exp_dollar(shell, res, cmd, &k);
+		else if (cmd[k] == '~')
+			exp_tiddle(res, cmd, &k);
+		else if (cmd[k] == '\'')
+			exp_single_quote(res, cmd, &k);
+		else
+			exp_normal(res, cmd, &k);
+	}
+	return (1);
+}
+
+static int	exp_logic(t_shell *shell, int i, int j)
 {
 	char	*res;
-	int		is_exp;
 
-	is_exp = 1;
 	res = ft_strdup("");
 	if (!res)
 		return (ft_error_ret("expansion: malloc", shell, ERR_MALLOC, 0));
-	if (*shell->tokens->array[i].split_cmd[j] == '$')
-		exp_dollar(shell, &res, shell->tokens->array[i].split_cmd[j]);
-	else
-		is_exp = 0;
+	exp_process(shell, &res, shell->tokens->array[i].split_cmd[j]);
 	if (!res)
-		return (ft_error_ret("expansion: malloc", shell, ERR_MALLOC, 0));
-	replace_exp(&shell->tokens->array[i].split_cmd[j], &res, is_exp);
+		return (ft_error_ret("expansion below: malloc", shell, ERR_MALLOC, 0));
+
+	if (*res)
+		printf("Res: [%s]\n", res);
+	free(res); //temp
+	// replace_exp(&shell->tokens->array[i].split_cmd[j], &res, is_exp);
 	return (1);
 }
 
@@ -59,7 +79,7 @@ void	expansion(t_shell *shell)
 	{
 		while (shell->tokens->array[i].split_cmd[j])
 		{
-			exp_get_str(shell, i, j);
+			exp_logic(shell, i, j);
 			++j;
 		}
 		++i;

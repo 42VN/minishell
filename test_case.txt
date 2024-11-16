@@ -58,4 +58,10 @@ Note:
 	=> env		:	hello=
 	=> export	:	declare -x hello=""
 
+
+16/10 Note:
+
+-	Be careful of quotes in dollar expansion $'' and $""
+-	Single quotes	->	Handle backslashed characters (\n, \t)
+-	Double quotes	->	Can have nested dollar expansion inside ->	echo $"$PATH" 
 	
