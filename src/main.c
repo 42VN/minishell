@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/17 01:01:06 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/18 11:40:48 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ static void ft_print_split_cmd(t_shell *shell)
 		printf("\n------------------------\n");
 		printf("Split cmd\n");
 		printf("------------------------\n");
-		while (shell->tokens->array[i].split_cmd[j])
+		if (shell->tokens->array[i].split_cmd)
 		{
-			printf("[%s] ", shell->tokens->array[i].split_cmd[j]);
-			++j;
+			while (shell->tokens->array[i].split_cmd[j])
+			{
+				printf("[%s] ", shell->tokens->array[i].split_cmd[j]);
+				++j;
+			}
 		}
 		printf("\n");
 		++i;
@@ -60,10 +63,9 @@ static void	minishell(t_shell *shell)
 			if (tokenize(shell, input))
 			{
 				// ft_token_print(shell);
-				// ft_token_print(shell);
 				read_heredoc(shell, shell->tokens->array, get_tokens_size(shell->tokens->array));
 				expansion(shell);
-				ft_print_split_cmd(shell);
+				// ft_print_split_cmd(shell);
 				shell->ast = build_ast(shell->tokens->array);//, 0);
 				execute_ast(shell, shell->ast);
 			}

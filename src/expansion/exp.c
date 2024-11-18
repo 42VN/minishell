@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/17 01:12:29 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/18 11:37:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,13 @@ void	expansion(t_shell *shell)
 	j = 0;
 	while (i <= shell->tokens->cur_pos)
 	{
-		while (shell->tokens->array[i].split_cmd[j])
+		if (shell->tokens->array[i].split_cmd)
 		{
-			exp_logic(shell, i, j);
-			++j;
+			while (shell->tokens->array[i].split_cmd[j])
+			{
+				exp_logic(shell, i, j);
+				++j;
+			}
 		}
 		++i;
 	}
