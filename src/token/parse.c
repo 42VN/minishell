@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:27:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:54:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:57:15 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
  * -	Remove the most outer quotes, only take the inner string including 
  * inner quotes
  */
-char	*ft_token_parse(char **ptr, t_shell *shell)
+char	*ft_token_parse(char **ptr, t_shell *shell, int parse_quote)
 {
 	char	*str;
 	char	*res;
@@ -60,6 +60,17 @@ char	*ft_token_parse(char **ptr, t_shell *shell)
 	str = ft_make_str_cmd(ptr, shell, &quote);
 	if (!str)
 		return (NULL);
-	res = str;
+	if (quote != '\0' && parse_quote == 1)
+	{
+		res = ft_remove_quote(str, quote, shell, ft_strlen(str));
+		if (!res && shell->err_type == ERR_MALLOC)
+		{
+			free(str);
+			return (NULL);
+		}
+		free(str);
+	}
+	else
+		res = str;
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:54:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:59:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_remove_quote(
 				char quote,
 				t_shell *shell,
 				size_t len);
-char		*ft_token_parse(char **ptr, t_shell *shell);
+char		*ft_token_parse(char **ptr, t_shell *shell, int has_quote);
 
 //----------------------------------------------------
 // REDIRECT 
