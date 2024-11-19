@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 22:42:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:56:04 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "builtin.h"
 # include "environment.h"
 # include "expansion.h"
+# include "signals.h"
 
 # define PROMPT "minishell> "
 
@@ -80,16 +81,5 @@ int		ft_is_all_white_spaces(char *s);
 void	handle_cmd_error(char **command, char *message, int free_pt);
 int		skip_quotes(char *str, int i);
 int		skip_word(char *str, int i);
-
-typedef enum e_signal_type
-{
-	PARENT,
-	CHILD,
-	HEREDOC
-}	t_signal_type;
-
-//---------------------------------||  SIGNAL ||------------------------------//
-
-int		start_signal(t_shell *shell, t_signal_type type);
 
 #endif

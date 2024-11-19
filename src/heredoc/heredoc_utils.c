@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/19 22:15:18 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:54:56 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_warning(char *eof)
 	const char	*ms2;
 
 	ms1 = "minishell: warning: here-document at line 1 delimited by "
-			"end-of-file (wanted `";
+		"end-of-file (wanted `";
 	ms2 = "')\n";
 	len = ft_strlen(ms1) + ft_strlen(eof) + ft_strlen(ms2) + 1;
 	tmp = (char *)ft_calloc(len, 1);
