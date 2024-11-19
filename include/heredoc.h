@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 21:16:11 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 22:05:59 by hitran           ###   ########.fr       */
+/*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
+/*   Updated: 2024/11/19 22:22:52 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-int	builtin_pwd(t_shell *shell)
-{
-	printf("%s\n", shell->cwd);
-	return (EXIT_SUCCESS);
-}
+typedef struct s_shell	t_shell;
+
+//---------------------------------|| HEREDOC ||------------------------------//
+int	read_heredoc(t_shell *shell, t_token *tokens, int size);
+
+//---------------------------------||  UTILS  ||------------------------------//
+void	print_warning(char *eof);
+char	*join_and_free(char *s1, char *s2);
+
+#endif

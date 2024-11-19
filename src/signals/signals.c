@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:58:02 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/13 23:24:13 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:27:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	set_parent(void)
 	return (1);
 }
 
-int	set_signals(t_shell *shell, t_signal_type type)
+int	start_signal(t_shell *shell, t_signal_type type)
 {
 	set_signal_exit(shell,SIGINT);
 	shell->aborted = 1;

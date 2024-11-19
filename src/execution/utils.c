@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 10:31:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:12:04 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	wait_update(t_shell *shell, pid_t pid)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		update_status(shell, WEXITSTATUS(status));
-	else if (WIFSIGNALED(status)) // Tiến trình bị tín hiệu kết thúc
+	else if (WIFSIGNALED(status))
 		update_status(shell, 128 + WTERMSIG(status));
 }
 

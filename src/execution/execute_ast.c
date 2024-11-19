@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 11:00:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:27:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	execute_logic(t_shell *shell, t_ast *ast)
  */
 static void	execute_child(t_shell *shell, t_ast *ast, int *pipe_fd, int left)
 {
-	set_signals(shell, CHILD);
+	start_signal(shell, CHILD);
 	if (left)
 	{
 		close(pipe_fd[0]);

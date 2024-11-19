@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 10:14:13 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:27:06 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 
 # include "../libft/libft.h"
 # include "token.h"
+# include "heredoc.h"
 # include "ast.h"
+# include "execution.h"
 # include "builtin.h"
 # include "environment.h"
 # include "expansion.h"
@@ -88,6 +90,7 @@ typedef enum e_signal_type
 }	t_signal_type;
 
 //---------------------------------||  SIGNAL ||------------------------------//
-int	set_signals(t_shell *shell, t_signal_type type);
+
+int	start_signal(t_shell *shell, t_signal_type type);
 
 #endif

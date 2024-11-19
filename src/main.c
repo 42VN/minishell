@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:55:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/19 22:27:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int ac, char **av, char **envp)
 	t_shell	shell;
 
 	shell_init(&shell, envp);
-	if (!set_signals(&shell, PARENT))
+	if (!start_signal(&shell, PARENT))
 		return (shell.exitcode);
 	minishell(&shell);
 	shell_cleanup(&shell);

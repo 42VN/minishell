@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/14 16:55:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/19 22:09:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,8 @@ void	open_error(t_shell *shell, char *path, int *fd)
 	close (fd[1]);
 }
 
-/**
- * Function to handle execution errors for commands
- * Description:
- * - Frees the command path and tokenized command strings (splitted_cmd).
- * - Frees the abstract syntax tree (AST) if it exists.
- * - Cleans up all shell resources by calling ft_token_free and shell_cleanup.
- * - Exits with a status of 126, typically indicating a command execution error.
- */
-void	exec_error(t_shell *shell, char **splitted_cmd, char *command_path)
+void	exec_error(t_shell *shell, char *command_path)
 {
-	// if (splitted_cmd)
-	// 	ft_free_triptr(&splitted_cmd);
 	if (command_path)
 		free (command_path);
 	free_all(shell);
