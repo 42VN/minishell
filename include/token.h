@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 19:41:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:54:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,13 @@ typedef struct s_tokens
 //----------------------------------------------------
 // PARSE 
 //-----------------------------------------------------
-char		*ft_token_parse(char **ptr, t_shell *shell, int parse_quote);
+char		*ft_quote_err(char *quote, t_shell *shell, char **ptr);
+char		*ft_remove_quote(
+				char *cmd,
+				char quote,
+				t_shell *shell,
+				size_t len);
+char		*ft_token_parse(char **ptr, t_shell *shell);
 
 //----------------------------------------------------
 // REDIRECT 
@@ -114,6 +120,7 @@ int			ft_check_op(t_shell *shell, char *str);
 int			ft_check_op_bracket(char *str, t_shell *shell, size_t index);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
+
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------

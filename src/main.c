@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 10:38:19 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 16:51:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	minishell(t_shell *shell)
 		{
 			if (tokenize(shell, input))
 			{
-				// ft_token_print(shell);
+				ft_token_print(shell);
+				ft_print_split_cmd(shell);
 				read_heredoc(shell, shell->tokens->array, get_tokens_size(shell->tokens->array));
 				expansion(shell);
-				// ft_print_split_cmd(shell);
 				shell->ast = build_ast(shell->tokens->array);
 				execute_ast(shell, shell->ast);
 			}
