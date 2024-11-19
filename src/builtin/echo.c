@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:40:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 10:33:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 21:37:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtin_echo(char **token)
 	int	index;
 
 	index = 1;
-	if (token[1] && !ft_strcmp(token[1], "-n"))
+	while (token[index] && !ft_strncmp(token[index], "-n", 2))
 		index++;
 	while (token[index])
 	{
@@ -25,7 +25,7 @@ int	builtin_echo(char **token)
 		if (token[index] != NULL)
 			printf(" ");
 	}
-	if (token[1] && ft_strcmp(token[1], "-n"))
+	if (token[1] && ft_strncmp(token[1], "-n", 2))
 		printf("\n");
 	return (EXIT_SUCCESS);
 }
