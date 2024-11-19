@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/16 16:39:44 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/19 10:15:52 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME				=	minishell
 CC					=	cc
 CFLAGS				=	-O3 -Wall -Wextra -Werror -I ./include
 CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
-CFLAGS_VALGRIND		=	-g -O3 -Wall -Wextra -Werror -I ./include
+CFLAGS_VALGRIND		=	-g -O3 -I ./include #-Wall -Wextra -Werror -I ./include
 
 LIBFT_DIR			=	./libft
 LIBFT_A				=	$(LIBFT_DIR)/libft.a
@@ -68,11 +68,11 @@ OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_A)
-	$(CC) $(CFLAGS_DEV) $(OBJ_FILES) $(LINKER) -o $(NAME)
+	$(CC) $(CFLAGS_VALGRIND) $(OBJ_FILES) $(LINKER) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS_DEV) -c $< -o $@
+	@$(CC) $(CFLAGS_VALGRIND) -c $< -o $@
 
 $(LIBFT_A):
 	@$(MAKE) -s -C $(LIBFT_DIR)

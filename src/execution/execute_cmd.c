@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/15 11:13:18 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 10:36:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,19 @@ static int	execute_builtin(t_shell *shell, char **token)
 	if (!token || !token[0])
 		return (EXIT_FAILURE);
 	if (!ft_strcmp(token[0], "echo"))
-		return (builtin_echo(token));
+		return (update_status(shell, builtin_echo(token)));
 	else if (!ft_strcmp(token[0], "cd"))
-		return (builtin_cd(shell, token));
+		return (update_status(shell, builtin_cd(shell, token)));
 	else if (!ft_strcmp(token[0], "pwd"))
-		return (builtin_pwd(shell));
+		return (update_status(shell, builtin_pwd(shell)));
 	else if (!ft_strcmp(token[0], "export"))
-		return (builtin_export(shell, token));
+		return (update_status(shell, builtin_export(shell, token)));
 	else if (!ft_strcmp(token[0], "unset"))
-		return (builtin_unset(shell, token));
+		return (update_status(shell, builtin_unset(shell, token)));
 	else if (!ft_strcmp(token[0], "env"))
-		return (builtin_env(shell, token));
+		return (update_status(shell, builtin_env(shell, token)));
 	else if (!ft_strcmp(token[0], "exit"))
-		return (builtin_exit(shell, token));
+		return (update_status(shell, builtin_exit(shell, token)));
 	return (EXIT_FAILURE);
 }
 
@@ -147,8 +147,9 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 		execve(command_path, token.split_cmd, shell->envp);
 		exec_error(shell, token.split_cmd, command_path);
 	}
-	// print_signaled(shell);
 	wait_update(shell, pid);
+	// printf("exit code = %d\n", shell->exitcode);
+	print_fault(shell);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/15 11:28:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 10:31:02 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ void	wait_update(t_shell *shell, pid_t pid);
 void	open_error(t_shell *shell, char *path, int *fd);
 int		fork_error(t_shell *shell);//, char **splitted_command);
 void	exec_error(t_shell *shell, char **splitted_cmd, char *command_path);
+
+
+void	print_fault(t_shell *shell);
 
 #endif

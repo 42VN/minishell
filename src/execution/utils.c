@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/15 11:19:00 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 10:31:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,14 @@ void	wait_update(t_shell *shell, pid_t pid)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		update_status(shell, WEXITSTATUS(status));
+	else if (WIFSIGNALED(status)) // Tiến trình bị tín hiệu kết thúc
+		update_status(shell, 128 + WTERMSIG(status));
+}
+
+void	print_fault(t_shell *shell)
+{
+	if (shell->exitcode - 128 == SIGQUIT)
+		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+	else if (shell->exitcode - 128 == SIGSEGV)
+		write(STDERR_FILENO, "Segmentation fault (core dumped)\n", 33);
 }

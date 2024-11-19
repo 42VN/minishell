@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/15 11:07:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 11:00:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,36 @@ static int	init_child(int *pipe_fd, pid_t	*pid)
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	wait_pipeline(t_shell *shell, pid_t *pids, int n)
+{
+	int		status;
+	int		signaled = 0;
+	int		i;
+
+	for (i = 0; i < n; i++)
+	{
+		if (waitpid(pids[i], &status, 0) > 0)
+		{
+			if (WIFSIGNALED(status))
+			{
+				signaled = WTERMSIG(status); // Ghi nhận tín hiệu kết thúc
+				update_status(shell, 128 + signaled); // Cập nhật exit code
+			}
+			else if (WIFEXITED(status))
+			{
+				update_status(shell, WEXITSTATUS(status));
+			}
+		}
+	}
+
+	// Nếu có tín hiệu, gửi đến các process còn lại
+	if (signaled)
+	{
+		for (i = 0; i < n; i++)
+			kill(pids[i], signaled); // Gửi tín hiệu kết thúc
+	}
 }
 
 /**
