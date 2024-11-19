@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:33:50 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/19 17:07:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	exp_process(t_shell *shell, char **res, char *cmd)
 			exp_double_quote(shell, res, cmd, &k);
 		else
 			exp_normal(res, cmd, &k);
-		// printf("Post process: [%s]\n", *res);
 	}
 	return (1);
 }
