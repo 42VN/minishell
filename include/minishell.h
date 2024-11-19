@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 22:27:06 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:42:36 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		ft_is_op_logic(char c);
 int		ft_is_op_bracket(char c);
 char	*ft_strjoin_space(char const *s1, char const *s2);
 
-
 char	**ft_split_cmd(char *command);
 int		ft_is_all_white_spaces(char *s);
 void	handle_cmd_error(char **command, char *message, int free_pt);
@@ -91,6 +90,6 @@ typedef enum e_signal_type
 
 //---------------------------------||  SIGNAL ||------------------------------//
 
-int	start_signal(t_shell *shell, t_signal_type type);
+int		start_signal(t_shell *shell, t_signal_type type);
 
 #endif

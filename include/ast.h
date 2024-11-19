@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 21:50:13 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 22:43:55 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_ast
 //---------------------------------||   AST   ||------------------------------//
 // int		read_heredoc(t_shell *shell, t_token *tokens, int size);
 t_ast	*build_ast(t_token *tokens);
-
 
 //---------------------------------||  UTILS  ||------------------------------//
 void	free_token(t_token **tokens);
