@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 23:58:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 11:34:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 13:48:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,12 @@ void	exp_normal(char **res, char *cmd, size_t *i)
 	}
 	str = ft_substr(cmd, start, *i - start);
 	if (!str)
-	{
-		ft_free_null(res);
-		return ;
-	}
+		return (ft_free_null(res));
 	joined = ft_strjoin(*res, str);
-	if (!joined)
-	{
-		ft_free_null(res);
-		return ;
-	}
-	free(*res);
 	free(str);
+	if (!joined)
+		return (ft_free_null(res));
+	free(*res);
 	*res = joined;
 }
+

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/14 16:53:31 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 14:10:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	ft_token_free(t_shell *shell)
 {
 	int	i;
 
-	i = 0;
-	if (!shell->tokens)
+	if (!shell->tokens || !shell->tokens->array)
 		return ;
-	while (i < shell->tokens->size && shell->tokens->array)
+	i = 0;
+	while (i < shell->tokens->size)
 	{
 		if (shell->tokens->array[i].cmd)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 11:46:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/20 14:14:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void ft_print_split_cmd(t_shell *shell)
 
 static void	free_input(t_shell *shell)
 {
-	if (shell)
+	if (!shell)
 		return ;
 	if (shell->ast)
 		ast_cleanup(&shell->ast);
@@ -58,9 +58,9 @@ static void	process_input(t_shell *shell, char *input)
 		if (!read_heredoc(shell, shell->tokens->array, size))
 			return ;
 		expansion(shell);
-		if (!wildcard(shell, shell->tokens->array, size))
-			return ;
 		// ft_print_split_cmd(shell);
+		// if (!wildcard(shell, shell->tokens->array, size))
+		// 	return ;
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;
@@ -78,6 +78,11 @@ static void	minishell(t_shell *shell)
 		if (!input)
 		{
 			printf("exit\n");
+			break ;
+		}
+		if (ft_strnstr(input, "exit", ft_strlen("exit")))
+		{
+			free(input);
 			break ;
 		}
 		if (ft_strcmp(input, ""))

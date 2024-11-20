@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:39:09 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 11:31:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 13:37:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,23 @@ void	exp_single_quote(char **res, char *cmd, size_t *i)
 	char	*joined;
 	size_t	start;
 
-	start = ++(*i);
-	while (cmd[*i] && cmd[*i] != '\'')
-		(*i)++;
-	if (!cmd[*i])
-		return (ft_free_null(res));
-	str = ft_substr(cmd, start, *i - start);
-	if (!str)
-		return (ft_free_null(res));
+	ft_join_quote(res, "'");
 	(*i)++;
-	joined = ft_strjoin(*res, str);
-	if (!joined)
+	if (res)
 	{
+		start = *i;
+		while (cmd[*i] && cmd[*i] != '\'')
+			(*i)++;
+		if (!cmd[*i])
+			return (ft_free_null(res));
+		str = ft_substr(cmd, start, *i - start);
+		if (!str)
+			return (ft_free_null(res));
+		joined = ft_strjoin(*res, str);
 		free(str);
-		return (ft_free_null(res));
+		free(*res);
+		*res = joined;
 	}
-	free(*res);
-	free(str);
-	*res = joined;
+	(*i)++;
+	ft_join_quote(res, "'");
 }

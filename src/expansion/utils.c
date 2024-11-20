@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 11:26:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 13:28:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,79 @@ int	exp_valid_dollar_var(char c)
 	return (0);
 }
 
-void	exp_strip_quotes(char *str)
+// void	exp_strip_quotes(char *str)
+// {
+// 	size_t	read;
+// 	size_t	write;
+// 	char	quote;
+
+// 	read = 0;
+// 	write = 0;
+// 	while (str[read])
+// 	{
+// 		if (str[read] == '\"' || str[read] == '\'')
+// 		{
+// 			quote = str[read++];
+// 			while (str[read] && str[read] != quote)
+// 				str[write++] = str[read++];
+// 			if (str[read] == quote)
+// 				read++;
+// 		}
+// 		else
+// 		{
+// 			str[write++] = str[read++];
+// 		}
+// 	}
+// 	str[write] = '\0';
+// }
+
+static int find_op_quote(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\'' || *str == '\"')
+			return (*str);
+		str++;
+	}
+	return (0);
+}
+
+void	exp_strip_quotes(char *str, char c)
 {
 	size_t	read;
 	size_t	write;
-	char	quote;
 
 	read = 0;
 	write = 0;
+	if (!str || *str == '\0')
+        return;
+	if (c != '\'' && c != '\"')
+		return ;
 	while (str[read])
 	{
-		// If the current character is a quote
-		if (str[read] == '\"' || str[read] == '\'')
+		if (str[read] == c)
 		{
-			quote = str[read++];
-			// Process until matching quote is found or end of string
-			while (str[read] && str[read] != quote)
+			read++;
+			while (str[read] && str[read] != c)
 				str[write++] = str[read++];
-			if (str[read] == quote)
-				read++; // Skip closing quote
+			if (str[read] == c)
+				read++;
 		}
 		else
 		{
-			// Copy unquoted characters directly
 			str[write++] = str[read++];
 		}
 	}
-	// Null-terminate the final result
 	str[write] = '\0';
+}
+
+void ft_join_quote(char **res, char *quote)
+{
+	char	*joined;
+
+	joined = ft_strjoin(*res, quote);
+	if (!joined)
+		return (ft_free_null(res));
+	free(*res);
+	*res = joined;
 }

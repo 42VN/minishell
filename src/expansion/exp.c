@@ -6,16 +6,35 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 11:53:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 13:39:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exp_post_process(t_shell *shell, char **res)
+static int exp_post_process(t_shell *shell, char **res)
 {
-	exp_strip_quotes(*res);
-	return (1);
+    size_t i;
+    char quote;
+
+    if (!res || !(*res))
+        return 0;
+    i = 0;
+    quote = '\0';
+    while ((*res)[i])
+    {
+        if ((*res)[i] == '\'' || (*res)[i] == '\"')
+        {
+            quote = (*res)[i];
+            break; 
+        }
+        ++i;
+    }
+    if (quote)
+    {
+        exp_strip_quotes(*res, quote);
+    }
+    return 1;
 }
 
 static int	exp_process(t_shell *shell, char **res, char *cmd)
@@ -27,6 +46,7 @@ static int	exp_process(t_shell *shell, char **res, char *cmd)
 		exp_tiddle_front(shell, res, cmd, &k);
 	while (cmd[k])
 	{
+		
 		if (cmd[k] == '$')
 			exp_dollar(shell, res, cmd, &k);
 		else if (cmd[k] == '~')
