@@ -6,29 +6,25 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 08:42:24 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/20 11:40:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WILDCARD_H
 # define WILDCARD_H
 
-typedef struct s_shell	t_shell;
+#include "dirent.h"
 
-/**
- * Data structure for AST (Abstract Syntax Tree)
- */
-typedef struct s_ast
-{
-	t_token			token;
-	struct s_ast	*left;
-	struct s_ast	*right;
-}	t_ast;
+typedef struct s_shell	t_shell;
 
 //---------------------------------|| WILDCARD||------------------------------//
 int	wildcard(t_shell *shell, t_token *tokens, int size);
 
 //---------------------------------||  UTILS  ||------------------------------//
-
+void	free_array(char **array);
+int	array_length(char **array);
+int	match_loop(const char **f, const char **p, const char **star,
+	const char **match);
+int	is_match(const char *file, const char *pattern);
 
 #endif
