@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:53:19 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 11:52:22 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	ft_token_split_cmd(t_shell *shell)
 	{
 		if (shell->tokens->array[index].cmd)
 		{
-			shell->tokens->array[index].split_cmd = ft_split(shell->tokens->array[index].cmd, ' ');
+			shell->tokens->array[index].split_cmd = ft_split_quote(shell->tokens->array[index].cmd, ' ');
 			if (!shell->tokens->array[index].split_cmd)
 				return (ft_error_ret("ft_split_cmd: malloc", shell, ERR_MALLOC, 0));
 		}

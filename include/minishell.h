@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 08:42:44 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/20 11:51:52 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		ft_is_op_bracket(char c);
 char	*ft_strjoin_space(char const *s1, char const *s2);
 
 char	**ft_split_cmd(char *command);
+char	**ft_split_quote(char *s, char delimiter);
 int		ft_is_all_white_spaces(char *s);
 void	handle_cmd_error(char **command, char *message, int free_pt);
 int		skip_quotes(char *str, int i);

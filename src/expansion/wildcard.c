@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:27:48 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 17:42:50 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 11:07:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,3 @@ static int ft_has_wildcard(char *str)
 	return (0);
 }
 
-static void	wildcard_regex()
-{
-	
-}
-
-void	wildcard(t_shell *shell, char **res, char *cmd, size_t i)
-{
-	
-}

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/17 01:43:13 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 11:26:33 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,22 @@ void	exp_strip_quotes(char *str)
 	write = 0;
 	while (str[read])
 	{
+		// If the current character is a quote
 		if (str[read] == '\"' || str[read] == '\'')
 		{
-			quote = str[read];
-			read++;
+			quote = str[read++];
+			// Process until matching quote is found or end of string
 			while (str[read] && str[read] != quote)
-			{
 				str[write++] = str[read++];
-			}
 			if (str[read] == quote)
-				read++;
+				read++; // Skip closing quote
 		}
 		else
+		{
+			// Copy unquoted characters directly
 			str[write++] = str[read++];
+		}
 	}
+	// Null-terminate the final result
 	str[write] = '\0';
 }

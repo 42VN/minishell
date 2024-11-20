@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:20:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 15:37:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/20 11:21:15 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i)
 	(*i)++;
 	if (res)
 	{
-		while (cmd[*i] != '\"')
+		while (cmd[*i] && cmd[*i] != '\"')
 		{
 			if (cmd[*i] == '$')
 				exp_dollar(shell, res, cmd, i);
