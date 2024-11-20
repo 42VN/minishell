@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/19 22:53:01 by hitran           ###   ########.fr        #
+#    Updated: 2024/11/20 08:39:51 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 # **************************************************************************** #
 
 all: $(NAME)
+
+bonus: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_A)
 	$(CC) $(CFLAGS_VALGRIND) $(OBJ_FILES) $(LINKER) -o $(NAME)

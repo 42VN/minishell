@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 22:27:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/19 23:26:46 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,37 @@ static void ft_print_split_cmd(t_shell *shell)
 	printf("\n");
 }
 
+static void	free_input(t_shell *shell)
+{
+	if (shell)
+		return ;
+	if (shell->ast)
+		ast_cleanup(&shell->ast);
+	ft_token_free(shell);
+}
+
+static void	process_input(t_shell *shell, char *input)
+{
+	int		size;
+
+	if (tokenize(shell, input))
+	{
+		// ft_token_print(shell);
+		size = get_tokens_size(shell->tokens->array);
+		if (!wildcard(shell, shell->tokens->array, size)
+			|| !read_heredoc(shell, shell->tokens->array, size))
+		{
+			free_input(shell);
+			return ;
+		}
+		expansion(shell);
+		// ft_print_split_cmd(shell);
+		shell->ast = build_ast(shell->tokens->array);
+		execute_ast(shell, shell->ast);
+	}
+	free_input(shell);
+}
+
 static void	minishell(t_shell *shell)
 {
 	char	*input;
@@ -51,20 +82,7 @@ static void	minishell(t_shell *shell)
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		if (*input)
-		{
-			if (tokenize(shell, input))
-			{
-				// ft_token_print(shell);
-				read_heredoc(shell, shell->tokens->array, get_tokens_size(shell->tokens->array));
-				expansion(shell);
-				// ft_print_split_cmd(shell);
-				shell->ast = build_ast(shell->tokens->array);
-				execute_ast(shell, shell->ast);
-			}
-			if (shell->ast)
-				ast_cleanup(&shell->ast);
-			ft_token_free(shell);
-		}
+			process_input(shell, input);
 		free(input);
 		input = NULL;
 	}

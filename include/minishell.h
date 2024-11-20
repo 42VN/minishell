@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 22:56:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/20 08:42:44 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "../libft/libft.h"
 # include "token.h"
 # include "heredoc.h"
+# include "wildcard.h"
 # include "ast.h"
 # include "execution.h"
 # include "builtin.h"

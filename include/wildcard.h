@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.h                                              :+:      :+:    :+:   */
+/*   wildcard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 08:41:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/20 08:42:24 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#ifndef WILDCARD_H
+# define WILDCARD_H
 
 typedef struct s_shell	t_shell;
 
@@ -25,14 +25,10 @@ typedef struct s_ast
 	struct s_ast	*right;
 }	t_ast;
 
-//---------------------------------||   AST   ||------------------------------//
-t_ast	*build_ast(t_token *tokens);
+//---------------------------------|| WILDCARD||------------------------------//
+int	wildcard(t_shell *shell, t_token *tokens, int size);
 
 //---------------------------------||  UTILS  ||------------------------------//
-void	free_token(t_token **tokens);
-int		locate_operator(t_token *tokens, int index, int priority);
-int		get_tokens_size(t_token *tokens);
-t_token	*extract_tokens(t_token *tokens, int start, int end);
-void	ast_cleanup(t_ast **ast);
+
 
 #endif
