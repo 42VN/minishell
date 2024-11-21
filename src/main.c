@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 09:14:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 13:08:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	process_input(t_shell *shell, char *input)
 			return ;
 		expansion(shell);
 		// ft_print_split_cmd(shell);
-		// if (!wildcard(shell, shell->tokens->array, size))
-		// 	return ;
+		if (!wildcard(shell, shell->tokens->array, size))
+			return ;
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;
