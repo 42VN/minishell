@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/20 11:44:24 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 15:37:53 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int replace_wildcard(char ***splitted, int pos, char **matches)
 	return (1);
 }
 
-int start_wildcard(char ***splitted)
+void start_wildcard(char ***splitted)
 {
 	int		index;
 	char	**matches;
@@ -121,21 +121,20 @@ int start_wildcard(char ***splitted)
 		{
 			matches = expand_wildcard((*splitted)[index]);
 			if (!matches)
-				return (0);
+				return ;
 			if (!replace_wildcard(splitted, index, matches))
 			{
 				free_array(matches);
-				return (0);
+				return ;
 			}
 			index += array_length(matches) - 1;
 			free_array(matches);
 		}
 		index++;
 	}
-	return (1);
 }
 
-int	wildcard(t_shell *shell, t_token *tokens, int size)
+void	wildcard(t_shell *shell, t_token *tokens, int size)
 {
 	int	index;
 
@@ -143,11 +142,7 @@ int	wildcard(t_shell *shell, t_token *tokens, int size)
 	while (index < size)
 	{
 		if (tokens[index].type == CMD)
-		{
-			if (!start_wildcard(&tokens[index].split_cmd))
-				return (0);
-		}
+			start_wildcard(&tokens[index].split_cmd);
 		index++;
 	}
-	return (1);
 }

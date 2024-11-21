@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 13:08:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 15:38:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ static void	process_input(t_shell *shell, char *input)
 		if (!read_heredoc(shell, shell->tokens->array, size))
 			return ;
 		expansion(shell);
-		// ft_print_split_cmd(shell);
-		if (!wildcard(shell, shell->tokens->array, size))
-			return ;
+		wildcard(shell, shell->tokens->array, size);
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;
@@ -80,11 +78,6 @@ static void	minishell(t_shell *shell)
 			printf("exit\n");
 			break ;
 		}
-		// if (ft_strnstr(input, "exit", ft_strlen("exit")))
-		// {
-		// 	free(input);
-		// 	break ;
-		// }
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		if (*input)
