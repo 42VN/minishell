@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 09:53:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 15:14:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,13 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 	return (0);
 }
 
-int	builtin_export(t_shell *shell, char **split_cmd)
+void	builtin_export(t_shell *shell, char **split_cmd)
 {
-	int	exit_code;
-
 	if (!shell || !split_cmd || !split_cmd[0])
 	{
 		ft_putstr_fd("minishell: builtin_env: Invalid parameter(s)\n", 2);
-		return (1);
+		update_status (shell, 1);
+		return ;
 	}
-	exit_code = ft_builtin_export(shell, split_cmd);
-	return (exit_code);
+	update_status(shell, ft_builtin_export(shell, split_cmd));
 }
