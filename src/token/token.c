@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 11:52:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 18:03:04 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,18 @@ int	tokenize(t_shell *shell, char *line)
 	{
 		while (ft_isspace(*line))
 			line++;
-		if (*line && !ft_token_add(shell, &line))
+		if (*line)
 		{
-			if (shell->err_type != ERR_MALLOC)
-				ft_token_parse_error(shell, line);
-			return (0);
+			if (!ft_token_add(shell, &line))
+			{
+				if (shell->err_type != ERR_MALLOC)
+					ft_token_parse_error(shell, line);
+				return (0);
+			}
 		}
 	}
-	if (shell->tokens->array[shell->tokens->cur_pos].type == NONE)
+	if (shell->tokens->cur_pos >= 1
+		&& shell->tokens->array[shell->tokens->cur_pos].type == NONE)
 		shell->tokens->cur_pos--;
 	if (!ft_token_split_cmd(shell))
 		return (0);

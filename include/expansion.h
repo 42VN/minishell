@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 14:46:19 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 17:36:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	exp_strip_quotes(char *str, char quote);
 void	ft_join_quote(char **res, char *quote);
+void	cleanup_split_cmd(char **split_cmd);
 
 int		exp_valid_dollar_var(char c);
 void	exp_tiddle_front(t_shell *shell, char **res, char *cmd, size_t *i);

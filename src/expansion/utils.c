@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 13:28:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 17:50:04 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,33 @@ int	exp_valid_dollar_var(char c)
 	return (0);
 }
 
-// void	exp_strip_quotes(char *str)
-// {
-// 	size_t	read;
-// 	size_t	write;
-// 	char	quote;
+/**
+ * Function to clean up empty strings inside split_cmd
+ */
+void	cleanup_split_cmd(char **split_cmd)
+{
+	size_t	i;
+	size_t	j;
 
-// 	read = 0;
-// 	write = 0;
-// 	while (str[read])
-// 	{
-// 		if (str[read] == '\"' || str[read] == '\'')
-// 		{
-// 			quote = str[read++];
-// 			while (str[read] && str[read] != quote)
-// 				str[write++] = str[read++];
-// 			if (str[read] == quote)
-// 				read++;
-// 		}
-// 		else
-// 		{
-// 			str[write++] = str[read++];
-// 		}
-// 	}
-// 	str[write] = '\0';
-// }
+	i = 0;
+	j = 0;
+	while (split_cmd[i] && split_cmd[i][0] == '\0')
+		++i;
+	if (!split_cmd[i])
+		return ;
+	i = 0;
+	while (split_cmd[i])
+	{
+		if (split_cmd[i][0] == '\0')
+		{
+			free(split_cmd[i]);
+			++i;
+			continue;
+		}
+		split_cmd[j++] = split_cmd[i++];
+	}
+	split_cmd[j] = NULL;
+}
 
 static int find_op_quote(char *str)
 {

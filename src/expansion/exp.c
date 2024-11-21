@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 17:13:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 17:36:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	expansion(t_shell *shell)
 				exp_logic(shell, i, j);
 				++j;
 			}
+			cleanup_split_cmd(shell->tokens->array[i].split_cmd);
 		}
 		++i;
 	}
