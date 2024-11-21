@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 14:14:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 09:14:39 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ static void	minishell(t_shell *shell)
 			printf("exit\n");
 			break ;
 		}
-		if (ft_strnstr(input, "exit", ft_strlen("exit")))
-		{
-			free(input);
-			break ;
-		}
+		// if (ft_strnstr(input, "exit", ft_strlen("exit")))
+		// {
+		// 	free(input);
+		// 	break ;
+		// }
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		if (*input)

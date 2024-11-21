@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 20:51:45 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 10:07:11 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,16 @@ int	cd_path(t_shell *shell, char *path)
 	return (update_pwd(shell));
 }
 
-int	builtin_cd(t_shell *shell, char **token)
+void	builtin_cd(t_shell *shell, char **token)
 {
 	if (token[1] && token[2])
-		return (builtin_error(shell, "minishell: cd: too many arguments\n", 2));
+		builtin_error(shell, "minishell: cd: too many arguments\n", 1);
 	else if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))
-		return (cd_home(shell));
+		cd_home(shell);
 	else if (token[1][0] == '~')
-		return (cd_tilde(shell, token[1]));
+		cd_tilde(shell, token[1]);
 	else if (!ft_strcmp(token[1], "-"))
-		return (cd_oldpwd(shell));
+		cd_oldpwd(shell);
 	else
-		return (cd_path(shell, token[1]));
+		cd_path(shell, token[1]);
 }

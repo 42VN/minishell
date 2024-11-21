@@ -6,14 +6,13 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:16:11 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 22:05:59 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 10:02:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_pwd(t_shell *shell)
+void	builtin_pwd(t_shell *shell)
 {
 	printf("%s\n", shell->cwd);
-	return (EXIT_SUCCESS);
 }
