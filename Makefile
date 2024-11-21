@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/20 13:54:42 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/21 22:06:07 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	minishell
+NAME_BONUS			=	minishell_bonus
 
 CC					=	cc
 CFLAGS				=	-O3 -Wall -Wextra -Werror -I ./include
@@ -74,11 +75,14 @@ OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
-bonus: $(NAME)
-
 $(NAME): $(OBJ_FILES) $(LIBFT_A)
 	$(CC) $(CFLAGS_VALGRIND) $(OBJ_FILES) $(LINKER) -o $(NAME)
 
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJ_FILES) $(LIBFT_A)
+	$(CC) $(CFLAGS_VALGRIND) $(OBJ_FILES) $(LINKER) -o $(NAME_BONUS)
+	
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS_VALGRIND) -c $< -o $@
@@ -95,7 +99,7 @@ clean:
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAME_BONUS)
 	@$(MAKE) -s -C $(LIBFT_DIR) fclean
 
 re: fclean all
