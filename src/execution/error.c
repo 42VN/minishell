@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 22:09:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 11:15:39 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	exec_error(t_shell *shell, char *command_path)
 	if (command_path)
 		free (command_path);
 	free_all(shell);
-	exit (126);
+	exit (update_status(shell, 126));
 }

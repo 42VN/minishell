@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 22:37:08 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/08 14:12:31 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 10:34:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ char	**ft_split_cmd(char *command)
 
 	if (!command)
 		return (NULL);
-	if (ft_is_all_white_spaces(command))
-		handle_cmd_error(&command, "Command not found", 0);
+	// if (ft_is_all_white_spaces(command))
+	// 	handle_cmd_error(&command, "Command not found", 0);
 	words = count_words(command);
 	array = (char **)ft_calloc((words + 1), sizeof(char *));
 	if (!array)

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 10:12:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 10:55:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 		if (fd[0] == -1 || fd[1] == -1)
 		{
 			open_error(shell, redirect->path, fd);
+			update_status(shell, 1);
 			return (EXIT_FAILURE);
 		}
 		redirect = redirect->next;
@@ -94,11 +95,11 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 	if (pid == 0)
 	{
 		start_signal(shell, CHILD);
-		command_path = find_command_path(shell->envp, token.split_cmd[0]);
+		command_path = find_command_path(shell, token.split_cmd[0]);
 		if (!command_path)
 		{
 			free_all(shell);
-			exit (EXIT_FAILURE);
+			exit (127);
 		}
 		execve(command_path, token.split_cmd, shell->envp);
 		exec_error(shell, command_path);

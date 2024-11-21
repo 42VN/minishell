@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/07 21:04:59 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 11:15:24 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	**find_envp_path(char **envp, char *command)
 	if (!*envp)
 	{
 		write(2, command, ft_strlen(command));
-		write(2, ": No such file or directory\n", 26);
+		write(2, ": No such file or directory\n", 28);
 		return (NULL);
 	}
 	return (ft_split(*envp + 5, ':'));
@@ -54,23 +54,39 @@ static char	*get_command_path(char **envp_paths, char *command)
 	return (NULL);
 }
 
-char	*find_command_path(char **envp, char *command)
+static void	check_command(t_shell *shell, char *command)
 {
-	char	**envp_paths;
-	char	*command_path;
+	struct stat	sb;
+
+	if (stat(command, &sb) == 0 && S_ISDIR(sb.st_mode))
+	{
+		write(2, command, ft_strlen(command));
+		write(2, ": Is a directory\n", 17);
+		exec_error (shell, NULL);
+	}
+	else if (stat(command, &sb) == 0 && access(command, X_OK) != 0)
+	{
+		write(2, command, ft_strlen(command));
+		write(2, ": Permission denied\n", 20);
+		exec_error (shell, NULL);
+	}
+}
+
+char	*find_command_path(t_shell *shell, char *command)
+{
+	char		**envp_paths;
+	char		*command_path;
 
 	if (ft_strchr(command, '/'))
 	{
+		check_command(shell, command);
 		if (access(command, F_OK) == 0)
 			return (ft_strdup(command));
-		else
-		{
-			write(2, command, ft_strlen(command));
-			write(2, ": No such file or directory\n", 26);
-			return (NULL);
-		}
+		write(2, command, ft_strlen(command));
+		write(2, ": No such file or directory\n", 28);
+		return (NULL);
 	}
-	envp_paths = find_envp_path(envp, command);
+	envp_paths = find_envp_path(shell->envp, command);
 	if (!envp_paths)
 		return (NULL);
 	command_path = get_command_path(envp_paths, command);
@@ -78,7 +94,7 @@ char	*find_command_path(char **envp, char *command)
 	if (!command_path)
 	{
 		write(2, command, ft_strlen(command));
-		write(2, ": Command not found\n", 20);
+		write(2, ": command not found\n", 20);
 	}
 	return (command_path);
 }
