@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:20:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/20 13:38:02 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 14:48:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void ft_exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i
 	size_t	start;
 
 	start = *i;
-	while (cmd[*i] && cmd[*i] != '\"')
+	while (cmd[*i] && cmd[*i] != '\"' && cmd[*i] != '$')
 		(*i)++;
 	if (!cmd[*i])
 		return (ft_free_null(res));
@@ -32,8 +32,6 @@ static void ft_exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i
 	*res = joined;
 }
 
-
-
 void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i)
 {
 	ft_join_quote(res, "\"");
@@ -43,7 +41,7 @@ void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i)
 		while (cmd[*i] && cmd[*i] != '\"')
 		{
 			if (cmd[*i] == '$')
-				exp_dollar(shell, res, cmd, i);
+				exp_dollar_in_quote(shell, res, cmd, i);
 			else
 				ft_exp_double_quote(shell, res, cmd, i);
 		}
