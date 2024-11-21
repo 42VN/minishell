@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 11:16:06 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 21:13:23 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_fault(t_shell *shell);
 //---------------------------------||  ERROR  ||------------------------------//
 
 void	free_all(t_shell *shell);
-void	open_error(t_shell *shell, char *path, int *fd);
+int	open_error(t_shell *shell, char *path, int *fd, char *message);
 void	exec_error(t_shell *shell, char *command_path);
 
 #endif

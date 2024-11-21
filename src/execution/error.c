@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 11:15:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/21 21:15:48 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void	free_all(t_shell *shell)
  * - Frees all shell resources by calling free_all.
  * - Closes the file descriptors specified in fd array.
  */
-void	open_error(t_shell *shell, char *path, int *fd)
+int	open_error(t_shell *shell, char *path, int *fd, char *message)
 {
-	ft_printf_fd(2, "minishell: %s: %s\n", path, strerror(errno));
-	free_all(shell);
+	ft_printf_fd(2, "minishell: %s: %s\n", path, message);
 	close (fd[0]);
 	close (fd[1]);
+	update_status(shell, 1);
+	return (EXIT_FAILURE);
 }
 
 void	exec_error(t_shell *shell, char *command_path)
