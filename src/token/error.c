@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/08 19:43:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/21 19:44:35 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,22 @@ static void	ft_redirect_err(char *ptr)
 	}
 }
 
+static void	ft_pipe_err(char *ptr)
+{
+	if (!ptr)
+		return ;
+	if (*ptr == '|')
+	{
+		if (*(ptr + 1) == '|')
+			ft_printf_fd(2,
+				"minishell: syntax error near unexpected token ||\n");
+		else
+			ft_printf_fd(2,
+				"minishell: syntax error near unexpected token |\n");
+	}
+	
+}
+
 void	ft_token_parse_error(t_shell *shell, char *ptr)
 {
 	char	*str;
@@ -71,6 +87,8 @@ void	ft_token_parse_error(t_shell *shell, char *ptr)
 		ft_printf_fd(2, "minishell: syntax error caused by missing )\n");
 	else if (*ptr == '>' || *ptr == '<')
 		ft_redirect_err(ptr);
+	else if (*ptr == '|' || *ptr == '|')
+		ft_pipe_err(ptr);
 	else if (*ptr == '\'' || *ptr == '\"')
 		ft_printf_fd(2, "minishell: syntax error: unexpected end of file\n");
 	else
