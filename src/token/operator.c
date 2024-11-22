@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:40:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:44:17 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ static int	ft_token_is_redirect(
 int	ft_token_handle_op(char **ptr, t_shell *shell)
 {
 	size_t	*index;
-	int		result;
+	// int		result;
 
 	if (!ptr || !*ptr || !**ptr || !shell)
 		return (0);

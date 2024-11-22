@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/21 22:06:07 by hitran           ###   ########.fr        #
+#    Updated: 2024/11/22 11:38:10 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME_BONUS			=	minishell_bonus
 
 CC					=	cc
 CFLAGS				=	-O3 -Wall -Wextra -Werror -I ./include
-CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
-CFLAGS_VALGRIND		=	-g -O3 -I ./include #-Wall -Wextra -Werror -I ./include
+# CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
+# CFLAGS_VALGRIND		=	-g -O3 -I ./include #-Wall -Wextra -Werror -I ./include
 
 LIBFT_DIR			=	./libft
 LIBFT_A				=	$(LIBFT_DIR)/libft.a
@@ -49,7 +49,7 @@ UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.
 TOKEN_FILES			=	quote.c parse.c token.c free.c mem.c  utils.c operator.c cmd.c error.c print.c redirect.c
 BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
-EXP_FILES			=	exp.c utils.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c #wildcard.c
+EXP_FILES			=	exp.c utils.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c
 SIG_FILES			=	signals.c signal_utils.c
 HD_FILES			=	read_heredoc.c heredoc_utils.c
 WC_FILES			=	wildcard.c wildcard_utils.c
@@ -76,16 +76,16 @@ OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_A)
-	$(CC) $(CFLAGS_VALGRIND) $(OBJ_FILES) $(LINKER) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ_FILES) $(LINKER) -o $(NAME)
 
 bonus: $(NAME_BONUS)
 
 $(NAME_BONUS): $(OBJ_FILES) $(LIBFT_A)
-	$(CC) $(CFLAGS_VALGRIND) $(OBJ_FILES) $(LINKER) -o $(NAME_BONUS)
+	$(CC) $(CFLAGS) $(OBJ_FILES) $(LINKER) -o $(NAME_BONUS)
 	
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS_VALGRIND) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_A):
 	@$(MAKE) -s -C $(LIBFT_DIR)

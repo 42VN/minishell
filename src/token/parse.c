@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:27:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:57:15 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 11:42:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 	char	*res;
 	char	*start;
 	char	*quote_end;
-	size_t	len;
+	// size_t	len;
 
-	len = 0;
+	// len = 0;
 	start = *ptr;
 	while (*start && !ft_isspace(*start) && !ft_is_op(*start))
 	{

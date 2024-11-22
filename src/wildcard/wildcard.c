@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 15:37:53 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:02:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int replace_wildcard(char ***splitted, int pos, char **matches)
 	index = -1;
 	while (++index < matches_size)
 		new_array[pos + index] = ft_strdup(matches[index]);
-	index = pos + 1;
-	while (index < splitted_size)
-		new_array[matches_size + index - 1] = ft_strdup((*splitted)[index++]);
+	index = pos;
+	while (++index < splitted_size)
+		new_array[matches_size + index - 1] = ft_strdup((*splitted)[index]);
 	new_array[new_size] = NULL;
 	free_array(*splitted);
 	*splitted = new_array;
@@ -134,7 +134,7 @@ void start_wildcard(char ***splitted)
 	}
 }
 
-void	wildcard(t_shell *shell, t_token *tokens, int size)
+void	wildcard(t_token *tokens, int size)
 {
 	int	index;
 

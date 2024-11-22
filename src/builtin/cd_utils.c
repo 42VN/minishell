@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/05 21:49:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:47:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	builtin_error(t_shell *shell, char *s, int error_num)
 {
-	write(STDERR_FILENO, s, ft_strlen(s));
+	ft_putstr_fd(s, STDERR_FILENO);
 	update_status(shell, error_num);
 	return (EXIT_FAILURE);
 }

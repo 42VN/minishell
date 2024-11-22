@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 17:50:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 12:00:09 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,17 @@ void	cleanup_split_cmd(char **split_cmd)
 	split_cmd[j] = NULL;
 }
 
-static int find_op_quote(char *str)
-{
-	while (*str)
-	{
-		if (*str == '\'' || *str == '\"')
-			return (*str);
-		str++;
-	}
-	return (0);
-}
+// static int find_op_quote(char *str)
+// {
+// 	while (*str)
+// 	{
+// 		if (*str == '\'' || *str == '\"')
+// 			return (*str);
+// 		str++;
+// 	}
+// 	return (0);
+// }
+//check
 
 void	exp_strip_quotes(char *str, char c)
 {

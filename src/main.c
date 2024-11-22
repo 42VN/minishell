@@ -6,35 +6,35 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 15:38:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:02:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ft_print_split_cmd(t_shell *shell)
-{
-	size_t	i = 0;
-	size_t	j = 0;
-	while (i <= shell->tokens->cur_pos)
-	{
-		j = 0;
-		printf("\n------------------------\n");
-		printf("Split cmd\n");
-		printf("------------------------\n");
-		if (shell->tokens->array[i].split_cmd)
-		{
-			while (shell->tokens->array[i].split_cmd[j])
-			{
-				printf("[%s] ", shell->tokens->array[i].split_cmd[j]);
-				++j;
-			}
-		}
-		printf("\n");
-		++i;
-	}
-	printf("\n");
-}
+// static void ft_print_split_cmd(t_shell *shell)
+// {
+// 	size_t	i = 0;
+// 	size_t	j = 0;
+// 	while (i <= shell->tokens->cur_pos)
+// 	{
+// 		j = 0;
+// 		printf("\n------------------------\n");
+// 		printf("Split cmd\n");
+// 		printf("------------------------\n");
+// 		if (shell->tokens->array[i].split_cmd)
+// 		{
+// 			while (shell->tokens->array[i].split_cmd[j])
+// 			{
+// 				printf("[%s] ", shell->tokens->array[i].split_cmd[j]);
+// 				++j;
+// 			}
+// 		}
+// 		printf("\n");
+// 		++i;
+// 	}
+// 	printf("\n");
+// }
 
 static void	free_input(t_shell *shell)
 {
@@ -58,7 +58,7 @@ static void	process_input(t_shell *shell, char *input)
 		if (!read_heredoc(shell, shell->tokens->array, size))
 			return ;
 		expansion(shell);
-		wildcard(shell, shell->tokens->array, size);
+		wildcard(shell->tokens->array, size);
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;
@@ -96,10 +96,16 @@ int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
 
+	if (ac != 1)
+	{
+		ft_putendl_fd("Error: invalid number of arguments!\n", 2);
+		exit (EXIT_FAILURE);
+	}
+	(void)av;
 	shell_init(&shell, envp);
 	if (!start_signal(&shell, PARENT))
 		return (shell.exitcode);
 	minishell(&shell);
 	shell_cleanup(&shell);
-	return (0);
+	exit (EXIT_SUCCESS);
 }

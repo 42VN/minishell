@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 15:14:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:46:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	export_standalone(char **envp)
 {
 	int		i;
 	char	**sorted_envp;
-	char	*equal;
+	// char	*equal;
 
 	i = 0;
 	sorted_envp = env_dup_sorted(envp);

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 10:02:20 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:50:23 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int	not_numberic(char *s)
 {
 	long	number;
 	long	check;
-	int		sign;
 
 	number = 0;
-	sign = 1;
 	while (*s == ' ' || (*s >= 9 && *s <= 13))
 		s++;
 	if (*s == '+' || *s == '-')
@@ -73,20 +71,19 @@ long long	to_8bits(long nb)
 
 void	exit_error(t_shell *shell, char *token, char *message, int error_num)
 {
-	write(STDERR_FILENO, "minishell: exit: ", 17);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	if (token)
 	{
-		write(STDERR_FILENO, token, ft_strlen(token));
-		write(STDERR_FILENO, ": ", 2);
+		ft_putstr_fd(token, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
 	}
-	write(STDERR_FILENO, message, ft_strlen(message));
-	write(STDERR_FILENO, "\n", 1);
+	ft_putendl_fd(message, STDERR_FILENO);
 	update_status(shell, error_num);
 }
 
 void	builtin_exit(t_shell *shell, char **token)
 {
-	write(1, "exit\n", 5);
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (token[1] && not_numberic(token[1]))
 	{
 		exit_error(shell, token[1], "numeric argument required", 2);

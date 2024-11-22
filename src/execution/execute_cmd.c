@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 21:16:37 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:55:05 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@ static int	open_heredoc(char *heredoc)
 		heredoc = ft_strdup("pipe");
 		return (-1);
 	}
-	write(pipe_fd[1], heredoc, ft_strlen(heredoc));
+	ft_putstr_fd(heredoc, pipe_fd[1]);
 	close (pipe_fd[1]);
 	return (pipe_fd[0]);
 }
 
 static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
-	int	pipe_fd[2];
-
 	while (redirect)
 	{
 		if (!strcmp(redirect->path, "*"))
@@ -82,8 +80,6 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 {
 	char		*command_path;
 	pid_t		pid;
-	int			fd[2];
-	int			status;
 
 	pid = fork();
 	if (pid == -1)
@@ -109,13 +105,9 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 
 void	execute_command(t_shell *shell, t_token token)
 {
-	char		*command_path;
-	int			fd[2];
-	int			status;
+	int			fd[2] = {-2, -2};
 	const int	tmp[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
-	fd[0] = -2;
-	fd[1] = -2;
 	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE)
 	{
 		redirect_fd(tmp[0], STDIN_FILENO);

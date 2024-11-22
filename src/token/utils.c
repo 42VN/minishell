@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:40:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:44:01 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_check_op(t_shell *shell, char *str)
 {
 	size_t			index;
 	t_token_type	prev_type;
-	t_token_type	cur_type;
+	// t_token_type	cur_type;
 
 	index = shell->tokens->cur_pos;
 	if (shell->tokens->array[index].type != NONE
@@ -66,7 +66,7 @@ int	ft_check_op(t_shell *shell, char *str)
 	if (index > 0)
 	{
 		prev_type = shell->tokens->array[index - 1].type;
-		cur_type = shell->tokens->array[index].type;
+		// cur_type = shell->tokens->array[index].type;
 		if ((prev_type == PIPE || prev_type == AND || prev_type == OR)
 			&& (*str == '|' || *str == '&'))
 		{

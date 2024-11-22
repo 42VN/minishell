@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_tiddle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 00:17:05 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:30:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 12:00:33 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	exp_tiddle(char **res, char *cmd, size_t *i)
 	char	*str;
 	char	*joined;
 
+	(void)cmd;
 	(*i)++;
 	str = ft_strdup("~");
 	if (!str)

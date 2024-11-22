@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 22:08:02 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:42:25 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 {
 	t_token	*left;
 	t_token	*right;
-	int		close_index;
 
 	if (!ast || !tokens || index == -1)
 		return (0);

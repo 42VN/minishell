@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 11:16:31 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:59:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	wait_update(t_shell *shell, pid_t pid)
 void	print_fault(t_shell *shell)
 {
 	if (shell->exitcode - 128 == SIGQUIT)
-		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+		ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
 	else if (shell->exitcode - 128 == SIGSEGV)
-		write(STDERR_FILENO, "Segmentation fault (core dumped)\n", 33);
+		ft_putendl_fd("Segmentation fault (core dumped)", STDERR_FILENO);
 }

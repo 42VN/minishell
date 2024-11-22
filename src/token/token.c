@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 18:03:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 11:43:13 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	ft_token_init(t_shell *shell)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
+	// i = 0;
 	if (!shell)
 		return (0);
 	shell->tokens = ft_calloc(1, sizeof(t_tokens));
@@ -47,9 +47,9 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
-	size_t	index;
+	// size_t	index;
 
-	index = shell->tokens->cur_pos;
+	// index = shell->tokens->cur_pos;
 	if (!ft_token_realloc(shell))
 		return (0);
 	if (ft_is_op(**input))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_double_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:20:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 16:50:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 12:00:57 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void ft_exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i
 	char	*joined;
 	size_t	start;
 
+	(void)shell; //check
 	start = *i;
 	while (cmd[*i] && cmd[*i] != '\"' && cmd[*i] != '$')
 		(*i)++;

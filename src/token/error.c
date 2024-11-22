@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 19:44:35 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 11:45:50 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	ft_pipe_err(char *ptr)
 
 void	ft_token_parse_error(t_shell *shell, char *ptr)
 {
-	char	*str;
+	// char	*str;
 
 	shell->err_type = ERR_SYNTAX;
 	while (ft_isspace(*ptr))
@@ -94,5 +94,5 @@ void	ft_token_parse_error(t_shell *shell, char *ptr)
 	else
 		ft_printf_fd(2,
 			"minishell: syntax error near unexpected token %c\n", *ptr);
-	free(str);
+	// free(str);
 }

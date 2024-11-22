@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 11:15:24 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 11:58:09 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static char	**find_envp_path(char **envp, char *command)
 		envp++;
 	if (!*envp)
 	{
-		write(2, command, ft_strlen(command));
-		write(2, ": No such file or directory\n", 28);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		return (NULL);
 	}
 	return (ft_split(*envp + 5, ':'));
@@ -60,14 +60,14 @@ static void	check_command(t_shell *shell, char *command)
 
 	if (stat(command, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
-		write(2, command, ft_strlen(command));
-		write(2, ": Is a directory\n", 17);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": Is a directory", STDERR_FILENO);
 		exec_error (shell, NULL);
 	}
 	else if (stat(command, &sb) == 0 && access(command, X_OK) != 0)
 	{
-		write(2, command, ft_strlen(command));
-		write(2, ": Permission denied\n", 20);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 		exec_error (shell, NULL);
 	}
 }
@@ -82,8 +82,8 @@ char	*find_command_path(t_shell *shell, char *command)
 		check_command(shell, command);
 		if (access(command, F_OK) == 0)
 			return (ft_strdup(command));
-		write(2, command, ft_strlen(command));
-		write(2, ": No such file or directory\n", 28);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		return (NULL);
 	}
 	envp_paths = find_envp_path(shell->envp, command);
@@ -93,8 +93,8 @@ char	*find_command_path(t_shell *shell, char *command)
 	ft_free_triptr(&envp_paths);
 	if (!command_path)
 	{
-		write(2, command, ft_strlen(command));
-		write(2, ": command not found\n", 20);
+		ft_putstr_fd(command, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
 	}
 	return (command_path);
 }
