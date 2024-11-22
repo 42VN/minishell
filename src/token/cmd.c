@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:45:28 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:27:16 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 		str = ft_token_parse(ptr, shell, 0);
 		if (!str)
 			return (0);
-		if (*index > 0 && shell->tokens->array[*index].type == CMD //trung
+		if (index && shell->tokens->array[*index].type == CMD //trung
 			&& shell->tokens->array[*index].cmd)
 		{
 			if (!ft_token_join_cmd(&shell->tokens->array[*index], &str))
