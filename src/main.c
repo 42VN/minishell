@@ -6,35 +6,11 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 13:03:34 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 23:17:40 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static void ft_print_split_cmd(t_shell *shell)
-// {
-// 	size_t	i = 0;
-// 	size_t	j = 0;
-// 	while (i <= shell->tokens->cur_pos)
-// 	{
-// 		j = 0;
-// 		printf("\n------------------------\n");
-// 		printf("Split cmd\n");
-// 		printf("------------------------\n");
-// 		if (shell->tokens->array[i].split_cmd)
-// 		{
-// 			while (shell->tokens->array[i].split_cmd[j])
-// 			{
-// 				printf("[%s] ", shell->tokens->array[i].split_cmd[j]);
-// 				++j;
-// 			}
-// 		}
-// 		printf("\n");
-// 		++i;
-// 	}
-// 	printf("\n");
-// }
 
 static void	free_input(t_shell *shell)
 {
@@ -57,10 +33,10 @@ static void	process_input(t_shell *shell, char *input)
 			return ;
 		if (!read_heredoc(shell, shell->tokens->array, size))
 			return ;
-		expansion(shell);
-		// ft_token_print(shell);
 		if (wildcard(shell->tokens->array, size) == EXIT_FAILURE)
 			return ;
+		// ft_token_print(shell);
+		expansion(shell);
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;

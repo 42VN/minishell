@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 13:03:09 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 23:16:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,28 @@ int replace_wildcard(char ***splitted, int pos, char **matches)
 	return (1);
 }
 
-void start_wildcard(char ***splitted)
+int	inside_quotes(char *str)
+{
+	char	quote;
+	int		len;
+
+	len = ft_strlen(str);
+	quote = str[0];
+	if ((quote == '\'' || quote == '\"') && len > 1 && str[len -1] == quote)
+		return (1);
+	return (0);
+}
+
+void command_wildcard(char ***splitted)
 {
 	int		index;
 	char	**matches;
 
-	index = 0;
-	while ((*splitted)[index])
+	index = -1;
+	while ((*splitted)[++index])
 	{
+		if (inside_quotes((*splitted)[index]))
+			continue ;
 		if (ft_strchr((*splitted)[index], '*'))
 		{
 			matches = expand_wildcard((*splitted)[index]);
@@ -130,7 +144,30 @@ void start_wildcard(char ***splitted)
 			index += array_length(matches) - 1;
 			free_array(matches);
 		}
-		index++;
+	}
+}
+
+
+void redirect_wildcard(t_redirect *redirect)
+{
+	char	**matches;
+
+	while (redirect)
+	{
+		// printf("path = %s\n", redirect->path);
+		if (redirect->path && ft_strcmp(redirect->path, "*") && ft_strchr(redirect->path, '*'))
+		{
+			matches = expand_wildcard(redirect->path);
+			if (!matches)
+				return ;
+			free(redirect->path);
+			if (array_length(matches) != 1)
+				redirect->path = ft_strdup("*"); //check
+			else
+				redirect->path = ft_strdup(matches[0]); //check
+			free_array(matches);
+		}
+		redirect = redirect->next;
 	}
 }
 
@@ -143,10 +180,11 @@ int	wildcard(t_token *tokens, int size)
 	{
 		if (tokens[index].type == CMD)
 		{
-			if (!tokens[index].cmd || !tokens[index].split_cmd
-				|| !ft_strcmp(tokens[index].cmd, "$EMPTY"))
+			redirect_wildcard(tokens[index].redirect);
+			if (tokens[index].cmd && !ft_strcmp(tokens[index].cmd, "$EMPTY"))
 				return (EXIT_FAILURE);
-			start_wildcard(&tokens[index].split_cmd);
+			if (tokens[index].cmd && tokens[index].split_cmd)
+				command_wildcard(&tokens[index].split_cmd);
 		}
 		index++;
 	}

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:19 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/20 10:53:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 20:57:33 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_array(char **array)
 int	array_length(char **array)
 {
 	int	len;
-	
+
 	len = 0;
 	if (!array)
 		return (0);
