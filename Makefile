@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/22 11:38:10 by hitran           ###   ########.fr        #
+#    Updated: 2024/11/22 13:03:24 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME				=	minishell
 NAME_BONUS			=	minishell_bonus
 
 CC					=	cc
-CFLAGS				=	-O3 -Wall -Wextra -Werror -I ./include
+CFLAGS				=	-O3  -I ./include -Wall -Wextra -Werror 
 # CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
 # CFLAGS_VALGRIND		=	-g -O3 -I ./include #-Wall -Wextra -Werror -I ./include
 

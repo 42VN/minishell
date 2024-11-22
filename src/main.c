@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 12:02:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 13:03:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ static void	process_input(t_shell *shell, char *input)
 		if (!read_heredoc(shell, shell->tokens->array, size))
 			return ;
 		expansion(shell);
-		wildcard(shell->tokens->array, size);
+		// ft_token_print(shell);
+		if (wildcard(shell->tokens->array, size) == EXIT_FAILURE)
+			return ;
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;

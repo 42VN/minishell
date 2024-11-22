@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 12:02:44 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:46:52 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef struct s_shell	t_shell;
 
 //---------------------------------|| WILDCARD||------------------------------//
-void	wildcard(t_token *tokens, int size);
+int	wildcard(t_token *tokens, int size);
 
 //---------------------------------||  UTILS  ||------------------------------//
 void	free_array(char **array);

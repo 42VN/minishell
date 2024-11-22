@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 12:02:30 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 13:03:09 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void start_wildcard(char ***splitted)
 	}
 }
 
-void	wildcard(t_token *tokens, int size)
+int	wildcard(t_token *tokens, int size)
 {
 	int	index;
 
@@ -142,7 +142,13 @@ void	wildcard(t_token *tokens, int size)
 	while (index < size)
 	{
 		if (tokens[index].type == CMD)
+		{
+			if (!tokens[index].cmd || !tokens[index].split_cmd
+				|| !ft_strcmp(tokens[index].cmd, "$EMPTY"))
+				return (EXIT_FAILURE);
 			start_wildcard(&tokens[index].split_cmd);
+		}
 		index++;
 	}
+	return (EXIT_SUCCESS);
 }
