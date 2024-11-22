@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/19 16:59:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 20:00:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ typedef enum e_err_type
 	ERR_PIPE = 4
 }	t_err_type;
 
+typedef enum e_syntax_err
+{
+	ERR_SYNTAX_NONE = 0,
+	ERR_SYNTAX_QUOTE = 1,
+	ERR_SYNTAX_RD = 2,
+	ERR_SYNTAX_RD_PATH = 3,
+	ERR_SYNTAX_LOGIC = 4,
+	ERR_SYNTAX_BR = 5,
+	ERR_SYNTAX_BR_CLOSING = 6,
+}	t_syntax_err;
+
 //----------------------------------------------------
 // TOKEN 
 //-----------------------------------------------------
@@ -80,6 +91,7 @@ typedef struct s_tokens
 	size_t				to_add;
 	int					is_cmd;
 	int					br_open;
+	t_syntax_err		syntax_err;
 }	t_tokens;
 
 //----------------------------------------------------
@@ -120,13 +132,13 @@ int			ft_check_op(t_shell *shell, char *str);
 int			ft_check_op_bracket(char *str, t_shell *shell, size_t index);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
-
+int			ft_syntax_err_ret(t_shell *shell, t_syntax_err err, int code);
 //----------------------------------------------------
 // PRINT 
 //-----------------------------------------------------
 void		ft_token_print(t_shell *shell);
 void		ft_redirect_print(t_redirect **head);
-void		ft_token_parse_error(t_shell *shell, char *ptr);
+void		ft_token_syntax_err(t_shell *shell, char *ptr);
 //----------------------------------------------------
 // TOKEN 
 //-----------------------------------------------------

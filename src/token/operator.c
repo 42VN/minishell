@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:44:17 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 19:41:06 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,24 @@ static int	ft_count_op_skip(char **str, char op)
 
 /**
  * Check if the current token is a logical operator (&& or ||).
+ * 
+ * Validation Check:
+ * -	Logic op should not locate in the beginning
+ * -	No consecutive operator
+ * 
  */
 static int	ft_token_is_logic(
 	char **str,
 	t_shell *shell,
-	size_t *index)
+	size_t *index,
+	char op)
 {
-	int		count;
-	char	op;
+	int				count;
 
-	if (!str || !*str || (**str != '&' && **str != '|'))
-		return (0);
-	op = **str;
+	if (*index > 0
+		&& shell->tokens->array[*index - 1].type != CMD
+		&& shell->tokens->array[*index - 1].type != BR_CLOSE)
+		return (ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0));
 	count = ft_count_op_skip(str, **str);
 	if (count == 2 && op == '&')
 	{
@@ -71,7 +77,7 @@ static int	ft_token_is_logic(
 		shell->tokens->cur_pos++;
 		return (1);
 	}
-	return (0);
+	return (ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0));
 }
 
 /**
@@ -82,27 +88,25 @@ static int	ft_token_is_bracket(
 	t_shell *shell,
 	size_t	*index)
 {
-	if (!str || !*str || (**str != '(' && **str != ')'))
-		return (0);
 	if (**str == '(')
 	{
 		if (!ft_check_op_bracket(*str, shell, *index))
-			return (0);
+			return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
 		shell->tokens->array[*index].type = BR_OPEN;
 		shell->tokens->br_open++;
 	}
 	else if (**str == ')')
 	{
 		if (shell->tokens->br_open <= 0)
-			return (0);
+			return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
 		if (*index > 0 && shell->tokens->array[*index - 1].type == BR_OPEN)
-			return (0);
+			return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
 		shell->tokens->array[*index].type = BR_CLOSE;
 		shell->tokens->br_open--;
 	}
 	(*str)++;
 	if (!*str && shell->tokens->br_open != 0)
-		return (0);
+		return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
 	if (!ft_token_increment_pos(shell))
 		return (0);
 	return (1);
@@ -120,8 +124,6 @@ static int	ft_token_is_redirect(
 	char			op;
 	t_redirect		*redirect;
 
-	if (!str || !*str || (**str != '>' && **str != '<'))
-		return (0);
 	op = **str;
 	if (op == '<' || op == '>')
 	{
@@ -138,7 +140,7 @@ static int	ft_token_is_redirect(
 			return (1);
 		}
 	}
-	return (0);
+	return (ft_syntax_err_ret(shell, ERR_SYNTAX_RD, 0));
 }
 
 /**
@@ -147,7 +149,6 @@ static int	ft_token_is_redirect(
 int	ft_token_handle_op(char **ptr, t_shell *shell)
 {
 	size_t	*index;
-	// int		result;
 
 	if (!ptr || !*ptr || !**ptr || !shell)
 		return (0);
@@ -160,10 +161,11 @@ int	ft_token_handle_op(char **ptr, t_shell *shell)
 		return (ft_token_is_bracket(ptr, shell, index));
 	if (**ptr == '&' || **ptr == '|')
 	{
-		if (!ft_token_is_logic(ptr, shell, index))
+		if (!ft_token_is_logic(ptr, shell, index, **ptr)
+			|| (ft_token_is_last(*ptr) || *index == 0))
+		{
 			return (0);
-		if (ft_token_is_last(*ptr))
-			return (0);
+		}
 		return (1);
 	}
 	return (0);

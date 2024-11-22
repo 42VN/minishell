@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 13:03:34 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 20:02:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	process_input(t_shell *shell, char *input)
 
 	if (tokenize(shell, input))
 	{
-		// ft_token_print(shell);
+		ft_token_print(shell);
 		size = get_tokens_size(shell->tokens->array);
 		if (!size)
 			return ;
@@ -94,6 +94,50 @@ static void	minishell(t_shell *shell)
 	return ;
 }
 
+#include <termios.h>
+
+static int	disable_echoctl(void)
+{
+	struct termios	term;
+
+	if (isatty(STDIN_FILENO) == 1)
+	{
+		if (tcgetattr(STDIN_FILENO, &term) < 0)
+		{
+			perror("minishell: tcgetattr");
+			return (-1);
+		}
+		term.c_lflag &= ~ECHOCTL;
+		if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0)
+		{
+			perror("minishell: tcsetattr");
+			return (-1);
+		}
+	}
+	return (0);
+}
+
+static int	enable_echoctl(void)
+{
+	struct termios	term;
+
+	if (isatty(STDIN_FILENO) == 1)
+	{
+		if (tcgetattr(STDIN_FILENO, &term) < 0)
+		{
+			perror("minishell: tcgetattr");
+			return (-1);
+		}
+		term.c_lflag |= ECHOCTL;
+		if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0)
+		{
+			perror("minishell: tcsetattr");
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
@@ -104,10 +148,14 @@ int	main(int ac, char **av, char **envp)
 		exit (EXIT_FAILURE);
 	}
 	(void)av;
+	if (disable_echoctl() < 0)
+		return (EXIT_FAILURE);
 	shell_init(&shell, envp);
 	if (!start_signal(&shell, PARENT))
 		return (shell.exitcode);
 	minishell(&shell);
 	shell_cleanup(&shell);
+	if (enable_echoctl() < 0)
+		return (EXIT_FAILURE);
 	exit (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:33:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 19:48:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 	ft_skip_strchr(str, ' ');
 	if (**str == '\0')
 	{
-		free(redirect);
-		return (NULL);
+		shell->tokens->syntax_err = ERR_SYNTAX_RD_PATH;
+		return (free(redirect), NULL);
 	}
 	path = ft_token_parse(str, shell, 1);
-	if (!path && shell->err_type == ERR_MALLOC)
+	if (!path /*&& shell->err_type != ERR_MALLOC */)
 	{
-		free(redirect);
-		return (NULL);
+		if (shell->err_type != ERR_MALLOC)
+			shell->tokens->syntax_err = ERR_SYNTAX_RD_PATH;
+		return (free(redirect), NULL);
 	}
 	redirect->path = path;
 	return (redirect);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:44:01 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 18:19:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ int	ft_check_op_bracket(char *str, t_shell *shell, size_t index)
 		if (type != BR_OPEN && type != AND && type != OR)
 			return (0);
 	}
-	while (*str)
-	{
-		if (*str == ')')
-			return (1);
-		str++;
-	}
-	return (0);
+	// while (*str)
+	// {
+	// 	if (*str == ')')
+	// 		return (1);
+	// 	str++;
+	// }
+	return (1);
 }
 
 /**

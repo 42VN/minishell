@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:43:13 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 20:00:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	ft_token_init(t_shell *shell)
 {
-	// int	i;
-
-	// i = 0;
 	if (!shell)
 		return (0);
 	shell->tokens = ft_calloc(1, sizeof(t_tokens));
@@ -27,6 +24,7 @@ static int	ft_token_init(t_shell *shell)
 	shell->tokens->to_add = 5;
 	shell->tokens->cur_pos = 0;
 	shell->tokens->is_cmd = 1;
+	shell->tokens->syntax_err = ERR_SYNTAX_NONE;
 	shell->tokens->array
 		= (t_token *)ft_calloc(shell->tokens->size, sizeof(t_token));
 	if (!shell->tokens->array)
@@ -47,9 +45,6 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
-	// size_t	index;
-
-	// index = shell->tokens->cur_pos;
 	if (!ft_token_realloc(shell))
 		return (0);
 	if (ft_is_op(**input))
@@ -62,7 +57,6 @@ int	ft_token_add(t_shell *shell, char **input)
 		if (!ft_token_handle_cmd(input, shell))
 			return (0);
 	}
-
 	return (1);
 }
 
@@ -84,6 +78,22 @@ static int	ft_token_split_cmd(t_shell *shell)
 	return (1);
 }
 
+static int	ft_token_post_check(t_shell *shell, char **line)
+{
+	if (shell->tokens->cur_pos >= 1
+		&& shell->tokens->array[shell->tokens->cur_pos].type == NONE)
+		shell->tokens->cur_pos--;
+	if (shell->err_type != ERR_MALLOC)
+		ft_token_syntax_err(shell, *line);
+	if (shell->tokens->br_open > 0)
+	{
+		shell->tokens->syntax_err = ERR_SYNTAX_BR;
+		ft_token_syntax_err(shell, *line);
+		return (0);
+	}
+	return (0);
+}
+
 int	tokenize(t_shell *shell, char *line)
 {
 	if (!shell || !line || !*line)
@@ -98,15 +108,12 @@ int	tokenize(t_shell *shell, char *line)
 		{
 			if (!ft_token_add(shell, &line))
 			{
-				if (shell->err_type != ERR_MALLOC)
-					ft_token_parse_error(shell, line);
-				return (0);
+				break ;
 			}
 		}
 	}
-	if (shell->tokens->cur_pos >= 1
-		&& shell->tokens->array[shell->tokens->cur_pos].type == NONE)
-		shell->tokens->cur_pos--;
+	if (ft_token_post_check(shell, &line) == 0)
+		return (0);
 	if (!ft_token_split_cmd(shell))
 		return (0);
 	return (1);
