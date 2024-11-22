@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 19:22:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:53:34 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:14:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void export_standalone_print(char *env_var)
 	equal = ft_strchr(env_var, '=');
 	if (equal)
 	{
-		/* Kha check it plz*/
-		// write(1, env_var, (equal - env_var) + 1); //check
+		(void)!write(1, env_var, (equal - env_var) + 1);
 		if (*(equal + 1) != '\"')
 			printf("\"%s\"\n", equal + 1);
 		else
