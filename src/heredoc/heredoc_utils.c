@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/19 22:54:56 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 22:45:19 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,22 @@ void	print_warning(char *eof)
 char	*join_and_free(char *s1, char *s2)
 {
 	char	*res;
-	int		len;
+	char	*ptr;
 	int		len1;
 	int		len2;
 
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	len = len1 + len2;
-	res = (char *)malloc(len + 2);
+	// len = len1 + len2;
+	res = (char *)malloc(len1 + len2 + 2);
 	if (!res)
 		return (NULL);
-	if (s1)
-	{
-		ft_memcpy(res, s1, len1);
-		free (s1);
-	}
-	if (s2)
-	{
-		ft_memcpy(res, s2, len2);
-		free (s2);
-	}
-	res[len1 + len2] = '\n';
-	res[len1 + len2 + 1] = '\0';
-	return (res);
+	ptr = res;
+	while (s1 && *s1)
+		*res++ = *s1++;
+	while (s2 && *s2)
+		*res++ = *s2++;
+	*res++ = '\n';
+	*res = '\0';
+	return (ptr);
 }
