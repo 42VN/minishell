@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_heredoc.c                                     :+:      :+:    :+:   */
+/*   read_heredoc_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/26 15:36:42 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:36:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,19 @@ static int	here_doc(t_shell *shell, t_redirect *redirect,
 {
 	while (1)
 	{
-		line = readline("> ");
-		if (!line)
+		//-------------------------------
+		//Snippet for testing
+		//-------------------------------
+		if (isatty(fileno(stdin)))
+			line = readline("> ");
+		else
+		{
+			char *input;
+			input = get_next_line(fileno(stdin));
+			line = ft_strtrim(input, "\n");
+			free(input);
+		}
+		if (!line) //ctrl + D
 		{
 			print_warning(redirect->path);
 			break ;

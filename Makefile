@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/25 23:18:51 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/26 15:37:12 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME				=	minishell
 NAME_BONUS			=	minishell_bonus
 
 CC					=	cc
-CFLAGS				=	-O3  -I ./include -Wall -Wextra -Werror 
+CFLAGS				=	-g -O3  -I ./include -Wall -Wextra -Werror 
 # CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
 # CFLAGS_VALGRIND		=	-g -O3 -I ./include #-Wall -Wextra -Werror -I ./include
 
@@ -41,17 +41,17 @@ WC_DIR				=	$(SRC_DIR)/wildcard
 
 OBJ_DIR				=	obj
 
-SRC_BASE_FILES		=	main.c
+SRC_BASE_FILES		=	main_test.c
 ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	ast_utils.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c ft_split_cmd.c ft_split_cmd_utils.c ft_split_quote.c
 TOKEN_FILES			=	quote.c parse.c token.c free.c mem.c  utils.c utils2.c operator.c cmd.c error.c print.c redirect.c check.c
-BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c export_utils.c
+BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit_test.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 EXP_FILES			=	exp.c utils.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c
 SIG_FILES			=	signals.c signal_utils.c
-HD_FILES			=	read_heredoc.c heredoc_utils.c
+HD_FILES			=	read_heredoc_test.c heredoc_utils.c
 WC_FILES			=	wildcard.c wildcard_utils.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \
