@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/19 22:40:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 13:08:32 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	start_heredoc(t_shell *shell, t_redirect *redirect)
 {
 	char	*line;
 
+	line = NULL;
 	while (redirect)
 	{
 		if (redirect->type == RD_HEREDOC)

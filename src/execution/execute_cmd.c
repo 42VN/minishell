@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 23:22:55 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 13:07:59 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void	execute_command(t_shell *shell, t_token token)
 	int			fd[2] = {-2, -2};
 	const int	tmp[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
-	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE)
+	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE
+		|| !token.cmd || !token.split_cmd)
 	{
 		redirect_fd(tmp[0], STDIN_FILENO);
 		redirect_fd(tmp[1], STDOUT_FILENO);
