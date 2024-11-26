@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 12:44:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/22 12:48:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	cleanup_split_cmd(char **split_cmd)
 
 	i = 0;
 	j = 0;
-	// while (split_cmd[i] && split_cmd[i][0] == '\0')
-	// 	++i;
+	while (split_cmd[i] && split_cmd[i][0] == '\0')
+		++i;
 	if (!split_cmd[i])
 		return ;
-	// i = 0;
+	i = 0;
 	while (split_cmd[i])
 	{
 		if (split_cmd[i][0] == '\0')

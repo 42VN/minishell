@@ -3,96 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:45:50 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 11:40:41 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static char *ft_parse_error_str(char *ptr)
-// {
-// 	char	*start;
-// 	size_t	len;
-// 	char	*res;
-// 	start = ptr;
-// 	len = 0;
-// 	res = NULL;
-// 	if (*start == '|' || *start == '&')
-// 		len = 2;
-// 	else
-// 	{
-// 		while (!ft_isspace(*ptr) && *ptr != '\0')
-// 			ptr++;
-// 		len = ptr - start;
-// 	}
-// 	if (len > 0)
-// 		res = ft_substr(start, 0, len);
-// 	return (res);
-// }
-
 static void	ft_redirect_err(char *ptr)
 {
-	if (!ptr)
-		return ;
+	if (!*ptr)
+		ft_printf_fd(2,
+			"minishell: syntax error near unexpected token `newline`\n");
 	if (*ptr == '>')
 	{
 		if (*(ptr + 1) == '>')
 			ft_printf_fd(2,
-				"minishell: syntax error near unexpected token >>\n");
+				"minishell: syntax error near unexpected token `>>'\n");
 		else
 			ft_printf_fd(2,
-				"minishell: syntax error near unexpected token >\n");
+				"minishell: syntax error near unexpected token `>'\n");
 	}
 	if (*ptr == '<')
 	{
 		if (*(ptr + 1) == '<')
 			ft_printf_fd(2,
-				"minishell: syntax error near unexpected token <<\n");
+				"minishell: syntax error near unexpected token `<<'\n");
 		else
 			ft_printf_fd(2,
-				"minishell: syntax error near unexpected token <\n");
+				"minishell: syntax error near unexpected token `<'\n");
 	}
 }
 
-static void	ft_pipe_err(char *ptr)
+static void	ft_logic_err(char *ptr)
 {
-	if (!ptr)
-		return ;
 	if (*ptr == '|')
 	{
 		if (*(ptr + 1) == '|')
 			ft_printf_fd(2,
-				"minishell: syntax error near unexpected token ||\n");
+				"minishell: syntax error near unexpected token `||'\n");
 		else
 			ft_printf_fd(2,
-				"minishell: syntax error near unexpected token |\n");
+				"minishell: syntax error near unexpected token `|'\n");
 	}
-	
+	else if (*ptr == '&')
+	{
+		if (*(ptr + 1) == '&')
+			ft_printf_fd(2,
+				"minishell: syntax error near unexpected token `&&'\n");
+		else
+			ft_printf_fd(2,
+				"minishell: syntax error near unexpected token `&'\n");
+	}
+
 }
 
-void	ft_token_parse_error(t_shell *shell, char *ptr)
+int	ft_syntax_err_ret(t_shell *shell, t_syntax_err err, int code)
 {
-	// char	*str;
-
 	shell->err_type = ERR_SYNTAX;
+	shell->tokens->syntax_err = err;
+	return (code);
+}
+
+void	ft_token_syntax_err(t_shell *shell, char *ptr)
+{
+	t_syntax_err	syntax_err;
+	
+	syntax_err = shell->tokens->syntax_err;
 	while (ft_isspace(*ptr))
 		ptr++;
-	if (!ptr)
-		ft_printf_fd(2,
-			"minishell: syntax error near unexpected token newline\n");
-	else if (*ptr == '(')
-		ft_printf_fd(2, "minishell: syntax error caused by missing )\n");
-	else if (*ptr == '>' || *ptr == '<')
-		ft_redirect_err(ptr);
-	else if (*ptr == '|' || *ptr == '|')
-		ft_pipe_err(ptr);
-	else if (*ptr == '\'' || *ptr == '\"')
-		ft_printf_fd(2, "minishell: syntax error: unexpected end of file\n");
-	else
-		ft_printf_fd(2,
-			"minishell: syntax error near unexpected token %c\n", *ptr);
-	// free(str);
+	if (shell->err_type == ERR_SYNTAX)
+	{
+		if (syntax_err == ERR_SYNTAX_RD)
+			ft_redirect_err(ptr);
+		else if (syntax_err == ERR_SYNTAX_LOGIC || (*ptr == '|' || *ptr == '&'))
+			ft_logic_err(ptr);
+		else if (syntax_err == ERR_SYNTAX_BR)
+			ft_printf_fd(2,
+				"minishell: syntax error: unexpected end of file\n");
+		else
+			ft_printf_fd(2,
+				"minishell: syntax error near unexpected token `%c'\n", *ptr);
+		shell->exitcode = 2;
+	}
+	shell->err_type = ERR_NONE;
 }

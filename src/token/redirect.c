@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/07 21:33:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 12:24:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_redirect_check_path(char *str)
+{
+	if (*str == '\0' || ft_is_op(*str))
+		return (0);
+	return (1);
+}
 
 void	ft_redirect_classify(t_redirect *redirect, char op, int count)
 {

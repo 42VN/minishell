@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:44:01 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 11:42:37 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	ft_check_op(t_shell *shell, char *str)
 {
 	size_t			index;
 	t_token_type	prev_type;
-	// t_token_type	cur_type;
 
 	index = shell->tokens->cur_pos;
 	if (shell->tokens->array[index].type != NONE
@@ -74,33 +73,6 @@ int	ft_check_op(t_shell *shell, char *str)
 		}
 	}
 	return (1);
-}
-
-/**
- * Conditional check for opening bracket
- * 
- * Description:
- * 
- * -	Check for previous token
- * -	Check for closing bracket
- */
-int	ft_check_op_bracket(char *str, t_shell *shell, size_t index)
-{
-	t_token_type	type;
-
-	if (index > 0)
-	{
-		type = shell->tokens->array[index - 1].type;
-		if (type != BR_OPEN && type != AND && type != OR)
-			return (0);
-	}
-	while (*str)
-	{
-		if (*str == ')')
-			return (1);
-		str++;
-	}
-	return (0);
 }
 
 /**
