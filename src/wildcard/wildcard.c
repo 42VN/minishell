@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 23:16:34 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 14:53:50 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,11 @@ void command_wildcard(char ***splitted)
 		{
 			matches = expand_wildcard((*splitted)[index]);
 			if (!matches)
-				return ;
+				continue; ;
 			if (!replace_wildcard(splitted, index, matches))
 			{
 				free_array(matches);
-				return ;
+				continue; ;
 			}
 			index += array_length(matches) - 1;
 			free_array(matches);
