@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 15:39:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/26 21:28:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,14 @@ static void	minishell(t_shell *shell)
 			input = ft_strtrim(line, "\n");
 			free(line);
 		}
-		char *temp = ft_strdup(input);
-		free (input);
-		input = temp;
 		if (!input)
 			break ;
+		else
+		{
+			char *temp = ft_strdup(input);
+			free(input);
+			input = temp;
+		}
 		if (ft_strcmp(input, ""))
 			add_history(input);
 		if (*input)
