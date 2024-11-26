@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/26 15:35:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:53:37 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ long long	to_8bits(long nb)
 
 void	exit_error(t_shell *shell, char *token, char *message, int error_num)
 {
-	//ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	if (token)
 	{
 		ft_putstr_fd(token, STDERR_FILENO);

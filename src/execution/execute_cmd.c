@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/26 13:07:59 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/26 15:44:02 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
 	while (redirect)
 	{
+		if (!redirect->path)
+		{
+			redirect = redirect->next;
+			continue ;
+		}
 		if (!strcmp(redirect->path, "*"))
 			return (open_error(shell, redirect->path, fd,
 				"ambiguous redirect"));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/26 15:36:42 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/26 15:57:56 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ static int	here_doc(t_shell *shell, t_redirect *redirect,
 		if (!line)
 		{
 			print_warning(redirect->path);
+			if (!heredoc)
+				heredoc = ft_strdup(""); //cehck null
 			break ;
 		}
 		if (shell->exitcode - 128 == SIGINT)
 		{
 			free(redirect->path);
-			redirect->path = ft_strdup("");
+			redirect->path = ft_strdup("");//cehck null
 			return (0);
 		}
 		if (!ft_strcmp(redirect->path, line))
