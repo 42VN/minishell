@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 12:48:44 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 13:51:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,45 +47,41 @@ void	cleanup_split_cmd(char **split_cmd)
 	split_cmd[j] = NULL;
 }
 
-// static int find_op_quote(char *str)
-// {
-// 	while (*str)
-// 	{
-// 		if (*str == '\'' || *str == '\"')
-// 			return (*str);
-// 		str++;
-// 	}
-// 	return (0);
-// }
-//check
-
-void	exp_strip_quotes(char *str, char c)
+static void	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
 {
-	size_t	read;
-	size_t	write;
+	(*read)++;
+	while (str[*read] && str[*read] != c)
+		str[(*write)++] = str[(*read)++];
+}
+
+int	exp_strip_quotes(char *str, char c)
+{
+	int	read;
+	int	write;
+	int	last_quote;
 
 	read = 0;
 	write = 0;
-	if (!str || *str == '\0')
-        return;
-	if (c != '\'' && c != '\"')
-		return ;
+	last_quote = -1;
+	if (!str || *str == '\0' || (c != '\'' && c != '\"'))
+		return (0);
 	while (str[read])
 	{
 		if (str[read] == c)
 		{
-			read++;
-			while (str[read] && str[read] != c)
-				str[write++] = str[read++];
+			exp_strip_quote_overwrite(str, c, &read, &write);
 			if (str[read] == c)
+			{
+				last_quote = read;
 				read++;
+			}
 		}
 		else
-		{
 			str[write++] = str[read++];
-		}
 	}
 	str[write] = '\0';
+	return (last_quote == -1 ? write : last_quote);
+	// return (last_quote);
 }
 
 void ft_join_quote(char **res, char *quote)
