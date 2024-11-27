@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 13:56:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 16:09:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,22 @@ void	cleanup_split_cmd(char **split_cmd)
 	split_cmd[j] = NULL;
 }
 
-static void	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
+static int	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
 {
+	int	last_quote;
+
+	last_quote = -1;
 	(*read)++;
 	while (str[*read] && str[*read] != c)
 		str[(*write)++] = str[(*read)++];
+	if (str[*read] == c)
+	{
+		last_quote = *read - 1;
+		(*read)++;
+	}
+	while (str[*read])
+		str[(*write)++] = str[(*read)++];
+	return (last_quote);
 }
 
 int	exp_strip_quotes(char *str, char c)
@@ -59,7 +70,7 @@ int	exp_strip_quotes(char *str, char c)
 	int	read;
 	int	write;
 	int	last_quote;
-
+	
 	read = 0;
 	write = 0;
 	last_quote = -1;
@@ -69,19 +80,14 @@ int	exp_strip_quotes(char *str, char c)
 	{
 		if (str[read] == c)
 		{
-			exp_strip_quote_overwrite(str, c, &read, &write);
-			if (str[read] == c)
-			{
-				last_quote = read;
-				read++;
-			}
+			last_quote = exp_strip_quote_overwrite(str, c, &read, &write);
+			break;
 		}
 		else
 			str[write++] = str[read++];
 	}
 	str[write] = '\0';
-	return (last_quote == -1 ? write : last_quote);
-	// return (last_quote);
+	return (last_quote);
 }
 
 void ft_join_quote(char **res, char *quote)

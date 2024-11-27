@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 13:56:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 16:08:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,29 @@
 static int exp_post_process(char **res, int i)
 {
 	char	quote;
-
+	int		last_quote;
+	
 	quote = '\0';
-    if (!res || !(*res))
-    {
+	last_quote = -1;
+	if (!res || !(*res))
 		return (0);
-	}
-    while ((*res)[i])
-    {
-        if ((*res)[i] == '\'' || (*res)[i] == '\"')
-        {
-            quote = (*res)[i];
-			break;
-        }
-        ++i;
-    }
-	if (quote != '\0')
+	while ((*res)[i])
 	{
-		i = exp_strip_quotes(*res, quote);
-		// printf("Last quote: [%s] [%d] [%c]\n", *res, i, (*res)[i] ? (*res)[i] : '\0');
-		if (i >= 0 && (*res)[i] != '\0')
+		if ((*res)[i] == '\'' || (*res)[i] == '\"')
 		{
-			exp_post_process(res, i);
+			quote = (*res)[i];
+			last_quote = exp_strip_quotes(*res, quote);
+			if (last_quote >= i && (*res)[last_quote] != '\0')
+			{
+				exp_post_process(res, last_quote);
+			}
+			return (1);
 		}
+		++i;
 	}
-    return (1);
+	return (1);
 }
+
 
 
 
