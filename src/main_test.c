@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 14:59:48 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/27 15:11:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	minishell(t_shell *shell)
 			break ;
 		else
 		{
-			char *temp = ft_strdup(input);
+			char *temp = ft_strdup(input); //leak
 			free(input);
 			input = temp;
 		}
