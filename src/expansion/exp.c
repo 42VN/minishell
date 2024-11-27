@@ -6,12 +6,16 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 16:08:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 16:20:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * Recusive function to process quotes
+ *
+ */
 static int exp_post_process(char **res, int i)
 {
 	char	quote;
@@ -26,7 +30,7 @@ static int exp_post_process(char **res, int i)
 		if ((*res)[i] == '\'' || (*res)[i] == '\"')
 		{
 			quote = (*res)[i];
-			last_quote = exp_strip_quotes(*res, quote);
+			last_quote = exp_strip_quotes(*res, quote, i);
 			if (last_quote >= i && (*res)[last_quote] != '\0')
 			{
 				exp_post_process(res, last_quote);
@@ -37,9 +41,6 @@ static int exp_post_process(char **res, int i)
 	}
 	return (1);
 }
-
-
-
 
 static int	exp_process(t_shell *shell, char **res, char *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 16:09:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 16:24:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ void	cleanup_split_cmd(char **split_cmd)
 	split_cmd[j] = NULL;
 }
 
+/*
+ * Helper function to re-arrange the expansion string
+*
+ * Description:
+ * -	Copy excuding the enclosing quotes.
+ * -	Return the index of <last_quote> which will be processed
+ * in the next <exp_post_process> recursive function call.
+ * */
 static int	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
 {
 	int	last_quote;
@@ -65,14 +73,21 @@ static int	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
 	return (last_quote);
 }
 
-int	exp_strip_quotes(char *str, char c)
+/*
+ * Function to strip the quote in expansion string
+ 
+ * Description:
+ * -	Find the quote and its first occurrence
+ * -	Strip the encosing quotes and re-arrange (shorten)
+ * */
+int	exp_strip_quotes(char *str, char c, char start)
 {
 	int	read;
 	int	write;
 	int	last_quote;
 	
-	read = 0;
-	write = 0;
+	read = start;
+	write = start;
 	last_quote = -1;
 	if (!str || *str == '\0' || (c != '\'' && c != '\"'))
 		return (0);
