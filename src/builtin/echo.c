@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:40:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 15:31:18 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/27 15:53:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,27 @@
 void	builtin_echo(char **token)
 {
 	int	index;
+	int	j;
+	int	newline;
 
+	newline = 1;
 	index = 1;
 	while (token[index] && !ft_strncmp(token[index], "-n", 2))
+	{
+		j = 1;
+		while (token[index][j] == 'n')
+			j++;
+		if (token[index][j])
+			break ;
+		newline = 0;
 		index++;
+	}
 	while (token[index])
 	{
 		printf("%s", token[index++]);
 		if (token[index] != NULL)
 			printf(" ");
 	}
-	if (token[1] && ft_strncmp(token[1], "-n", 2))
+	if (newline)
 		printf("\n");
 }
