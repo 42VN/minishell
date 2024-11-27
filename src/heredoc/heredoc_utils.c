@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/26 22:45:19 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/27 14:08:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*join_and_free(char *s1, char *s2)
 	ptr = res;
 	while (s1 && *s1)
 		*res++ = *s1++;
+	if (s1)
+		free (s1);
 	while (s2 && *s2)
 		*res++ = *s2++;
 	*res++ = '\n';
