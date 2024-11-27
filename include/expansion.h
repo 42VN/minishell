@@ -6,14 +6,14 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 17:36:28 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 12:30:35 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-void	exp_strip_quotes(char *str, char quote);
+int		exp_strip_quotes(char *str, char quote);
 void	ft_join_quote(char **res, char *quote);
 void	cleanup_split_cmd(char **split_cmd);
 
