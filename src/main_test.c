@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 21:28:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/27 14:59:48 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	process_input(t_shell *shell, char **input)
 		size = get_tokens_size(shell->tokens->array);
 		if (!size)
 			return ;
-		if (!read_heredoc(shell, shell->tokens->array, size))
+		if (read_heredoc(shell, shell->tokens->array, size) == EXIT_FAILURE)
 			return ;
 		if (wildcard(shell->tokens->array, size) == EXIT_FAILURE)
 			return ;

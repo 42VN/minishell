@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/26 22:35:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/27 14:56:56 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,20 @@ static int	here_doc(t_shell *shell, t_redirect *redirect,
 		{
 			free(redirect->path);
 			redirect->path = ft_strdup("");
-			return (0);
+			return (EXIT_FAILURE);
 		}
 		if (!ft_strcmp(redirect->path, line))
 		{
 			free(line);
 			break ;
 		}
-		heredoc = join_and_free(heredoc, line);
+		if (join_and_free(&heredoc, line) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+
 	}
 	free(redirect->path);
 	redirect->path = heredoc;
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 static int	start_heredoc(t_shell *shell, t_redirect *redirect)
@@ -63,13 +65,13 @@ static int	start_heredoc(t_shell *shell, t_redirect *redirect)
 		if (redirect->type == RD_HEREDOC)
 		{
 			start_signal(shell, HEREDOC);
-			if (!here_doc(shell, redirect, line, NULL))
-				return (0);
+			if (here_doc(shell, redirect, line, NULL) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 			start_signal(shell, PARENT);
 		}
 		redirect = redirect->next;
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 int	read_heredoc(t_shell *shell, t_token *tokens, int size)
@@ -81,10 +83,10 @@ int	read_heredoc(t_shell *shell, t_token *tokens, int size)
 	{
 		if (tokens[index].type == CMD)
 		{
-			if (!start_heredoc(shell, tokens[index].redirect))
-				return (0);
+			if (start_heredoc(shell, tokens[index].redirect) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
 		}
 		index++;
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
