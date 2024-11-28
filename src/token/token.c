@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/25 20:39:34 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 20:07:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	ft_token_init(t_shell *shell)
 	shell->tokens->size = 5;
 	shell->tokens->to_add = 5;
 	shell->tokens->cur_pos = 0;
-	shell->tokens->is_cmd = 1;
+	// shell->tokens->is_cmd = 1;
+	shell->tokens->is_empty_cmd = 0;
 	shell->tokens->syntax_err = ERR_SYNTAX_NONE;
 	shell->tokens->array
 		= (t_token *)ft_calloc(shell->tokens->size, sizeof(t_token));
