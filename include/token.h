@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 11:42:28 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 17:53:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_tokens
 	size_t				cur_pos;
 	size_t				to_add;
 	int					is_cmd;
+	int					is_empty_cmd;
 	int					br_open;
 	t_syntax_err		syntax_err;
 }	t_tokens;

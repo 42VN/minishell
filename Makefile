@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/11/26 15:37:12 by ktieu            ###   ########.fr        #
+#    Updated: 2024/11/28 17:16:45 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME_BONUS			=	minishell_bonus
 
 CC					=	cc
 CFLAGS				=	-g -O3  -I ./include -Wall -Wextra -Werror 
-# CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
+CFLAGS_DEV			=	-g -O3 -I ./include -fsanitize=address,undefined -g
 # CFLAGS_VALGRIND		=	-g -O3 -I ./include #-Wall -Wextra -Werror -I ./include
 
 LIBFT_DIR			=	./libft
@@ -76,16 +76,16 @@ OBJ_FILES = $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT_A)
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(LINKER) -o $(NAME)
+	$(CC) $(CFLAGS_DEV) $(OBJ_FILES) $(LINKER) -o $(NAME)
 
 bonus: $(NAME_BONUS)
 
 $(NAME_BONUS): $(OBJ_FILES) $(LIBFT_A)
-	$(CC) $(CFLAGS) $(OBJ_FILES) $(LINKER) -o $(NAME_BONUS)
+	$(CC) $(CFLAGS_DEV) $(OBJ_FILES) $(LINKER) -o $(NAME_BONUS)
 	
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS_DEV) -c $< -o $@
 
 $(LIBFT_A):
 	@$(MAKE) -s -C $(LIBFT_DIR)

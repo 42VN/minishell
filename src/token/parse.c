@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:27:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/25 18:09:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 17:59:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 	}
 	res = ft_substr(*ptr, 0, start - (*ptr));
 	if (!res)
-		return (ft_error_ret_null("ft_make_str_cmd: malloc", shell, 0));
+		return (ft_error_ret_null("ft_make_str_cmd: malloc", shell, ERR_MALLOC));
 	*ptr = start;
 	return (res);
 }
@@ -48,7 +48,7 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
  * -	Remove the most outer quotes, only take the inner string including 
  * inner quotes
  */
-char	*ft_token_parse(char **ptr, t_shell *shell, int parse_quote)
+char	*ft_token_parse(char **ptr, t_shell *shell, int remove_quote)
 {
 	char	*str;
 	char	*res;
@@ -58,7 +58,7 @@ char	*ft_token_parse(char **ptr, t_shell *shell, int parse_quote)
 	str = ft_make_str_cmd(ptr, shell, &quote);
 	if (!str)
 		return (NULL);
-	if (quote != '\0' && parse_quote == 1)
+	if (quote != '\0' && remove_quote == 1)
 	{
 		res = ft_remove_quote(str, quote, shell, ft_strlen(str));
 		if (!res && shell->err_type == ERR_MALLOC)
