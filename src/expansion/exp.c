@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 16:20:18 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 23:04:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static int	exp_process(t_shell *shell, char **res, char *cmd)
 		exp_tiddle_front(shell, res, cmd, &k);
 	while (cmd[k])
 	{
-		
 		if (cmd[k] == '$')
 			exp_dollar(shell, res, cmd, &k);
 		else if (cmd[k] == '~')

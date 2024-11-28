@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_tiddle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 00:17:05 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 12:00:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/28 23:04:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,20 @@ static char *exp_tiddle_home_path(t_shell *shell)
  * 
  * Description: Tiddle only returns HOME path if it is at the front and there is no following character
  */
-void	exp_tiddle_front(t_shell *shell, char **res, char *cmd, size_t *i)
+void	exp_tiddle_front(t_shell *shell, char **res, char *cmd, size_t *index)
 {
 	char	*str;
 	char	*joined;
-
-	(*i)++;
+	size_t	i;
+	
+	i = *index;
+	i++;
 	str = NULL;
-	if (ft_isspace(cmd[*i]) || cmd[*i] == '\0')
+	if (ft_isspace(cmd[i]) || cmd[i] == '\0')
 	{
 		str = exp_tiddle_home_path(shell);
 		if (!str)
-		{
-			ft_free_null(res);
-			return ;
-		}
+			return (ft_free_null(res));
 		joined = ft_strjoin(*res, str);
 		if (!joined)
 		{
@@ -58,8 +57,8 @@ void	exp_tiddle_front(t_shell *shell, char **res, char *cmd, size_t *i)
 		ft_free_null(res);
 		ft_free_null(&str);
 		*res = joined;
+		(*index)++;
 	}
-		
 }
 
 /**
