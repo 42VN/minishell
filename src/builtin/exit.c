@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/27 15:26:00 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:25:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	exit_error(t_shell *shell, char *token, char *message, int error_num)
 void	builtin_exit(t_shell *shell, char **token)
 {
 	//ft_putstr_fd("exit\n", STDOUT_FILENO);
-	if (!token[1] || (token[1] && not_numberic(token[1])))
+	if (token[1] && not_numberic(token[1]))
 	{
 		exit_error(shell, token[1], "numeric argument required", 2);
 		free_all(shell);
