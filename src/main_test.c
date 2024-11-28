@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 15:11:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:12:14 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ static void	minishell(t_shell *shell)
 			input = temp;
 		}
 		if (ft_strcmp(input, ""))
-			add_history(input);
-		if (*input)
 		{
+			add_history(input);
 			process_input(shell, &input);
 			loop_cleanup(shell);
+			free(input);
 		}
 	}
 	rl_clear_history();
