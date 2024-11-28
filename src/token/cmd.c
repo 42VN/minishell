@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 22:52:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 22:56:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_next_empty_cmd(char *ptr, t_shell *shell, char **str)
 	
 	hasspace = check_next_space(&ptr);
 	space_count = ft_space_count(shell->tokens->array[shell->tokens->cur_pos].cmd);
-	printf("String: [%s] [%d][%d]\n", ptr, hasspace, space_count);
+	// printf("String: [%s] [%d][%d]\n", ptr, hasspace, space_count);
 	if (hasspace && space_count >= 1 && (*ptr == '\'' || *ptr == '\"'))
 	{
 		temp = ft_token_parse(&ptr, shell, 1);
