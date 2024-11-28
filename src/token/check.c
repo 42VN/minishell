@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:26:07 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 11:41:36 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 23:40:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
  */
 int	ft_token_logic_precheck(t_shell *shell, char *str, size_t index)
 {
-	// count = 0;
 	if (*str != '|' && *str != '&')
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0));
-	// op = *str;
 	if (index == 0 || ft_token_is_last(str))
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0));
 	if (index > 0 && shell->tokens->array[index - 1].type != CMD

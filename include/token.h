@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 20:19:34 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 23:48:14 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ typedef struct s_tokens
 	size_t				size;
 	size_t				cur_pos;
 	size_t				to_add;
-	// int					is_cmd;
-	int					is_empty_cmd;
 	int					br_open;
 	t_syntax_err		syntax_err;
 }	t_tokens;
@@ -133,7 +131,6 @@ int			ft_redirect_check_path(char *str);
 int			ft_token_increment_pos(t_shell *shell);
 void		ft_token_free(t_shell *shell);
 int			ft_syntax_err_ret(t_shell *shell, t_syntax_err err, int code);
-void		ft_token_logic_next_cmd(t_shell *shell);
 int			ft_space_count(char *command);
 //----------------------------------------------------
 // CHECK 

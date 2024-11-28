@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 11:32:17 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/28 23:48:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	ft_token_is_logic(
 	if (count == 2 && op == '&')
 	{
 		shell->tokens->array[*index].type = AND;
-		ft_token_logic_next_cmd(shell);
+		shell->tokens->cur_pos++;
 	}
 	else if (op == '|' && (count == 1 || count == 2))
 	{
@@ -57,7 +57,7 @@ static int	ft_token_is_logic(
 			shell->tokens->array[*index].type = PIPE;
 		else if (count == 2)
 			shell->tokens->array[*index].type = OR;
-		ft_token_logic_next_cmd(shell);
+		shell->tokens->cur_pos++;
 	}
 	else
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0));
