@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/26 22:34:13 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:35:31 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 static int	here_doc(t_shell *shell, t_redirect *redirect,
 	char *line, char *heredoc)
 {
+	heredoc = ft_strdup("");
+	if (!heredoc)
+		return (0);
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
 		{
-			print_warning(redirect->path);
-			if (!heredoc)
-				heredoc = ft_strdup(""); //cehck null
+			ft_printf_fd(STDERR_FILENO, "minishell: warning: here-document at "
+				"line 1 delimited by end-of-file (wanted `%s')\n", redirect->path);
 			break ;
 		}
 		if (shell->exitcode - 128 == SIGINT)
 		{
 			free(redirect->path);
-			redirect->path = ft_strdup("");//cehck null
+			redirect->path = ft_strdup("");
 			return (0);
 		}
 		if (!ft_strcmp(redirect->path, line))
