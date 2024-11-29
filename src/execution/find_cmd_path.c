@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/29 11:00:06 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:47:59 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*find_command_path(t_shell *shell, char *command)
 	char		*command_path;
 
 	if (!command || !command[0])
-	{	
+	{
 		ft_printf_fd(STDERR_FILENO, "Command '%s' not found\n", command);
 		return (NULL);
 	}

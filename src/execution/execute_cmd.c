@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/29 10:53:56 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:54:25 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,11 @@ static int	open_heredoc(char *heredoc)
 
 static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
-	while (redirect)
+	while (redirect && redirect->path)
 	{
-		if (!redirect->path)
-		{
-			redirect = redirect->next;
-			continue ;
-		}
 		if (!strcmp(redirect->path, "*"))
 			return (open_error(shell, redirect->path, fd,
-				"ambiguous redirect"));
+					"ambiguous redirect"));
 		if (redirect->type == RD_HEREDOC)
 			fd[0] = open_heredoc(redirect->path);
 		else if (redirect->type == RD_IN)
@@ -110,9 +105,11 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 
 void	execute_command(t_shell *shell, t_token token)
 {
-	int			fd[2] = {-2, -2};
+	int			fd[2];
 	const int	tmp[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
+	fd[0] = -2;
+	fd[1] = -2;
 	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE
 		|| !token.cmd || !token.split_cmd)
 	{
