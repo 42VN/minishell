@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 14:12:14 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 10:00:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	process_input(t_shell *shell, char **input)
 		size = get_tokens_size(shell->tokens->array);
 		if (!size)
 			return ;
+		// printf(shell->tokens->array)
 		if (read_heredoc(shell, shell->tokens->array, size) == EXIT_FAILURE)
 			return ;
 		if (wildcard(shell->tokens->array, size) == EXIT_FAILURE)
@@ -43,6 +44,7 @@ static void	process_input(t_shell *shell, char **input)
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)
 			return ;
+		// print_ast(shell->ast);
 		execute_ast(shell, shell->ast);
 	}
 }
