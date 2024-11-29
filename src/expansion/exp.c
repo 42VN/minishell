@@ -6,102 +6,67 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 23:42:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/29 16:26:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * Recusive function to process quotes
- *
- */
-static int exp_post_process(char **res, int i)
+static int	expansion_redirect(t_shell *shell, size_t i)
 {
-	char	quote;
-	int		last_quote;
-	
-	quote = '\0';
-	last_quote = -1;
-	if (!res || !(*res))
-		return (0);
-	while ((*res)[i])
+	t_redirect	*redirect;
+
+	redirect = NULL;
+	if (shell->tokens->array[i].redirect)
 	{
-		if ((*res)[i] == '\'' || (*res)[i] == '\"')
+		redirect = shell->tokens->array[i].redirect;
+		while(redirect)
 		{
-			quote = (*res)[i];
-			last_quote = exp_strip_quotes(*res, quote, i);
-			if (last_quote >= i && (*res)[last_quote] != '\0')
+			if (redirect->path)
 			{
-				exp_post_process(res, last_quote);
+				// printf("Before: [%s]\n", redirect->path);
+				if (!exp_logic(shell, &redirect->path))
+					return (0);
+				// printf("After: [%s]\n", redirect->path);
 			}
-			return (1);
+			redirect = redirect->next;
 		}
-		++i;
 	}
 	return (1);
 }
 
-static int	exp_process(t_shell *shell, char **res, char *cmd)
+static int	expansion_cmd(t_shell *shell, size_t i)
 {
-	size_t	k;
+	size_t	j;
 
-	k = 0;
-	if (*cmd == '~')
-		exp_tiddle_front(shell, res, cmd, &k);
-	while (cmd[k])
+	j = 0;
+	if (shell->tokens->array[i].split_cmd)
 	{
-		if (cmd[k] == '$')
-			exp_dollar(shell, res, cmd, &k);
-		else if (cmd[k] == '~')
-			exp_tiddle(res, cmd, &k);
-		else if (cmd[k] == '\'')
-			exp_single_quote(res, cmd, &k);
-		else if (cmd[k] == '\"')
-			exp_double_quote(shell, res, cmd, &k);
-		else
-			exp_normal(res, cmd, &k);
+		j = 0;
+		while (shell->tokens->array[i].split_cmd[j])
+		{
+			if (!exp_logic(shell, &shell->tokens->array[i].split_cmd[j]))
+				return (0);
+			++j;
+		}
 	}
 	return (1);
 }
 
-static int	exp_logic(t_shell *shell, int i, int j)
-{
-	char	*res;
-
-	res = ft_strdup("");
-	if (!res)
-		return (ft_error_ret("expansion: malloc", shell, ERR_MALLOC, 0));
-	exp_process(shell, &res, shell->tokens->array[i].split_cmd[j]);
-	if (!res)
-		return (ft_error_ret("expansion below: malloc", shell, ERR_MALLOC, 0));
-	exp_post_process(&res, 0);
-	ft_free_null(&shell->tokens->array[i].split_cmd[j]);
-	shell->tokens->array[i].split_cmd[j] = res;
-	return (1);
-}
-
-void	expansion(t_shell *shell)
+int	expansion(t_shell *shell)
 {
 	size_t	i;
-	size_t	j;
 	
 	if (!shell || shell->err_type != ERR_NONE)
-		return ;
+		return (0);
 	i = 0;
-	j = 0;
 	while (i <= shell->tokens->cur_pos)
 	{
-		if (shell->tokens->array[i].split_cmd)
-		{
-			j = 0;
-			while (shell->tokens->array[i].split_cmd[j])
-			{
-				exp_logic(shell, i, j);
-				++j;
-			}
-			// cleanup_split_cmd(shell->tokens->array[i].split_cmd);
-		}
+		if (!expansion_cmd(shell, i))
+			return (0);
+		if (!expansion_redirect(shell, i))
+			return (0);
 		++i;
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 12:24:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/29 16:26:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 		free(redirect);
 		return (NULL);
 	}
-	path = ft_token_parse(str, shell, 1);
+	path = ft_token_parse(str, shell, 0);
 	if (!path && shell->err_type == ERR_MALLOC)
 	{
 		free(redirect);
