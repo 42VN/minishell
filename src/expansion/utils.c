@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/27 16:24:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:40:55 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	cleanup_split_cmd(char **split_cmd)
  * Description:
  * -	Copy excuding the enclosing quotes.
  * -	Return the index of <last_quote> which will be processed
- * in the next <exp_post_process> recursive function call.
+ * in the next <exp_remove_quotes> recursive function call.
  * */
 static int	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
 {

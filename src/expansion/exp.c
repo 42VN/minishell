@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 16:26:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:51:09 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@ static int	expansion_redirect(t_shell *shell, size_t i)
 		redirect = shell->tokens->array[i].redirect;
 		while(redirect)
 		{
+			if (redirect->type == HEREDOC)
+			{
+				exp_remove_quotes(&redirect->path, 0);
+				redirect = redirect->next;
+				continue;
+			}
 			if (redirect->path)
 			{
-				// printf("Before: [%s]\n", redirect->path);
 				if (!exp_logic(shell, &redirect->path))
 					return (0);
-				// printf("After: [%s]\n", redirect->path);
 			}
 			redirect = redirect->next;
 		}
@@ -62,9 +66,9 @@ int	expansion(t_shell *shell)
 	i = 0;
 	while (i <= shell->tokens->cur_pos)
 	{
-		if (!expansion_cmd(shell, i))
-			return (0);
 		if (!expansion_redirect(shell, i))
+			return (0);
+		if (!expansion_cmd(shell, i))
 			return (0);
 		++i;
 	}

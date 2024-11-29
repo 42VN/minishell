@@ -6,17 +6,16 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 16:14:36 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/29 17:41:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * Recusive function to process quotes
- *
+ * Recusive function remove quotes
  */
-static int exp_post_process(char **res, int i)
+int exp_remove_quotes(char **res, int i)
 {
 	char	quote;
 	int		last_quote;
@@ -33,7 +32,7 @@ static int exp_post_process(char **res, int i)
 			last_quote = exp_strip_quotes(*res, quote, i);
 			if (last_quote >= i && (*res)[last_quote] != '\0')
 			{
-				exp_post_process(res, last_quote);
+				exp_remove_quotes(res, last_quote);
 			}
 			return (1);
 		}
@@ -75,7 +74,7 @@ int	exp_logic(t_shell *shell, char **str)
 	exp_process(shell, &res, *str);
 	if (!res)
 		return (ft_error_ret("expansion: exp_logic: malloc", shell, ERR_MALLOC, 0));
-	exp_post_process(&res, 0);
+	exp_remove_quotes(&res, 0);
 	ft_free_null(str);
 	*str = res;
 	return (1);
