@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:40:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/28 23:02:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:43:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	builtin_echo(char **token)
 	}
 	while (token[index])
 	{
-		// printf("token[%d] = [%s]\n", index, token[index]);
 		printf("%s", token[index++]);
 		if (token[index] != NULL)
 			printf(" ");
