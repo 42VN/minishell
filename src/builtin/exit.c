@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/28 15:25:26 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:03:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ long long	to_8bits(long nb)
 
 void	exit_error(t_shell *shell, char *token, char *message, int error_num)
 {
-	//ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	if (token)
 	{
 		ft_putstr_fd(token, STDERR_FILENO);

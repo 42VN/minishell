@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 10:07:11 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:30:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	cd_path(t_shell *shell, char *path)
 {
 	if (chdir(path))
 	{
-		perror("minishell: cd");
+		ft_printf_fd(STDERR_FILENO, "minishell: cd: %s: ", path);
+		perror("");
 		update_status(shell, 1);
 		return (EXIT_FAILURE);
 	}
