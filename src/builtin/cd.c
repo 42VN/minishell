@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/29 11:30:30 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 14:02:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	builtin_cd(t_shell *shell, char **token)
 {
 	if (token[1] && token[2])
 		builtin_error(shell, "minishell: cd: too many arguments\n", 1);
-	else if (!token[1] || token[1][0] == '\0' || !ft_strcmp(token[1], "~"))
+	else if (!token[1] || token[1][0] == '\0'
+		|| !ft_strcmp(token[1], "~") || !ft_strcmp(token[1], "--"))
 		cd_home(shell);
 	else if (token[1][0] == '~')
 		cd_tilde(shell, token[1]);

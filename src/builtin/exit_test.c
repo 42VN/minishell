@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/28 15:25:11 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/29 14:05:01 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int	not_numberic(char *s)
 {
-	long	number;
-	long	check;
-
-	number = 0;
 	while (*s == ' ' || (*s >= 9 && *s <= 13))
 		s++;
 	if (*s == '+' || *s == '-')
@@ -26,10 +22,6 @@ int	not_numberic(char *s)
 	{
 		if (*s < '0' || *s > '9')
 			return (1);
-		check = number * 10 + *s - '0';
-		if (check / 10 != number)
-			return (1);
-		number = check;
 		s++;
 	}
 	return (0);
@@ -38,7 +30,6 @@ int	not_numberic(char *s)
 long	ft_atol(const char *s)
 {
 	long	number;
-	long	check;
 	int		sign;
 
 	number = 0;
@@ -52,12 +43,7 @@ long	ft_atol(const char *s)
 		s++;
 	}
 	while (*s >= '0' && *s <= '9')
-	{
-		check = number * 10 + *s++ - '0';
-		if (check / 10 != number)
-			return (2);
-		number = check;
-	}
+		number = number * 10 + *s++ - '0';
 	return (number * sign);
 }
 
