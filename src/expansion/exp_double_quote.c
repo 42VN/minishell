@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_double_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:20:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 12:00:57 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/30 01:24:04 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void ft_exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i
 	char	*joined;
 	size_t	start;
 
-	(void)shell; //check
 	start = *i;
 	while (cmd[*i] && cmd[*i] != '\"' && cmd[*i] != '$')
 		(*i)++;
@@ -26,7 +25,10 @@ static void ft_exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i
 		return (ft_free_null(res));
 	str = ft_substr(cmd, start, *i - start);
 	if (!str)
+	{
+		ft_error_ret("exp_double_quote: ft_substr: malloc", shell, ERR_MALLOC, 0);
 		return (ft_free_null(res));
+	}
 	joined = ft_strjoin(*res, str);
 	free(str);
 	free(*res);
@@ -34,6 +36,24 @@ static void ft_exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i
 }
 
 void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i)
+{
+	ft_join_quote(res, "\"");
+	(*i)++;
+	if (res)
+	{
+		while (cmd[*i] && cmd[*i] != '\"')
+		{
+			if (cmd[*i] == '$')
+				exp_dollar_in_quote(shell, res, cmd, i);
+			else
+				ft_exp_double_quote(shell, res, cmd, i);
+		}
+	}
+	(*i)++;
+	ft_join_quote(res, "\"");
+}
+
+void	exp_double_quote_test(t_shell *shell, char **res, char *cmd, size_t *i)
 {
 	ft_join_quote(res, "\"");
 	(*i)++;

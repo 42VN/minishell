@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 17:41:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/30 02:30:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,61 @@ int exp_remove_quotes(char **res, int i)
 	return (1);
 }
 
+static char*	exp_pre_process(t_shell *shell, char **res, char *cmd)
+{
+	size_t	k;
+	char	*clone;
+
+	k = 0;
+	// clone = ft_strdup("");
+	// while (cmd[k])
+	// {
+	// 	if (cmd[k] == '\"')
+	// 	{
+	// 		printf("Quote Before: [%s]\n", &cmd[k]);
+	// 		exp_double_quote(shell, &clone, cmd, &k);
+	// 		// printf("Quote Before: [%s]\n", clone);
+	// 	}
+	// 	else
+	// 		k++;
+	// }
+	clone = ft_token_parse(&cmd, shell, 1);
+	if (!*clone)
+	{
+		free(clone);
+		clone = ft_strdup(cmd);
+	}
+	else
+		exp_remove_quotes(&clone, 0);
+	return (clone);
+}
+
 static int	exp_process(t_shell *shell, char **res, char *cmd)
 {
 	size_t	k;
+	char	*clone;
 
 	k = 0;
-	if (*cmd == '~')
-		exp_tiddle_front(shell, res, cmd, &k);
-	while (cmd[k])
+	// clone = exp_pre_process(shell, res, cmd);
+	clone = cmd;
+	k = 0;
+	if (*clone == '~')
+		exp_tiddle_front(shell, res, clone, &k);
+	while (clone[k])
 	{
-		if (cmd[k] == '$')
-			exp_dollar(shell, res, cmd, &k);
-		else if (cmd[k] == '~')
-			exp_tiddle(res, cmd, &k);
-		else if (cmd[k] == '\'')
-			exp_single_quote(res, cmd, &k);
-		else if (cmd[k] == '\"')
-			exp_double_quote(shell, res, cmd, &k);
+		if (clone[k] == '$')
+			exp_dollar(shell, res, clone, &k);
+		else if (clone[k] == '~')
+			exp_tiddle(res, clone, &k);
+		else if (clone[k] == '\'')
+			exp_single_quote(res, clone, &k);
+		else if (clone[k] == '\"')
+			exp_double_quote(shell, res, clone, &k);
 		else
-			exp_normal(res, cmd, &k);
+			exp_normal(res, clone, &k);
 	}
+	// if (clone)
+	// 	free(clone);
 	return (1);
 }
 

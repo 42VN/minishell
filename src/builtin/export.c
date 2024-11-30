@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 14:02:48 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/30 00:52:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	export_standalone(char **envp)
 {
 	int		i;
 	char	**sorted_envp;
-	// char	*equal;
 
 	i = 0;
 	sorted_envp = env_dup_sorted(envp);
@@ -99,8 +98,7 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 		equal = NULL;
 		if (export_variable(shell, split_cmd[i]) == 1)
 		{
-			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
-				split_cmd[1]);
+			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", split_cmd[1]);
 			ft_free_null(&key);
 			return (1);
 		}
@@ -114,7 +112,7 @@ void	builtin_export(t_shell *shell, char **split_cmd)
 {
 	if (!shell || !split_cmd || !split_cmd[0])
 	{
-		ft_putstr_fd("minishell: builtin_env: Invalid parameter(s)\n", 2);
+		ft_putstr_fd("minishell: builtin_export: Invalid parameter(s)\n", 2);
 		update_status (shell, 1);
 		return ;
 	}

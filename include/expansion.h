@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 17:51:19 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/30 01:58:09 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXPANSION_H
 
 
-int		exp_strip_quotes(char *str, char c, char start);
+int		exp_strip_quotes(char *str, char c, int start);
 int 	exp_remove_quotes(char **res, int i);
 
 void	ft_join_quote(char **res, char *quote);
@@ -31,5 +31,8 @@ void	exp_single_quote(char **res, char *cmd, size_t *i);
 void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i);
 
 int		expansion(t_shell *shell);
+
+
+void	exp_double_quote_test(t_shell *shell, char **res, char *cmd, size_t *i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 17:40:55 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/30 01:57:59 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	exp_strip_quote_overwrite(char *str, char c, int *read, int *write)
  * -	Find the quote and its first occurrence
  * -	Strip the encosing quotes and re-arrange (shorten)
  * */
-int	exp_strip_quotes(char *str, char c, char start)
+int	exp_strip_quotes(char *str, char c, int start)
 {
 	int	read;
 	int	write;

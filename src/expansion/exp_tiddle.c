@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 00:17:05 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 23:04:46 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/11/30 02:21:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exp_tiddle_front(t_shell *shell, char **res, char *cmd, size_t *index)
 	i = *index;
 	i++;
 	str = NULL;
-	if (ft_isspace(cmd[i]) || cmd[i] == '\0')
+	if (cmd[i] == '\0' || ft_isspace(cmd[i]))
 	{
 		str = exp_tiddle_home_path(shell);
 		if (!str)
