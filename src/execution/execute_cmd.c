@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/29 11:54:25 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/30 08:53:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	execute_builtin(t_shell *shell, char **token)
 	if (!token || !token[0])
 		return (EXIT_FAILURE);
 	if (!ft_strcmp(token[0], "echo"))
-		builtin_echo(token);
+		builtin_echo(shell, token);
 	else if (!ft_strcmp(token[0], "cd"))
 		builtin_cd(shell, token);
 	else if (!ft_strcmp(token[0], "pwd"))

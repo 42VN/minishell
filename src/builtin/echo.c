@@ -6,13 +6,13 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:40:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/29 11:43:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/11/30 08:53:43 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_echo(char **token)
+void	builtin_echo(t_shell *shell, char **token)
 {
 	int	index;
 	int	j;
@@ -38,4 +38,5 @@ void	builtin_echo(char **token)
 	}
 	if (newline)
 		printf("\n");
+	update_status(shell, 0);
 }
