@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:20:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/30 01:24:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/02 17:17:37 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i)
 	ft_join_quote(res, "\"");
 }
 
-void	exp_double_quote_test(t_shell *shell, char **res, char *cmd, size_t *i)
+/**
+ * No enclosing quote handler
+ */
+void	exp_double_quote_no_enclosing(t_shell *shell, char **res, char *cmd, size_t *i)
 {
-	ft_join_quote(res, "\"");
 	(*i)++;
 	if (res)
 	{
@@ -68,5 +70,4 @@ void	exp_double_quote_test(t_shell *shell, char **res, char *cmd, size_t *i)
 		}
 	}
 	(*i)++;
-	ft_join_quote(res, "\"");
 }

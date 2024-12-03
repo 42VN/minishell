@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/30 02:30:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/03 18:26:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,42 +41,12 @@ int exp_remove_quotes(char **res, int i)
 	return (1);
 }
 
-static char*	exp_pre_process(t_shell *shell, char **res, char *cmd)
-{
-	size_t	k;
-	char	*clone;
-
-	k = 0;
-	// clone = ft_strdup("");
-	// while (cmd[k])
-	// {
-	// 	if (cmd[k] == '\"')
-	// 	{
-	// 		printf("Quote Before: [%s]\n", &cmd[k]);
-	// 		exp_double_quote(shell, &clone, cmd, &k);
-	// 		// printf("Quote Before: [%s]\n", clone);
-	// 	}
-	// 	else
-	// 		k++;
-	// }
-	clone = ft_token_parse(&cmd, shell, 1);
-	if (!*clone)
-	{
-		free(clone);
-		clone = ft_strdup(cmd);
-	}
-	else
-		exp_remove_quotes(&clone, 0);
-	return (clone);
-}
-
 static int	exp_process(t_shell *shell, char **res, char *cmd)
 {
 	size_t	k;
 	char	*clone;
 
 	k = 0;
-	// clone = exp_pre_process(shell, res, cmd);
 	clone = cmd;
 	k = 0;
 	if (*clone == '~')
@@ -94,23 +64,39 @@ static int	exp_process(t_shell *shell, char **res, char *cmd)
 		else
 			exp_normal(res, clone, &k);
 	}
-	// if (clone)
-	// 	free(clone);
 	return (1);
 }
 
-int	exp_logic(t_shell *shell, char **str)
+
+int	exp_logic_str(t_shell *shell, char **str)
 {
 	char	*res;
 
 	res = ft_strdup("");
 	if (!res)
-		return (ft_error_ret("expansion: exp_logic: malloc", shell, ERR_MALLOC, 0));
+		return (ft_error_ret("expansion: exp_logic: ft_strdup", shell, ERR_MALLOC, 0));
 	exp_process(shell, &res, *str);
 	if (!res)
 		return (ft_error_ret("expansion: exp_logic: malloc", shell, ERR_MALLOC, 0));
 	exp_remove_quotes(&res, 0);
 	ft_free_null(str);
 	*str = res;
+	return (1);
+}
+
+int	exp_logic_split_str(t_shell *shell, char **str, char ***split_cmd)
+{
+	char	*res;
+
+	if (!*split_cmd)
+		return (0);
+	res = ft_strdup("");
+	if (!res)
+		return (ft_error_ret("expansion: exp_logic: ft_strdup", shell, ERR_MALLOC, 0));
+	exp_process(shell, &res, *str);
+	if (!res)
+		return (ft_error_ret("expansion: exp_logic: malloc", shell, ERR_MALLOC, 0));
+	ft_free_null(str);
+	exp_split_cmd_push_back(shell, split_cmd, res);
 	return (1);
 }

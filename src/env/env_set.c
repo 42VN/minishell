@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:42:11 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/02 17:01:35 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,6 @@ static int	env_pushback(t_shell *shell, char *pair)
 	shell->envp = new_envp;
 	return (1);
 }
-
-// static int	env_set_helper(
-// 	t_shell *shell,
-// 	char *res,
-// 	int index
-// )
-// {
-// 	if (index == -1)
-// 	{
-// 		if (!env_pushback(shell, res))
-// 			return (ft_free_null_ret(&res, 0));
-// 	}
-// 	else
-// 	{
-// 		free(shell->envp[index]);
-// 		shell->envp[index] = res;
-// 	}
-// 	return (1);
-// }
 
 static int	env_add(t_shell *shell, int index, char *res)
 {
