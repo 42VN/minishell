@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 11:42:25 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/03 12:59:36 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 	return (1);
 }
 
-static int	inside_parenthesis(t_token *tokens, int index)
+static int	inside_parenthesis(t_token *tokens, int size)
 {
 	int	depth;
+	int	index;
 
 	if (tokens[0].type != BR_OPEN || tokens[index -1].type != BR_CLOSE)
 		return (0);
 	depth = 0;
-	while (--index >= 0)
+	index = -1;
+	while (++index < size)
 	{
 		if (tokens[index].type == BR_OPEN)
 			depth++;

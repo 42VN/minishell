@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 22:07:41 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:17:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void	free_token(t_token **tokens)
 	*tokens = NULL;
 }
 
-int	locate_operator(t_token *tokens, int index, int priority)
+int	locate_operator(t_token *tokens, int size, int priority)
 {
 	int	depth;
+	int	index;
 
 	depth = 0;
-	while (--index >= 0)
+	index = -1;
+	while (++index < size)
 	{
 		if (tokens[index].type == BR_OPEN)
 			depth++;
