@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 21:16:11 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/21 10:02:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:08:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 void	builtin_pwd(t_shell *shell)
 {
 	printf("%s\n", shell->cwd);
+	update_status(shell, 0);
 }
