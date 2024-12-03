@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/29 13:34:32 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/03 21:15:35 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,9 @@ static int	check_command(t_shell *shell, char *command)
 {
 	struct stat	sb;
 
-	if (!command || !command[0] || !ft_strcmp(command, "."))
-	{
-		if (!command || !command[0])
-			ft_printf_fd(STDERR_FILENO, "Command '%s' not found\n", command);
-		else if (!ft_strcmp(command, "."))
-			ft_printf_fd(STDERR_FILENO, "minishell: .: filename argument requi"
-				"red\n.: usage: . filename [arguments]\n");
-		return (EXIT_FAILURE);
-	}
+	if (!command || !command[0]
+		|| !ft_strcmp(command, ".") || !ft_strcmp(command, ".."))
+		return (check_error(command));
 	else if (ft_strchr(command, '/'))
 	{
 		if (stat(command, &sb) == 0 && S_ISDIR(sb.st_mode))

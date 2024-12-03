@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 23:22:47 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/03 21:11:46 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,16 @@ void	exec_error(t_shell *shell, char *command_path)
 		free (command_path);
 	free_all(shell);
 	exit (update_status(shell, 126));
+}
+
+int	check_error(char *command)
+{
+	if (!command || !command[0])
+		ft_printf_fd(STDERR_FILENO, "Command '%s' not found\n", command);
+	else if (!ft_strcmp(command, "."))
+		ft_printf_fd(STDERR_FILENO, "minishell: .: filename argument requi"
+			"red\n.: usage: . filename [arguments]\n");
+	else if (!ft_strcmp(command, ".."))
+		ft_printf_fd(STDERR_FILENO, "%s: command not found\n", command);
+	return (EXIT_FAILURE);
 }
