@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 11:47:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/03 19:15:24 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int	update_pwd(t_shell *shell)
 		return (builtin_error(shell, "minishell: strdup failed\n", 1));
 	env_set(shell, "OLDPWD", shell->old_pwd);
 	env_set(shell, "PWD", shell->cwd);
+	update_status(shell, 0);
 	return (EXIT_SUCCESS);
 }
