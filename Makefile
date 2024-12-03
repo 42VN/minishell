@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/12/03 03:25:32 by ktieu            ###   ########.fr        #
+#    Updated: 2024/12/03 23:01:10 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.
 TOKEN_FILES			=	quote.c parse.c token.c free.c mem.c  utils.c utils2.c operator.c cmd.c error.c print.c redirect.c check.c
 BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit_test.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
-EXP_FILES			=	exp_logic.c utils.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c exp_mem.c exp.c
+EXP_FILES			=	exp_logic.c utils.c utils2.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c exp_mem.c exp.c
 SIG_FILES			=	signals.c signal_utils.c
 HD_FILES			=	read_heredoc_test.c heredoc_utils.c
 WC_FILES			=	wildcard.c wildcard_utils.c

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/30 00:52:18 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/03 23:44:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ static int	export_variable(t_shell *shell, char *arg)
 	if (equal)
 	{
 		equal++;
-		if (ft_isspace(*equal))
-			equal = "";
-		if ((*equal == '\'' || *equal=='\"')
-			&& (*(equal + 1) == '\'' || *(equal + 1)=='\"'))
-		{
-			equal = "";
-		}
+		// if (ft_isspace(*equal))
+		// 	equal = "";
+		// if ((*equal == '\'' || *equal=='\"')
+		// 	&& (*(equal + 1) == '\'' || *(equal + 1)=='\"'))
+		// {
+		// 	equal = "";
+		// }
 		env_unset(shell, key);
 	}
 	env_set(shell, key, equal);
