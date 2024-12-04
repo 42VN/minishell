@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 13:11:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 14:12:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,32 @@ static int	export_standalone(char **envp)
 	return (ft_multi_free_null_ret(&sorted_envp, 0));
 }
 
-static int	export_variable(t_shell *shell, char *arg)
+static int	export_variable(t_shell *shell, char *arg, char *equal, char *key)
 {
-	char	*equal;
-	char	*key;
-
+	if (arg && arg[0] == '-')
+	{
+		ft_printf_fd(2, "bash: export: %s: invalid option\n", arg);
+		return (2);
+	}
 	if (!export_is_valid(arg))
+	{
+		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", arg);
 		return (1);
+	}
 	equal = ft_strchr(arg, '=');
-	key = ft_substr(arg, 0, (equal - arg));
 	if (equal)
 	{
 		equal++;
-		// if (ft_isspace(*equal))
-		// 	equal = "";
-		// if ((*equal == '\'' || *equal=='\"')
-		// 	&& (*(equal + 1) == '\'' || *(equal + 1)=='\"'))
-		// {
-		// 	equal = "";
-		// }
 		env_unset(shell, key);
 	}
 	env_set(shell, key, equal);
-	free(key);
 	return (0);
 }
 
 static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 {
 	int		i;
+	int		export_var_exitcode;
 	char	*equal;
 	char	*key;
 
@@ -93,14 +90,12 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 		equal = ft_strchr(split_cmd[i], '=');
 		key = ft_substr(split_cmd[i], 0, equal - split_cmd[i]);
 		if (!key)
-			return (ft_error_ret("ft_builtin_export: malloc",
-					shell, ERR_MALLOC, 1));
-		equal = NULL;
-		if (export_variable(shell, split_cmd[i]) == 1)
+			return (ft_error_ret("ft_builtin_export: malloc", shell, ERR_MALLOC, 1));
+		export_var_exitcode = export_variable(shell, split_cmd[i], equal, key);
+		if (export_var_exitcode != 0)
 		{
-			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", split_cmd[1]);
 			ft_free_null(&key);
-			return (2);
+			return (export_var_exitcode);
 		}
 		ft_free_null(&key);
 		++i;

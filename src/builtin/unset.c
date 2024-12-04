@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:53:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/21 15:14:12 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:12:43 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	builtin_unset_check(t_shell *shell, char **split_cmd)
+{
+	if (!split_cmd[1])
+		return (0);
+	if (split_cmd[1] && split_cmd[1][0] == '-')
+	{
+		ft_printf_fd(2, "bash: unset: %s: invalid option\n", split_cmd[1]);
+		update_status(shell, 2);
+		return (0);
+	}
+	return (1);
+}
+
 
 void	builtin_unset(t_shell *shell, char **split_cmd)
 {
@@ -19,7 +33,7 @@ void	builtin_unset(t_shell *shell, char **split_cmd)
 	char	*key;
 
 	i = 1;
-	if (!split_cmd[1])
+	if (!builtin_unset_check(shell, split_cmd))
 		return ;
 	while (split_cmd[i])
 	{
