@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 23:44:46 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 13:11:10 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 		{
 			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", split_cmd[1]);
 			ft_free_null(&key);
-			return (1);
+			return (2);
 		}
 		ft_free_null(&key);
 		++i;
