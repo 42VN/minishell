@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/04 08:15:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 09:15:35 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,29 @@
 
 static char	**find_envp_path(char **envp, char *command)
 {
+	char **cwd;
+
 	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
 		envp++;
 	if (!*envp)
 	{
-		ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", command);
-		return (NULL);
+		cwd = (char **)ft_calloc(2, sizeof(char *));
+		if (!cwd)
+			return (NULL);
+		cwd[0] = getcwd(NULL, 0);
+		if (!cwd[0])
+		{
+			free_array(cwd);
+			return (NULL);
+		}
+		if (ft_strnstr(cwd[0], "/bin", ft_strlen(cwd[0])))
+			return (cwd);
+		else
+		{
+			free_array(cwd);
+			ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", command);
+			return (NULL);
+		}
 	}
 	return (ft_split(*envp + 5, ':'));
 }
