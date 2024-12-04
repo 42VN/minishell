@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 01:21:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 16:00:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,16 @@ static int	ft_token_split_cmd(t_shell *shell)
 
 static int	ft_token_post_process(t_shell *shell, char **line)
 {
+	t_token	last_token;
+
 	if (shell->tokens->cur_pos >= 1
 		&& shell->tokens->array[shell->tokens->cur_pos].type == NONE)
 		shell->tokens->cur_pos--;
+	last_token = shell->tokens->array[shell->tokens->cur_pos];
 	if (shell->err_type == ERR_NONE &&  shell->tokens->br_open > 0)
-	{
 		ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0);
-	}
+	else if (last_token.type == PIPE || last_token.type == AND || last_token.type == OR)
+		ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0);
 	if (shell->err_type == ERR_SYNTAX)
 	{
 		ft_token_syntax_err(shell, *line);

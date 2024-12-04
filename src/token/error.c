@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 11:40:41 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 16:00:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ static void	ft_logic_err(char *ptr)
 			ft_printf_fd(2,
 				"minishell: syntax error near unexpected token `&'\n");
 	}
-
+	else
+		ft_printf_fd(2,
+				"minishell: syntax error: unexpected end of file\n");
 }
 
 int	ft_syntax_err_ret(t_shell *shell, t_syntax_err err, int code)
