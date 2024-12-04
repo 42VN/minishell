@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:06:31 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 13:22:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 15:07:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ static int	expansion_redirect_heredoc(t_shell *shell, size_t i)
 		{
 			if (redirect->type == HEREDOC && redirect->path)
 			{
-				if (!exp_logic_str(shell, &redirect->path))
-					return (0);
+				if (redirect->no_exp == 0)
+				{
+					if (!exp_logic_str(shell, &redirect->path))
+						return (0);
+				}
 			}
 			redirect = redirect->next;
 		}

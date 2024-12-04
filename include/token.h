@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 16:26:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 15:00:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef enum e_syntax_err
 typedef struct s_redirect
 {
 	int					fd;
+	int					no_exp;
 	t_redirect_type		type;
 	char				*path;
 	struct s_redirect	*next;

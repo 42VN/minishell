@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 13:21:42 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 15:09:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ static int	expansion_redirect(t_shell *shell, size_t i)
 {
 	t_redirect	*redirect;
 
-	redirect = NULL;
 	if (shell->tokens->array[i].redirect)
 	{
 		redirect = shell->tokens->array[i].redirect;
 		while(redirect)
 		{
-			if (redirect->type == HEREDOC)
+			if (redirect->type == HEREDOC && redirect->path)
 			{
+				if (redirect->path[0] == '\'' || redirect->path[0] == '\"')
+					redirect->no_exp = 1;
 				exp_remove_quotes(&redirect->path, 0);
 				redirect = redirect->next;
 				continue;
