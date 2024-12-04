@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/04 09:37:05 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 10:04:36 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 
 static int	execute_builtin(t_shell *shell, char **token)
 {
-	if (!token || !token[0])
-		return (EXIT_FAILURE);
 	if (!ft_strcmp(token[0], "echo"))
 		builtin_echo(shell, token);
 	else if (!ft_strcmp(token[0], "cd"))
@@ -111,7 +109,7 @@ void	execute_command(t_shell *shell, t_token token)
 	fd[0] = -2;
 	fd[1] = -2;
 	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE
-		|| !token.cmd || !token.split_cmd)
+		|| !token.cmd || !token.split_cmd || !token.split_cmd[0])
 	{
 		redirect_fd(tmp[0], STDIN_FILENO);
 		redirect_fd(tmp[1], STDOUT_FILENO);
