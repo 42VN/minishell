@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 18:27:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 13:01:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,24 @@ static int	expansion_cmd(t_shell *shell, size_t i)
 	}
 	return (1);
 }
+
+int	expansion_heredoc(t_shell *shell)
+{
+	size_t	i;
+	
+	if (!shell || shell->err_type != ERR_NONE)
+		return (0);
+	i = 0;
+	
+	while (i <= shell->tokens->cur_pos)
+	{
+		if (!expansion_redirect(shell, i))
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
 
 int	expansion(t_shell *shell)
 {

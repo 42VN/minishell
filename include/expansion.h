@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 18:26:53 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 13:01:23 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i);
 void	exp_double_quote_no_enclosing(t_shell *shell, char **res, char *cmd, size_t *i);
 
 int		expansion(t_shell *shell);
+int		expansion_heredoc(t_shell *shell)
 
 #endif
