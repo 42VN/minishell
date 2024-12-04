@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 15:47:28 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 15:55:25 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	expansion_redirect(t_shell *shell, size_t i)
 		{
 			if (redirect->type == HEREDOC && redirect->path)
 			{
-				if (redirect->path[0] == '\'' || redirect->path[0] == '\"')
+				if (ft_strchr(redirect->path, '\'') || ft_strchr(redirect->path, '\"'))
 					redirect->no_exp = 1;
 				exp_remove_quotes(&redirect->path, 0);
 				redirect = redirect->next;
