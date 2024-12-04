@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/30 08:53:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 09:37:05 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 		else if (redirect->type == RD_IN)
 			fd[0] = open(redirect->path, O_RDONLY);
 		else if (redirect->type == RD_OUT)
-			fd[1] = open(redirect->path, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			fd[1] = open(redirect->path, O_CREAT | O_RDWR | O_TRUNC, 0664);
 		else if (redirect->type == RD_APPEND)
-			fd[1] = open(redirect->path, O_CREAT | O_RDWR | O_APPEND, 0644);
+			fd[1] = open(redirect->path, O_CREAT | O_RDWR | O_APPEND, 0664);
 		if (fd[0] == -1 || fd[1] == -1)
 			return (open_error(shell, redirect->path, fd, strerror(errno)));
 		redirect = redirect->next;
