@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/03 21:15:35 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:15:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	check_command(t_shell *shell, char *command)
 {
 	struct stat	sb;
 
-	if (!command || !command[0]
+	if (command && !command[0]
 		|| !ft_strcmp(command, ".") || !ft_strcmp(command, ".."))
 		return (check_error(command));
 	else if (ft_strchr(command, '/'))
@@ -81,6 +81,8 @@ char	*find_command_path(t_shell *shell, char *command)
 	char		**envp_paths;
 	char		*command_path;
 
+	if (!command)
+		return (NULL);
 	if (check_command(shell, command) == EXIT_FAILURE)
 		return (NULL);
 	if (ft_strchr(command, '/'))
