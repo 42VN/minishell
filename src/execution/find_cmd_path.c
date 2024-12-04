@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/04 09:15:35 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 12:26:23 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	**find_envp_path(char **envp, char *command)
 {
-	char **cwd;
+	char	**cwd;
 
 	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
 		envp++;
@@ -29,14 +29,7 @@ static char	**find_envp_path(char **envp, char *command)
 			free_array(cwd);
 			return (NULL);
 		}
-		if (ft_strnstr(cwd[0], "/bin", ft_strlen(cwd[0])))
-			return (cwd);
-		else
-		{
-			free_array(cwd);
-			ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", command);
-			return (NULL);
-		}
+		return (cwd);
 	}
 	return (ft_split(*envp + 5, ':'));
 }
@@ -74,21 +67,17 @@ static int	check_command(t_shell *shell, char *command)
 {
 	struct stat	sb;
 
-	if (command && !command[0]
+	if (!command || !command[0]
 		|| !ft_strcmp(command, ".") || !ft_strcmp(command, ".."))
 		return (check_error(command));
 	else if (ft_strchr(command, '/'))
 	{
 		if (stat(command, &sb) == 0 && S_ISDIR(sb.st_mode))
-		{
-			ft_printf_fd(STDERR_FILENO, "%s: Is a directory\n", command);
-			exec_error (shell, NULL);
-		}
+			exec_error (shell, NULL, command, "Is a directory");
 		else if (stat(command, &sb) == 0 && access(command, X_OK) != 0)
-		{
-			ft_printf_fd(STDERR_FILENO, "%s: Permission denied\n", command);
-			exec_error (shell, NULL);
-		}
+			exec_error (shell, NULL, command, "Permission denied");
+		else if (access(command, F_OK) != 0)
+			return (check_error(command));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -98,17 +87,10 @@ char	*find_command_path(t_shell *shell, char *command)
 	char		**envp_paths;
 	char		*command_path;
 
-	if (!command)
-		return (NULL);
 	if (check_command(shell, command) == EXIT_FAILURE)
 		return (NULL);
-	if (ft_strchr(command, '/'))
-	{
-		if (access(command, F_OK) == 0)
-			return (ft_strdup(command));
-		ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", command);
-		return (NULL);
-	}
+	if (ft_strchr(command, '/') && access(command, F_OK) == 0)
+		return (ft_strdup(command));
 	envp_paths = find_envp_path(shell->envp, command);
 	if (!envp_paths)
 		return (NULL);
@@ -116,5 +98,11 @@ char	*find_command_path(t_shell *shell, char *command)
 	ft_free_triptr(&envp_paths);
 	if (!command_path)
 		ft_printf_fd(STDERR_FILENO, "%s: command not found\n", command);
+	else if (access(command_path, X_OK) != 0)
+		exec_error (shell, NULL, command, "Permission denied");
+	// {
+	// 	ft_printf_fd(STDERR_FILENO, "%s: Permission denied\n", command);
+	// 	return (NULL);
+	// }
 	return (command_path);
 }

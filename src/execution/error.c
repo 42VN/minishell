@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:13:21 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/03 21:11:46 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 11:52:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int	open_error(t_shell *shell, char *path, int *fd, char *message)
 	return (EXIT_FAILURE);
 }
 
-void	exec_error(t_shell *shell, char *command_path)
+void	exec_error(t_shell *shell, char *command_path, char *ms1, char *ms2)
 {
+	if (ms1 && ms2)
+		ft_printf_fd(STDERR_FILENO, "%s: %s\n", ms1, ms2);
 	if (command_path)
 		free (command_path);
 	free_all(shell);
@@ -57,12 +59,16 @@ void	exec_error(t_shell *shell, char *command_path)
 
 int	check_error(char *command)
 {
-	if (!command || !command[0])
+	if (!command)
+		return (EXIT_FAILURE);
+	if (command && !command[0])
 		ft_printf_fd(STDERR_FILENO, "Command '%s' not found\n", command);
 	else if (!ft_strcmp(command, "."))
 		ft_printf_fd(STDERR_FILENO, "minishell: .: filename argument requi"
 			"red\n.: usage: . filename [arguments]\n");
 	else if (!ft_strcmp(command, ".."))
 		ft_printf_fd(STDERR_FILENO, "%s: command not found\n", command);
+	else if (access(command, F_OK) != 0)
+		ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", command);
 	return (EXIT_FAILURE);
 }

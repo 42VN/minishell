@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/04 10:04:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 12:00:32 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 			exit (127);
 		}
 		execve(command_path, token.split_cmd, shell->envp);
-		exec_error(shell, command_path);
+		exec_error(shell, command_path, NULL, NULL);
 	}
 	wait_update(shell, pid);
 	print_fault(shell);
