@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 22:56:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 15:51:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	exp_logic_str(t_shell *shell, char **str)
 	return (1);
 }
 
+
 int	exp_logic_split_str(t_shell *shell, char **str, char ***split_cmd)
 {
 	char	*res;
@@ -69,5 +70,6 @@ int	exp_logic_split_str(t_shell *shell, char **str, char ***split_cmd)
 		return (ft_error_ret("expansion: exp_logic: malloc", shell, ERR_MALLOC, 0));
 	ft_free_null(str);
 	exp_split_cmd_push_back(shell, split_cmd, res);
+	free(res);
 	return (1);
 }
