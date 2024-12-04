@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 00:03:39 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 23:46:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/04 16:30:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ static void	exp_split_cmd_cpy(char **res, char ***src, size_t start, size_t len)
 	}
 }
 
+static void	exp_split_cmd_remove_quotes(char **split_str, size_t str_len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < str_len)
+	{
+		exp_remove_quotes(&split_str[i], 0);
+		++i;
+	}
+	return;
+}
+
 int	exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str)
 {
     char	**res;
@@ -87,8 +100,8 @@ int	exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str)
     if (!res)
         return (ft_error_ret("exp_split_cmd_push_back: ft_calloc", shell, ERR_MALLOC, 0));
     exp_split_cmd_cpy(res, split_cmd, 0, cmd_len);
-	exp_remove_quotes(&split_str[0], 0);
-    exp_split_cmd_cpy(res, &split_str, cmd_len, str_len);
+	exp_split_cmd_remove_quotes(split_str, str_len);
+	exp_split_cmd_cpy(res, &split_str, cmd_len, str_len);
 	ft_multi_free_null(split_cmd);
     ft_multi_free_null(&split_str);
     *split_cmd = res;

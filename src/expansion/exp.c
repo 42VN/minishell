@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 15:55:25 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/04 16:03:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static int	expansion_redirect_check(t_shell *shell, char *str)
-// {
-// 	char	*exp_str;
-
-// 	exp_str = exp_logic_str(shell, &str);
-	
-// }
 
 static int	expansion_redirect(t_shell *shell, size_t i)
 {
