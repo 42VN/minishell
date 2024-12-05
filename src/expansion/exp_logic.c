@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exp_logic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 15:51:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/05 22:08:48 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exp_process(t_shell *shell, char **res, char *cmd)
+int	exp_process(t_shell *shell, char **res, char *cmd)
 {
 	size_t	k;
 	char	*clone;

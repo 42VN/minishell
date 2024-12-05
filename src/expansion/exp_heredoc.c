@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   exp_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:06:31 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 15:07:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/05 22:08:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	exp_logic_hd(t_shell *shell, char **str)
+{
+	char	*res;
+
+	res = ft_strdup("");
+	if (!res)
+		return (ft_error_ret("expansion: exp_logic: ft_strdup", shell, ERR_MALLOC, 0));
+	exp_process(shell, &res, *str);
+	if (!res)
+		return (ft_error_ret("expansion: exp_logic: malloc", shell, ERR_MALLOC, 0));
+	// exp_remove_quotes(&res, 0);
+	ft_free_null(str);
+	*str = res;
+	return (1);
+}
 
 static int	expansion_redirect_heredoc(t_shell *shell, size_t i)
 {
@@ -26,7 +42,7 @@ static int	expansion_redirect_heredoc(t_shell *shell, size_t i)
 			{
 				if (redirect->no_exp == 0)
 				{
-					if (!exp_logic_str(shell, &redirect->path))
+					if (!exp_logic_hd(shell, &redirect->path))
 						return (0);
 				}
 			}

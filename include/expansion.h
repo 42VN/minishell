@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 13:17:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/05 22:09:09 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int 	exp_remove_quotes(char **res, int i);
 void	ft_join_quote(char **res, char *quote);
 void	cleanup_split_cmd(char **split_cmd);
 
+int		exp_process(t_shell *shell, char **res, char *cmd);
 int		exp_logic_str(t_shell *shell, char **str);
 int		exp_logic_split_str(t_shell *shell, char **str, char ***split_cmd);
 
