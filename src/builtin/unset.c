@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:53:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 14:12:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/05 21:31:15 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	builtin_unset(t_shell *shell, char **split_cmd)
 		ft_free_null(&key);
 		++i;
 	}
+	update_status(shell, 0);
 }
