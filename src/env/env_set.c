@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/02 17:01:35 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 15:00:43 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,25 @@ static int	env_add(t_shell *shell, int index, char *res)
 	return (1);
 }
 
+static void	env_swap_last(char **envp)
+{
+	char	*tmp;
+	size_t	len;
+
+	if (!envp)
+		return ;
+	len = 0;
+	while (envp[len])
+		len++;
+	if (len > 1 && ft_strncmp(envp[len - 2], "_=", 2) == 0)
+	{
+		tmp = envp[len - 2];
+    	envp[len - 2] = envp[len - 1];
+    	envp[len - 1] = tmp;
+		
+	}
+}
+
 /**
  * Function to set a new variable inside the env list 
  * 
@@ -93,30 +112,12 @@ int	env_set(t_shell *shell, char *key, char *value)
 		ft_strlcat(res, value, len);
 	}
 	index = env_get_index(shell->envp, key);
-	return (env_add(shell, index, res));
-}
-
-int	env_set_none(t_shell *shell, char *key)
-{
-	size_t	len;
-	int		index;
-	char	*res;
-
-	len = ft_strlen(key) + 1;
-	res = (char *)ft_calloc(1, len);
-	if (!res)
+	if (!env_add(shell, index, res))
 		return (0);
-	ft_strlcat(res, key, len);
-	index = env_get_index(shell->envp, key);
-	if (index == -1)
-	{
-		if (!env_pushback(shell, key))
-			return (ft_free_null_ret(&res, 0));
-	}
-	else
-	{
-		free(shell->envp[index]);
-		shell->envp[index] = res;
-	}
+	env_swap_last(shell->envp);
+	len = 0;
+	while (shell->envp[len])
+		len++;
 	return (1);
 }
+
