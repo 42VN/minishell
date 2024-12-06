@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 15:40:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 15:47:39 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,7 @@ int	tokenize(t_shell *shell, char *line)
 		if (*line)
 		{
 			if (!ft_token_add(shell, &line))
-			{
 				break ;
-			}
 		}
 	}
 	if (ft_token_post_process(shell, &line) == 0)
