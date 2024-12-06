@@ -6,17 +6,16 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:49:59 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:53:39 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-
 int		exp_strip_quotes(char *str, char c, int start);
-int 	exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str);
-int 	exp_remove_quotes(char **res, int i);
+int		exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str);
+int		exp_remove_quotes(char **res, int i);
 
 void	ft_join_quote(char **res, char *quote);
 void	cleanup_split_cmd(char **split_cmd);
