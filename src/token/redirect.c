@@ -6,16 +6,18 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/29 17:38:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 15:39:36 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_redirect_check_path(char *str)
+int	ft_redirect_check_path(t_shell *shell, char *str)
 {
-	if (*str == '\0' || ft_is_op(*str))
-		return (0);
+	if (*str == '\0')
+		return (ft_syntax_err_ret(shell, ERR_SYNTAX_RD, 0));
+	if (ft_is_op(*str))
+		return (ft_syntax_err_ret(shell, ERR_SYNTAX_NORMAL, 0));
 	return (1);
 }
 
@@ -38,6 +40,9 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 	t_redirect	*redirect;
 	char		*path;
 
+	ft_skip_strchr(str, ' ');
+	if (**str == '\0')
+		return (NULL);
 	redirect = (t_redirect *)ft_calloc(1, sizeof(t_redirect));
 	if (!redirect)
 	{
@@ -45,14 +50,8 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 		return (NULL);
 	}
 	ft_redirect_classify(redirect, op, count);
-	ft_skip_strchr(str, ' ');
-	if (**str == '\0')
-	{
-		free(redirect);
-		return (NULL);
-	}
 	path = ft_token_parse(str, shell, 0);
-	if (!path && shell->err_type == ERR_MALLOC)
+	if (!path)
 	{
 		free(redirect);
 		return (NULL);

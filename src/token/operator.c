@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 23:48:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 15:39:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ static int	ft_token_is_redirect(
 	if (count == 2 || count == 1)
 	{
 		ft_skip_strchr(str, ' ');
-		if (!ft_redirect_check_path(*str))
-			return (ft_syntax_err_ret(shell, ERR_SYNTAX_NORMAL, 0));
+		if (!ft_redirect_check_path(shell, *str))
+			return (0);
 		redirect = ft_token_redirect(shell, str, op, count);
 		if (!redirect)
 		{

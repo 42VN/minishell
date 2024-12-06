@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 16:00:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 15:40:51 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
+	if (shell->tokens->syntax_err != ERR_SYNTAX_NONE || shell->err_type != ERR_NONE)
+		return (0);
 	if (!ft_token_realloc(shell))
 		return (0);
 	if (ft_is_op(**input))

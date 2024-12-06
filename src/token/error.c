@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 16:00:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 15:10:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_redirect_err(char *ptr)
 			ft_printf_fd(2,
 				"minishell: syntax error near unexpected token `>'\n");
 	}
-	if (*ptr == '<')
+	else if (*ptr == '<')
 	{
 		if (*(ptr + 1) == '<')
 			ft_printf_fd(2,
