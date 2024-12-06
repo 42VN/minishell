@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:02:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 15:00:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:43:51 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,8 @@ static void	env_swap_last(char **envp)
 	if (len > 1 && ft_strncmp(envp[len - 2], "_=", 2) == 0)
 	{
 		tmp = envp[len - 2];
-    	envp[len - 2] = envp[len - 1];
-    	envp[len - 1] = tmp;
-		
+		envp[len - 2] = envp[len - 1];
+		envp[len - 1] = tmp;
 	}
 }
 
@@ -120,4 +119,3 @@ int	env_set(t_shell *shell, char *key, char *value)
 		len++;
 	return (1);
 }
-

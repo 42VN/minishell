@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:01:21 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/02 17:41:19 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:45:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	cleanup_split_cmd(char **split_cmd)
 		{
 			free(split_cmd[i]);
 			++i;
-			continue;
+			continue ;
 		}
 		split_cmd[j++] = split_cmd[i++];
 	}
@@ -85,7 +85,7 @@ int	exp_strip_quotes(char *str, char c, int start)
 	int	read;
 	int	write;
 	int	last_quote;
-	
+
 	read = start;
 	write = start;
 	last_quote = -1;
@@ -96,7 +96,7 @@ int	exp_strip_quotes(char *str, char c, int start)
 		if (str[read] == c)
 		{
 			last_quote = exp_strip_quote_overwrite(str, c, &read, &write);
-			break;
+			break ;
 		}
 		else
 			str[write++] = str[read++];
@@ -105,7 +105,7 @@ int	exp_strip_quotes(char *str, char c, int start)
 	return (last_quote);
 }
 
-void ft_join_quote(char **res, char *quote)
+void	ft_join_quote(char **res, char *quote)
 {
 	char	*joined;
 

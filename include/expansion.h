@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:34:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/05 22:09:09 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/06 16:49:59 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	exp_dollar_in_quote(t_shell *shell, char **res, char *cmd, size_t *i);
 void	exp_normal(char **res, char *cmd, size_t *i);
 void	exp_single_quote(char **res, char *cmd, size_t *i);
 void	exp_double_quote(t_shell *shell, char **res, char *cmd, size_t *i);
-void	exp_double_quote_no_enclosing(t_shell *shell, char **res, char *cmd, size_t *i);
 
 int		expansion(t_shell *shell);
 int		expansion_heredoc(t_shell *shell);

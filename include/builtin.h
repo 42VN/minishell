@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:32:25 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/30 08:52:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/06 16:27:24 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	builtin_exit(t_shell *shell, char **token);
 
 int		builtin_error(t_shell *shell, char *s, int error_num);
 int		update_pwd(t_shell *shell);
-void	export_check_value(t_shell *shell, char **value_str);
 void	export_standalone_print(char *env_var);
 
 #endif

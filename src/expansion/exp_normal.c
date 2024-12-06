@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 23:58:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 15:50:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:45:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	exp_normal(char **res, char *cmd, size_t *i)
 	size_t	start;
 
 	start = *i;
-	
 	while (cmd[*i] && cmd[*i] != '\'' && cmd[*i] != '\"'
 		&& cmd[*i] != '$' && cmd[*i] != '~')
 	{
@@ -35,4 +34,3 @@ void	exp_normal(char **res, char *cmd, size_t *i)
 	free(*res);
 	*res = joined;
 }
-

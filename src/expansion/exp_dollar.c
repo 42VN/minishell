@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:16:00 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 01:18:13 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:44:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static inline int	exp_is_normal_str(char c)
 	return (0);
 }
 
-void exp_dollar(
+void	exp_dollar(
 	t_shell *shell,
 	char **res,
 	char *cmd,
@@ -62,7 +62,7 @@ void exp_dollar(
 	if (cmd[*i] == '@' || ft_isdigit(cmd[*i]))
 		(*i)++;
 	if (exp_is_normal_str(cmd[*i]))
-		return;
+		return ;
 	else if (cmd[*i] == '?')
 	{
 		(*i)++;
@@ -80,7 +80,7 @@ void exp_dollar(
 	*res = joined;
 }
 
-void exp_dollar_in_quote(
+void	exp_dollar_in_quote(
 	t_shell *shell,
 	char **res,
 	char *cmd,

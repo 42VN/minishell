@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 16:03:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:47:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ static int	expansion_redirect(t_shell *shell, size_t i)
 	if (shell->tokens->array[i].redirect)
 	{
 		redirect = shell->tokens->array[i].redirect;
-		while(redirect)
+		while (redirect)
 		{
 			if (redirect->type == HEREDOC && redirect->path)
 			{
-				if (ft_strchr(redirect->path, '\'') || ft_strchr(redirect->path, '\"'))
+				if (ft_strchr(redirect->path, '\'')
+					|| ft_strchr(redirect->path, '\"'))
 					redirect->no_exp = 1;
 				exp_remove_quotes(&redirect->path, 0);
 				redirect = redirect->next;
-				continue;
+				continue ;
 			}
 			if (redirect->path)
 			{
@@ -45,7 +46,8 @@ static int	expansion_redirect(t_shell *shell, size_t i)
  * 
  * Description:
  * 
- * -	Create and add new post-expansion string to new split cmd array (2d array)
+ * -	Create and add new post-expansion string
+ * to new split cmd array (2d array)
  */
 static int	expansion_cmd(t_shell *shell, size_t i)
 {
@@ -61,10 +63,12 @@ static int	expansion_cmd(t_shell *shell, size_t i)
 			len++;
 		new_split_cmd = (char **)ft_calloc(1, (len + 1) * sizeof(char *));
 		if (!new_split_cmd)
-			return (ft_error_ret("expansion: expansion_cmd: ft_calloc", shell, ERR_MALLOC, 0));
+			return (ft_error_ret("expansion: expansion_cmd: ft_calloc",
+					shell, ERR_MALLOC, 0));
 		while (shell->tokens->array[i].split_cmd[j])
 		{
-			if (!exp_logic_split_str(shell, &shell->tokens->array[i].split_cmd[j], &new_split_cmd))
+			if (!exp_logic_split_str(shell,
+					&shell->tokens->array[i].split_cmd[j], &new_split_cmd))
 				return (0);
 			++j;
 		}
@@ -77,11 +81,10 @@ static int	expansion_cmd(t_shell *shell, size_t i)
 int	expansion(t_shell *shell)
 {
 	size_t	i;
-	
+
 	if (!shell || shell->err_type != ERR_NONE)
 		return (0);
 	i = 0;
-	
 	while (i <= shell->tokens->cur_pos)
 	{
 		if (!expansion_redirect(shell, i))

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 22:53:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/03 22:56:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:51:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /**
  * Recusive function remove quotes
  */
-int exp_remove_quotes(char **res, int i)
+int	exp_remove_quotes(char **res, int i)
 {
 	char	quote;
 	int		last_quote;
-	
+
 	quote = '\0';
 	last_quote = -1;
 	if (!res || !(*res))

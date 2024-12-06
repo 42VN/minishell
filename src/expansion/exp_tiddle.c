@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 00:17:05 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/30 02:21:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:52:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *exp_tiddle_home_path(t_shell *shell)
+static char	*exp_tiddle_home_path(t_shell *shell)
 {
 	char	*home_path;
 	char	*exp_str;
@@ -31,14 +31,15 @@ static char *exp_tiddle_home_path(t_shell *shell)
  * Function to append the HOME path to the expansion string
  * if the tiddle is at the front of the string
  * 
- * Description: Tiddle only returns HOME path if it is at the front and there is no following character
+ * Description: Tiddle only returns HOME path
+ * if it is at the front and there is no following character
  */
 void	exp_tiddle_front(t_shell *shell, char **res, char *cmd, size_t *index)
 {
 	char	*str;
 	char	*joined;
 	size_t	i;
-	
+
 	i = *index;
 	i++;
 	str = NULL;
