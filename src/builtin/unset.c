@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:53:33 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/05 21:31:15 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/06 16:28:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	builtin_unset_check(t_shell *shell, char **split_cmd)
 	return (1);
 }
 
-
 void	builtin_unset(t_shell *shell, char **split_cmd)
 {
 	int		i;
@@ -41,8 +40,8 @@ void	builtin_unset(t_shell *shell, char **split_cmd)
 		key = ft_substr(split_cmd[i], 0, equal - split_cmd[i]);
 		if (!key)
 		{
-			update_status(shell, ft_error_ret("ft_builtin_unset: malloc", 
-				shell, ERR_MALLOC, 1));
+			update_status(shell, ft_error_ret("ft_builtin_unset: malloc",
+					shell, ERR_MALLOC, 1));
 			return ;
 		}
 		equal = NULL;

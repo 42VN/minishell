@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:26:07 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 23:40:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:31:05 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
  * 
  * Description:
  *-		Initial check:	is a standalone
- *-		Left check:		the left token must either be a command or a closed bracket
+ *-		Left check:		the left token must
+ either be a command or a closed bracket
  */
 int	ft_token_logic_precheck(t_shell *shell, char *str, size_t index)
 {
@@ -50,7 +51,7 @@ int	ft_token_logic_postcheck(t_shell *shell, char *str)
 
 int	ft_token_bracket_check(t_shell *shell, char *str, size_t index)
 {
-	t_token_type type;
+	t_token_type	type;
 
 	if (*str != '(' && *str != ')')
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));

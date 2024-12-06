@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/22 11:43:39 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/06 16:33:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_token_free(t_shell *shell)
 {
-	size_t	i; //trung
+	size_t	i;
 
 	if (!shell->tokens || !shell->tokens->array)
 		return ;

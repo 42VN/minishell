@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:31:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/26 11:42:37 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:31:24 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_check_op(t_shell *shell, char *str)
 	if (index > 0)
 	{
 		prev_type = shell->tokens->array[index - 1].type;
-		// cur_type = shell->tokens->array[index].type;
 		if ((prev_type == PIPE || prev_type == AND || prev_type == OR)
 			&& (*str == '|' || *str == '&'))
 		{

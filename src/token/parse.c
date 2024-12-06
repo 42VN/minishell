@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:27:01 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 17:59:44 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:30:22 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static char	*ft_make_str_cmd(char **ptr, t_shell *shell, char *quote)
 	}
 	res = ft_substr(*ptr, 0, start - (*ptr));
 	if (!res)
-		return (ft_error_ret_null("ft_make_str_cmd: malloc", shell, ERR_MALLOC));
+		return (ft_error_ret_null("ft_make_str_cmd: malloc",
+				shell, ERR_MALLOC));
 	*ptr = start;
 	return (res);
 }

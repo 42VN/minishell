@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 15:10:49 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:34:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_logic_err(char *ptr)
 	}
 	else
 		ft_printf_fd(2,
-				"minishell: syntax error: unexpected end of file\n");
+			"minishell: syntax error: unexpected end of file\n");
 }
 
 int	ft_syntax_err_ret(t_shell *shell, t_syntax_err err, int code)
@@ -72,7 +72,7 @@ int	ft_syntax_err_ret(t_shell *shell, t_syntax_err err, int code)
 void	ft_token_syntax_err(t_shell *shell, char *ptr)
 {
 	t_syntax_err	syntax_err;
-	
+
 	syntax_err = shell->tokens->syntax_err;
 	while (ft_isspace(*ptr))
 		ptr++;

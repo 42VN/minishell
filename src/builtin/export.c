@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:39:55 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 14:29:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:28:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ static int	export_variable(t_shell *shell, char *arg, char *equal, char *key)
 {
 	if (arg && arg[0] == '-')
 	{
-		ft_printf_fd(2, "bash: export: %s: invalid option\n", arg);
+		ft_printf_fd(2,
+			"bash: export: %s: invalid option\n", arg);
 		return (2);
 	}
 	if (!export_is_valid(arg))
 	{
-		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", arg);
+		ft_printf_fd(2,
+			"minishell: export: `%s': not a valid identifier\n", arg);
 		return (1);
 	}
 	equal = ft_strchr(arg, '=');
@@ -90,7 +92,8 @@ static int	ft_builtin_export(t_shell *shell, char **split_cmd)
 		equal = ft_strchr(split_cmd[i], '=');
 		key = ft_substr(split_cmd[i], 0, equal - split_cmd[i]);
 		if (!key)
-			return (ft_error_ret("ft_builtin_export: malloc", shell, ERR_MALLOC, 1));
+			return (ft_error_ret("ft_builtin_export: malloc",
+					shell, ERR_MALLOC, 1));
 		export_var_exitcode = export_variable(shell, split_cmd[i], equal, key);
 		if (export_var_exitcode != 0)
 		{

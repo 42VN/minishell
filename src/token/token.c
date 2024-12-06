@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 15:47:39 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:32:52 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	ft_token_init(t_shell *shell)
  */
 int	ft_token_add(t_shell *shell, char **input)
 {
-	if (shell->tokens->syntax_err != ERR_SYNTAX_NONE || shell->err_type != ERR_NONE)
+	if (shell->tokens->syntax_err != ERR_SYNTAX_NONE
+		|| shell->err_type != ERR_NONE)
 		return (0);
 	if (!ft_token_realloc(shell))
 		return (0);
@@ -70,9 +71,11 @@ static int	ft_token_split_cmd(t_shell *shell)
 	{
 		if (shell->tokens->array[index].cmd)
 		{
-			shell->tokens->array[index].split_cmd = ft_split_quote(shell->tokens->array[index].cmd, ' ');
+			shell->tokens->array[index].split_cmd = ft_split_quote(
+					shell->tokens->array[index].cmd, ' ');
 			if (!shell->tokens->array[index].split_cmd)
-				return (ft_error_ret("ft_split_cmd: malloc", shell, ERR_MALLOC, 0));
+				return (ft_error_ret("ft_split_cmd: malloc",
+						shell, ERR_MALLOC, 0));
 		}
 		index++;
 	}
@@ -87,9 +90,10 @@ static int	ft_token_post_process(t_shell *shell, char **line)
 		&& shell->tokens->array[shell->tokens->cur_pos].type == NONE)
 		shell->tokens->cur_pos--;
 	last_token = shell->tokens->array[shell->tokens->cur_pos];
-	if (shell->err_type == ERR_NONE &&  shell->tokens->br_open > 0)
+	if (shell->err_type == ERR_NONE && shell->tokens->br_open > 0)
 		ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0);
-	else if (last_token.type == PIPE || last_token.type == AND || last_token.type == OR)
+	else if (last_token.type == PIPE
+		|| last_token.type == AND || last_token.type == OR)
 		ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0);
 	if (shell->err_type == ERR_SYNTAX)
 	{

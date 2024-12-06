@@ -6,13 +6,17 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/11/28 23:47:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/06 16:33:55 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int ft_token_handle_cmd_init(t_shell *shell, char **ptr, size_t **index, char **str)
+static int	ft_token_handle_cmd_init(
+	t_shell *shell,
+	char **ptr,
+	size_t **index,
+	char **str)
 {
 	if (!**ptr)
 		return (1);
@@ -38,7 +42,7 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 
 	if (!ft_token_handle_cmd_init(shell, ptr, &index, &str))
 		return (0);
-	if (index && shell->tokens->array[*index].type == CMD //trung
+	if (index && shell->tokens->array[*index].type == CMD
 		&& shell->tokens->array[*index].cmd)
 	{
 		if (!ft_token_join_cmd(&shell->tokens->array[*index], &str))
