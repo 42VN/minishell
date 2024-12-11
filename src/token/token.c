@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:32:52 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:53:32 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ static int	ft_token_post_process(t_shell *shell, char **line)
 	if (shell->err_type == ERR_SYNTAX)
 	{
 		ft_token_syntax_err(shell, *line);
-		return (0);
+		if (shell->tokens->has_heredoc)
+			return (1);
+		else
+			return (0);
 	}
 	return (1);
 }

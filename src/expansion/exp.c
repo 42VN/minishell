@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:47:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:53:10 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ int	expansion(t_shell *shell)
 {
 	size_t	i;
 
-	if (!shell || shell->err_type != ERR_NONE)
-		return (0);
 	i = 0;
 	while (i <= shell->tokens->cur_pos)
 	{

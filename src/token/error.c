@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:52:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:34:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:49:13 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,4 @@ void	ft_token_syntax_err(t_shell *shell, char *ptr)
 				"minishell: syntax error near unexpected token `%c'\n", *ptr);
 		shell->exitcode = 2;
 	}
-	shell->err_type = ERR_NONE;
 }

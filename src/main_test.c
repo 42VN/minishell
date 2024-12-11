@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:16:51 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:53:38 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	loop_cleanup(t_shell *shell)
 		ast_cleanup(&shell->ast);
 	if (shell->tokens)
 		ft_token_free(shell);
+	shell->err_type = ERR_NONE;
 }
 
 static void	process_input(t_shell *shell, char **input)
@@ -39,6 +40,8 @@ static void	process_input(t_shell *shell, char **input)
 		if (!expansion(shell))
 			return ;
 		if (read_heredoc(shell, shell->tokens->array, size) == EXIT_FAILURE)
+			return ;
+		if (shell->err_type == ERR_SYNTAX)
 			return ;
 		if (!expansion_heredoc(shell))
 			return ;

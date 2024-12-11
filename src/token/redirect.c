@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 15:39:36 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:36:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 		free(redirect);
 		return (NULL);
 	}
+	if (redirect->type == RD_HEREDOC)
+		shell->tokens->has_heredoc = 1;
 	redirect->path = path;
 	return (redirect);
 }
