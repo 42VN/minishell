@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/04 12:00:32 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/11 10:24:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
 	while (redirect && redirect->path)
 	{
-		if (!strcmp(redirect->path, "*"))
+		if (!ft_strcmp(redirect->path, "*"))
 			return (open_error(shell, redirect->path, fd,
 					"ambiguous redirect"));
 		if (redirect->type == RD_HEREDOC)
@@ -108,15 +108,17 @@ void	execute_command(t_shell *shell, t_token token)
 
 	fd[0] = -2;
 	fd[1] = -2;
-	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE
-		|| !token.cmd || !token.split_cmd || !token.split_cmd[0])
+	if (redirect_io(shell, token.redirect, fd) == EXIT_FAILURE)
 	{
 		redirect_fd(tmp[0], STDIN_FILENO);
 		redirect_fd(tmp[1], STDOUT_FILENO);
 		return ;
 	}
-	if (execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
-		execute_non_builtin(shell, token);
+	if (token.cmd && token.split_cmd && token.split_cmd[0])
+	{
+		if (execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)
+			execute_non_builtin(shell, token);
+	}
 	redirect_fd(tmp[0], STDIN_FILENO);
 	redirect_fd(tmp[1], STDOUT_FILENO);
 }
