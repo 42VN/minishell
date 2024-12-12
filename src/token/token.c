@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:33:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/11 13:53:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/12 17:38:43 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	ft_token_init(t_shell *shell)
 		return (ft_error_ret("tokenize: ft_token_init: malloc",
 				shell, ERR_MALLOC, 0));
 	}
+	env_clone_underscore(shell);
 	return (1);
 }
 

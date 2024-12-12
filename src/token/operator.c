@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:30:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 15:39:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/12 16:36:32 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	ft_token_is_logic(
 		else if (count == 2)
 			shell->tokens->array[*index].type = OR;
 		shell->tokens->cur_pos++;
+		if (shell->tokens->array[*index].type == PIPE)
+			shell->tokens->has_pipe = 1;
 	}
 	else
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_LOGIC, 0));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/11 10:24:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/12 17:43:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	execute_command(t_shell *shell, t_token token)
 		redirect_fd(tmp[1], STDOUT_FILENO);
 		return ;
 	}
+	env_underscore(shell, token.split_cmd);
 	if (token.cmd && token.split_cmd && token.split_cmd[0])
 	{
 		if (execute_builtin(shell, token.split_cmd) == EXIT_FAILURE)

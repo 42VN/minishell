@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:41:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 14:35:46 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/12 17:22:30 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@ void	env_sort(char **envp);
 void	env_print(char **envp);
 int		env_set(t_shell *shell, char *key, char *value);
 void	env_unset(t_shell *shell, char *key);
+
+int		env_clone_underscore(t_shell *shell);
+int		env_underscore(t_shell *shell, char **split_cmd);
 
 #endif

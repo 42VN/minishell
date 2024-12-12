@@ -6,7 +6,7 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/12/12 12:14:02 by ktieu            ###   ########.fr        #
+#    Updated: 2024/12/12 16:34:27 by ktieu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ WC_DIR				=	$(SRC_DIR)/wildcard
 OBJ_DIR				=	obj
 
 SRC_BASE_FILES		=	main_test.c
-ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c
+ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c env_underscore.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	ast_utils.c print_ast.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c ft_split_quote.c
