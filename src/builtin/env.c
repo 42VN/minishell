@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 13:49:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 14:59:46 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/12 14:53:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,15 @@ static int	builtin_env_check(t_shell *shell, char **split_cmd, size_t len)
 	if (len > 1)
 	{
 		arg = split_cmd[1];
-		if (!*arg)
-		{
-			ft_printf_fd(2, "env: ‘’: No such file or directory\n");
-			update_status(shell, 127);
-		}
-		else if (*arg == '-')
+		if (*arg == '-')
 		{
 			ft_printf_fd(2, "env: unrecognized option '%s'\n", arg);
 			update_status(shell, 125);
 		}
 		else
 		{
-			ft_printf_fd(2, "env: ‘%s’: Permission denied\n", arg);
-			update_status(shell, 126);
+			ft_printf_fd(2, "env: ‘’: No such file or directory\n");
+			update_status(shell, 127);
 		}
 		return (0);
 	}
