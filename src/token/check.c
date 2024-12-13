@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:26:07 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:31:05 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/13 13:58:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,7 @@ int	ft_token_bracket_check(t_shell *shell, char *str, size_t index)
 
 	if (*str != '(' && *str != ')')
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
-	if (*str == '(')
-	{
-		if (index > 0)
-		{
-			type = shell->tokens->array[index - 1].type;
-			if (type != BR_OPEN && type != AND && type != OR)
-				return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
-		}
-	}
-	else if (*str == ')')
+	if (*str == ')')
 	{
 		if (shell->tokens->br_open <= 0)
 			return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
