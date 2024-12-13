@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/26 14:53:50 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/13 14:17:12 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ char	**expand_wildcard(char *command)
 		return (NULL);
 	while ((entry = readdir(dir)))
 	{
-		if (entry->d_name[0] != '.' && is_match(entry->d_name, command))
+		if ((entry->d_name[0] != '.' || command[0] == '.')
+			&& is_match(entry->d_name, command))
 		{
 			char *entry_name[2] = {ft_strdup(entry->d_name), NULL};
 			if (!entry_name[0])
