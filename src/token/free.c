@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:15:49 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/12 17:27:39 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/13 14:00:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_token_free_loop(t_shell *shell)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (i < shell->tokens->size)
 	{
