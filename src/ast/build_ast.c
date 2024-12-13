@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/03 12:59:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/13 14:43:33 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	inside_parenthesis(t_token *tokens, int size)
 	int	depth;
 	int	index;
 
-	if (tokens[0].type != BR_OPEN || tokens[index -1].type != BR_CLOSE)
+	if (size < 2 || tokens[0].type != BR_OPEN || tokens[size - 1].type != BR_CLOSE)
 		return (0);
 	depth = 0;
 	index = -1;
@@ -45,11 +45,15 @@ static int	inside_parenthesis(t_token *tokens, int size)
 		if (tokens[index].type == BR_OPEN)
 			depth++;
 		else if (tokens[index].type == BR_CLOSE)
+		{
 			depth--;
-		if (depth == 0 && index != 0)
+			if (depth < 0)
+				return (0);
+		}
+		else if (depth == 0 && index != 0)
 			return (0);
 	}
-	return (1);
+	return (depth == 0);
 }
 
 t_ast	*build_ast(t_token *tokens)
