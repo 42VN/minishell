@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:33:55 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/13 14:34:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ static int	ft_token_handle_cmd_init(
 	return (1);
 }
 
+static int	ft_token_cmd_precheck(t_shell *shell)
+{
+	size_t	index;
+
+	index = shell->tokens->cur_pos;
+	if (index > 0)
+	{
+		if (shell->tokens->array[index - 1].type == BR_CLOSE)
+		{
+			return (0);
+		}
+	}
+	return (1);
+}
+
 /**
  * - Handles the creation or update of command tokens. 
  * - If there is no string in the token array
@@ -40,6 +55,10 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 	size_t			*index;
 	char			*str;
 
+	if (!ft_token_cmd_precheck(shell))
+	{
+		return  (ft_syntax_err_ret(shell, ERR_SYNTAX_NORMAL, 0));
+	}
 	if (!ft_token_handle_cmd_init(shell, ptr, &index, &str))
 		return (0);
 	if (index && shell->tokens->array[*index].type == CMD
