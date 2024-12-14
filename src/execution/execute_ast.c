@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 22:46:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/14 23:54:21 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@ static void	execute_logic(t_shell *shell, t_ast *ast)
 {
 	if (!ast)
 		return ;
-	if (ast->token.type == AND)
-	{
-		if (ast->left)
-			execute_ast(shell, ast->left);
-		if (!shell->exitcode && ast->right)
-			execute_ast(shell, ast->right);
-	}
+	if (ast->left)
+		execute_ast(shell, ast->left);
+	if (ast->token.type == AND && !shell->exitcode && ast->right)
+		execute_ast(shell, aecst->right);
 	else if (ast->token.type == OR)
 	{
-		if (ast->left)
-			execute_ast(shell, ast->left);
-		if (shell->exitcode && ast->right)
+		if (ast->right && ast->right->token.type == AND && !shell->exitcode)
+			execute_ast(shell, ast->right->right);
+		if (ast->right && ast->right->token.type != AND && shell->exitcode)
 			execute_ast(shell, ast->right);
 	}
 }
