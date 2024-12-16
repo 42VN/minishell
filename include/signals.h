@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/04 13:17:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/16 15:43:21 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ typedef enum e_signal_type
 {
 	PARENT,
 	CHILD,
-	HEREDOC
+	HEREDOC,
+	AFTER_HD
 }	t_signal_type;
 
 //---------------------------------||  SIGNAL ||------------------------------//
@@ -30,7 +31,8 @@ int		start_signal(t_shell *shell, t_signal_type type);
 
 int		event(void);
 void	set_signal_exit(t_shell *shell);
-void	sig_handler_heredoc(int signal_number);
+void	sig_heredoc_handler(int signal_number);
 void	sig_parent_handler(int signal_number);
+void	sig_afterhd_handler(int signal_number);
 
 #endif

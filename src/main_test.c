@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/16 12:54:29 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 16:01:56 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	minishell(t_shell *shell)
 
 	while (!shell->aborted)
 	{
+		// if (!start_signal(shell, PARENT))
+		// 	return ;
 		//Snippet for testing
 		if (isatty(fileno(stdin)))
 			input = readline(PROMPT);
@@ -85,6 +87,8 @@ void	minishell(t_shell *shell)
 			loop_cleanup(shell);
 		}
 		free(input);
+		// if (!start_signal(shell, AFTER_HD))
+		// 	return ;
 	}
 	rl_clear_history();
 	return ;

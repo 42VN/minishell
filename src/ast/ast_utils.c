@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 13:57:42 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 14:14:02 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ t_token	*extract_tokens(t_token *tokens, int start, int end)
 	if (end - start <= 0)
 		return (NULL);
 	res = (t_token *)ft_calloc(end - start + 1, sizeof(t_token));
+	if (!res)
+	{
+		ft_printf_fd(STDERR_FILENO, "minishell: memory allocation failed!\n");
+		return (NULL);
+	}
 	index = 0;
 	while (start < end)
 		res[index++] = tokens[start++];

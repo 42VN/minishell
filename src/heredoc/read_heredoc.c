@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/16 11:34:14 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 15:43:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,13 @@ static int	start_heredoc(t_shell *shell, t_redirect *redirect)
 		{
 			start_signal(shell, HEREDOC);
 			if (here_doc(shell, redirect, line, NULL) == EXIT_FAILURE)
+			{
+				// printf("start parent1\n");
+				start_signal(shell, PARENT);
 				return (EXIT_FAILURE);
-			start_signal(shell, PARENT);
+			}
+			// printf("start parent2\n");
+			start_signal(shell, AFTER_HD);
 		}
 		redirect = redirect->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 14:00:52 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 15:36:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,15 @@ void	execute_ast(t_shell *shell, t_ast *ast)
 		execute_ast(shell, ast->right);
 	else if (ast->token.type == CMD)
 	{
-		if (ast->token.cmd && (ft_strcmp(ast->token.cmd, "./minishell") == 0
-			|| ft_strcmp(ast->token.cmd, "./minishell_bonus") == 0))
-		{
-			shell_init(&new_shell, shell->envp);
-			new_shell.exitcode = 0;
-			minishell(&new_shell);
-			shell_cleanup(&new_shell);
-		}
-		else
+		// if (ast->token.cmd && (ft_strcmp(ast->token.cmd, "./minishell") == 0
+		// 	|| ft_strcmp(ast->token.cmd, "./minishell_bonus") == 0))
+		// {
+		// 	shell_init(&new_shell, shell->envp);
+		// 	new_shell.exitcode = 0;
+		// 	minishell(&new_shell);
+		// 	shell_cleanup(&new_shell);
+		// }
+		// else
 			execute_command(shell, ast->token);
 	}
 	while (wait(NULL) > 0)
