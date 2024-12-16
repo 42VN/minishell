@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/12/16 10:40:35 by hitran           ###   ########.fr        #
+#    Updated: 2024/12/16 11:36:12 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,11 @@ SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	ast_utils.c
 UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c ft_split_quote.c
 TOKEN_FILES			=	quote.c parse.c token.c free.c mem.c  utils.c utils2.c operator.c cmd.c error.c print.c redirect.c check.c
-BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit_test.c pwd.c export_utils.c
+BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 EXP_FILES			=	exp_logic.c utils.c utils2.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c exp_mem.c exp_heredoc.c exp.c
 SIG_FILES			=	signals.c signal_utils.c
-HD_FILES			=	read_heredoc_test.c heredoc_utils.c
+HD_FILES			=	read_heredoc.c heredoc_utils.c
 WC_FILES			=	wildcard.c wildcard_utils.c expand_wildcard.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(SRC_BASE_FILES)) \

@@ -6,11 +6,24 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/16 09:57:49 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 11:31:58 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	malloc_error(char **s1, char *s2)
+{
+	if (s1 && *s1)
+	{
+		free(*s1);
+		*s1 = NULL;
+	}
+	if (s2)
+		free(s2);
+	ft_printf_fd(STDERR_FILENO, "minishell: memory allocation failed!\n");
+	return (EXIT_FAILURE);
+}
 
 int	join_and_free(char **s1, char *s2)
 {
@@ -20,7 +33,7 @@ int	join_and_free(char **s1, char *s2)
 
 	res = (char *)malloc(ft_strlen(*s1) + ft_strlen(s2) + 2);
 	if (!res)
-		return (EXIT_FAILURE);
+		return (malloc_error(s1, s2));
 	ptr = res;
 	index = 0;
 	while (*s1 && (*s1)[index])
@@ -36,4 +49,23 @@ int	join_and_free(char **s1, char *s2)
 		free(s2);
 	*s1 = res;
 	return (EXIT_SUCCESS);
+}
+
+void	print_warning(char *path)
+{
+	if (path)
+		ft_printf_fd(STDERR_FILENO, "minishell: warning: here-document at "
+			"line 1 delimited by end-of-file (wanted `%s')\n", path);
+}
+
+int	heredoc_sigint(char *heredoc, char **path)
+{
+	if (heredoc)
+		free(heredoc);
+	if (path && *path)
+		free(*path);
+	*path = ft_strdup("");
+	if (!*path)
+		ft_printf_fd(STDERR_FILENO, "minishell: memory allocation failed!\n");
+	return (EXIT_FAILURE);
 }
