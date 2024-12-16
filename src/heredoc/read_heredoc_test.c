@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_heredoc_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/13 16:23:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/16 10:02:04 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int	here_doc(t_shell *shell, t_redirect *redirect,
 		}
 		if (join_and_free(&heredoc, line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-
 	}
 	free(redirect->path);
 	redirect->path = heredoc;

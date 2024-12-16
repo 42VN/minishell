@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:19 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 20:57:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 10:32:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,10 @@ int	is_match(const char *file, const char *pattern)
 	if (*p)
 		return (0);
 	return (1);
+}
+
+int	print_malloc_error(void)
+{
+	ft_printf_fd(STDERR_FILENO, "minishell: memory allocation failed!\n");
+	return (EXIT_FAILURE);
 }

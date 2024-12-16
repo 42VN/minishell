@@ -6,17 +6,17 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/11/29 11:35:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 09:57:49 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int join_and_free(char **s1, char *s2)
+int	join_and_free(char **s1, char *s2)
 {
-	char *res;
-	char *ptr;
-	int index;
+	char	*res;
+	char	*ptr;
+	int		index;
 
 	res = (char *)malloc(ft_strlen(*s1) + ft_strlen(s2) + 2);
 	if (!res)

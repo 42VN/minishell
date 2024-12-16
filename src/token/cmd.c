@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:29:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/13 14:34:49 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/16 10:02:29 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_token_handle_cmd(char **ptr, t_shell *shell)
 
 	if (!ft_token_cmd_precheck(shell))
 	{
-		return  (ft_syntax_err_ret(shell, ERR_SYNTAX_NORMAL, 0));
+		return (ft_syntax_err_ret(shell, ERR_SYNTAX_NORMAL, 0));
 	}
 	if (!ft_token_handle_cmd_init(shell, ptr, &index, &str))
 		return (0);

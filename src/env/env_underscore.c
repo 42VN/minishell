@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_underscore.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:04:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/12 17:39:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/16 09:54:10 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	env_clone_underscore(t_shell *shell)
 	{
 		shell->tokens->env_last_cmd = ft_strdup(underscore_val);
 		if (!shell->tokens->env_last_cmd)
-			return (ft_error_ret("env_clone_underscore: ft_strdup", shell, ERR_MALLOC, 0));
+			return (ft_error_ret("env_clone_underscore: ft_strdup",
+					shell, ERR_MALLOC, 0));
 	}
 	return (1);
 }

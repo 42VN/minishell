@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/04 12:26:23 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 09:54:40 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,5 @@ char	*find_command_path(t_shell *shell, char *command)
 		ft_printf_fd(STDERR_FILENO, "%s: command not found\n", command);
 	else if (access(command_path, X_OK) != 0)
 		exec_error (shell, NULL, command, "Permission denied");
-	// {
-	// 	ft_printf_fd(STDERR_FILENO, "%s: Permission denied\n", command);
-	// 	return (NULL);
-	// }
 	return (command_path);
 }
