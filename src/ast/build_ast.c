@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 09:53:00 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 13:56:50 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ t_ast	*build_ast(t_token *tokens)
 	if (make_root(ast, tokens, size, locate_operator(tokens, size, 0)))
 		return (ast);
 	else if (make_root(ast, tokens, size, locate_operator(tokens, size, 1)))
+		return (ast);
+	else if (make_root(ast, tokens, size, locate_operator(tokens, size, 2)))
 		return (ast);
 	if (tokens[0].type == CMD)
 		ast->token = tokens[0];

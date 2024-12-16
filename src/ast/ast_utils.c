@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/03 13:17:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 13:57:42 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ int	locate_operator(t_token *tokens, int size, int priority)
 			depth++;
 		else if (tokens[index].type == BR_CLOSE)
 			depth--;
-		if (depth == 0 && priority == 0
-			&& (tokens[index].type == AND || tokens[index].type == OR))
+		if (depth == 0 && priority == 0 && tokens[index].type == AND)
 			return (index);
-		else if (depth == 0 && priority == 1 && tokens[index].type == PIPE)
+		else if (depth == 0 && priority == 1 && tokens[index].type == OR)
+			return (index);
+		else if (depth == 0 && priority == 2 && tokens[index].type == PIPE)
 			return (index);
 	}
 	return (-1);
