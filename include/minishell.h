@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/12 12:13:35 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/16 12:54:35 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_shell
 	t_err_type	err_type;
 	t_tokens	*tokens;
 	t_ast		*ast;
+	int			signal_flag;
 }	t_shell;
 
 //----------------------------------------------------
@@ -55,6 +56,7 @@ typedef struct s_shell
 
 int		shell_init(t_shell *shell, char **envp);
 void	shell_cleanup(t_shell *shell);
+void	minishell(t_shell *shell);
 
 //----------------------------------------------------
 // UTILS 

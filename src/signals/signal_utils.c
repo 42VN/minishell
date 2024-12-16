@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:58:02 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/19 23:00:45 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 12:56:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ int	event(void)
 {
 	return (0);
 }
+static t_shell *g_current_shell = NULL;
 
 void	set_signal_exit(t_shell *shell)
 {
-	static t_shell	*shell_struct;
-
-	if (!shell)
-		shell_struct->exitcode = SIGINT + 128;
-	else
-		shell_struct = shell;
+    if (shell)
+        g_current_shell = shell;
+    else if (g_current_shell)
+        g_current_shell->exitcode = SIGINT + 128;
 }
 
 void	sig_handler_heredoc(int signal_number)
