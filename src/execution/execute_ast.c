@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 15:36:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 21:32:59 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ static void	execute_pipe(t_shell *shell, t_ast *ast)
 
 void	execute_ast(t_shell *shell, t_ast *ast)
 {
-	t_shell new_shell;
-
 	if (ast->token.type == AND || ast->token.type == OR)
 		execute_logic(shell, ast);
 	else if (ast->token.type == PIPE)
@@ -92,18 +90,7 @@ void	execute_ast(t_shell *shell, t_ast *ast)
 	else if (ast->right)
 		execute_ast(shell, ast->right);
 	else if (ast->token.type == CMD)
-	{
-		// if (ast->token.cmd && (ft_strcmp(ast->token.cmd, "./minishell") == 0
-		// 	|| ft_strcmp(ast->token.cmd, "./minishell_bonus") == 0))
-		// {
-		// 	shell_init(&new_shell, shell->envp);
-		// 	new_shell.exitcode = 0;
-		// 	minishell(&new_shell);
-		// 	shell_cleanup(&new_shell);
-		// }
-		// else
-			execute_command(shell, ast->token);
-	}
+		execute_command(shell, ast->token);
 	while (wait(NULL) > 0)
 		;
 }

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:37:26 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 14:29:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 21:29:38 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	make_root(t_ast *ast, t_token *tokens, int size, int index)
 	return (1);
 }
 
-static int	inside_parenthesis(t_token *tokens, int size)
+static int	inside_parentheses(t_token *tokens, int size)
 {
 	int	depth;
 	int	index;
@@ -57,27 +57,32 @@ static int	inside_parenthesis(t_token *tokens, int size)
 	return (depth == 0);
 }
 
+t_ast	*inside_parentheses_ast(t_token *tokens, int size)
+{
+	t_ast	*ast;
+	t_token	*temp;
+
+	temp = extract_tokens(tokens, 1, size - 1);
+	if (!temp)
+		return (NULL);
+	ast = build_ast(temp);
+	if (temp)
+		free_token (&temp);
+	return (ast);
+}
+
 t_ast	*build_ast(t_token *tokens)
 {
 	t_ast	*ast;
 	int		size;
-	t_token	*temp;
 
 	if (!tokens)
 		return (NULL);
 	size = get_tokens_size(tokens);
 	if (!size)
 		return (NULL);
-	if (inside_parenthesis(tokens, size))
-	{
-		temp = extract_tokens(tokens, 1, size - 1);
-		if (!temp)
-			return (NULL);
-		ast = build_ast(temp);
-		if (temp)
-			free_token (&temp);
-		return (ast);
-	}
+	if (inside_parentheses(tokens, size))
+		return (inside_parentheses_ast(tokens, size));
 	ast = (t_ast *)ft_calloc(1, sizeof(t_ast));
 	if (make_root(ast, tokens, size, locate_operator(tokens, size, 0)))
 		return (ast);

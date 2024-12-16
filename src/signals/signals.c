@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:58:02 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 15:57:46 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 21:33:35 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	start_signal(t_shell *shell, t_signal_type type)
 		return (0);
 	if (type == AFTER_HD && !set_afterhd())
 		return (0);
-	else if (type == CHILD &&  (signal(SIGINT, SIG_DFL) == SIG_ERR
+	else if (type == CHILD && (signal(SIGINT, SIG_DFL) == SIG_ERR
 			|| signal(SIGQUIT, SIG_DFL) == SIG_ERR))
 		return (0);
 	else if (type == HEREDOC)

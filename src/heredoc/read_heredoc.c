@@ -6,49 +6,49 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/16 15:43:58 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/16 21:32:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static int	here_doc_test(t_shell *shell, t_redirect *redirect,
-	char *line, char *heredoc)
-{
-	heredoc = ft_strdup("");
-	if (!heredoc)
-		return (EXIT_FAILURE);
-	while (1)
-	{
-		if (isatty(fileno(stdin)))
-			line = readline("> ");
-		else
-		{
-			char *input;
-			input = get_next_line(fileno(stdin));
-			line = ft_strtrim(input, "\n");
-			free(input);
-		}
-		// line = readline("> ");
-		if (!line)
-		{
-			print_warning(redirect->path);
-			break ;
-		}
-		if (shell->exitcode - 128 == SIGINT)
-			return (heredoc_sigint(heredoc, &redirect->path));
-		if (!ft_strcmp(redirect->path, line))
-		{
-			free(line);
-			break ;
-		}
-		if (join_and_free(&heredoc, line) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-	}
-	free(redirect->path);
-	redirect->path = heredoc;
-	return (EXIT_SUCCESS);
-}*/
+
+// static int	here_doc(t_shell *shell, t_redirect *redirect,
+// 	char *line, char *heredoc)
+// {
+// 	heredoc = ft_strdup("");
+// 	if (!heredoc)
+// 		return (EXIT_FAILURE);
+// 	while (1)
+// 	{
+// 		if (isatty(fileno(stdin)))
+// 			line = readline("> ");
+// 		else
+// 		{
+// 			char *input;
+// 			input = get_next_line(fileno(stdin));
+// 			line = ft_strtrim(input, "\n");
+// 			free(input);
+// 		}
+// 		// line = readline("> ");
+// 		if (!line)
+// 		{
+// 			print_warning(redirect->path);
+// 			break ;
+// 		}
+// 		if (shell->exitcode - 128 == SIGINT)
+// 			return (heredoc_sigint(heredoc, &redirect->path));
+// 		if (!ft_strcmp(redirect->path, line))
+// 		{
+// 			free(line);
+// 			break ;
+// 		}
+// 		if (join_and_free(&heredoc, line) == EXIT_FAILURE)
+// 			return (EXIT_FAILURE);
+// 	}
+// 	free(redirect->path);
+// 	redirect->path = heredoc;
+// 	return (EXIT_SUCCESS);
+// }
 
 static int	here_doc(t_shell *shell, t_redirect *redirect,
 	char *line, char *heredoc)
@@ -91,11 +91,9 @@ static int	start_heredoc(t_shell *shell, t_redirect *redirect)
 			start_signal(shell, HEREDOC);
 			if (here_doc(shell, redirect, line, NULL) == EXIT_FAILURE)
 			{
-				// printf("start parent1\n");
 				start_signal(shell, PARENT);
 				return (EXIT_FAILURE);
 			}
-			// printf("start parent2\n");
 			start_signal(shell, AFTER_HD);
 		}
 		redirect = redirect->next;
