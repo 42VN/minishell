@@ -1,41 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_utils.c                                   :+:      :+:    :+:   */
+/*   wildcard_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:19 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 10:32:26 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 12:19:35 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_array(char **array)
-{
-	int	index;
-
-	index = 0;
-	if (array)
-	{
-		while (array[index])
-			free(array[index++]);
-		free(array);
-	}
-}
-
-int	array_length(char **array)
-{
-	int	len;
-
-	len = 0;
-	if (!array)
-		return (0);
-	while (array[len])
-		len++;
-	return (len);
-}
 
 int	match_loop(const char **f, const char **p, const char **star,
 	const char **match)

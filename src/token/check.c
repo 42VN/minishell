@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:26:07 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/13 14:28:42 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/17 12:15:47 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	ft_token_logic_postcheck(t_shell *shell, char *str)
 
 int	ft_token_bracket_check(t_shell *shell, char *str, size_t index)
 {
-	t_token_type	type;
-
 	if (*str != '(' && *str != ')')
 		return (ft_syntax_err_ret(shell, ERR_SYNTAX_BR, 0));
 	if (*str == '(')

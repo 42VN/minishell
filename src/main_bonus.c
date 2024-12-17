@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 12:12:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 12:10:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	process_input(t_shell *shell, char **input, int size)
 		if (shell->err_type == ERR_SYNTAX)
 			return ;
 		if (!expansion_heredoc(shell))
+			return ;
+		if (wildcard(shell->tokens->array, size) == EXIT_FAILURE)
 			return ;
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)

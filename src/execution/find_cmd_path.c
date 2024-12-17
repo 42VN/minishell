@@ -6,13 +6,13 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 09:54:40 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 12:17:31 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**find_envp_path(char **envp, char *command)
+static char	**find_envp_path(char **envp)
 {
 	char	**cwd;
 
@@ -91,7 +91,7 @@ char	*find_command_path(t_shell *shell, char *command)
 		return (NULL);
 	if (ft_strchr(command, '/') && access(command, F_OK) == 0)
 		return (ft_strdup(command));
-	envp_paths = find_envp_path(shell->envp, command);
+	envp_paths = find_envp_path(shell->envp);
 	if (!envp_paths)
 		return (NULL);
 	command_path = get_command_path(envp_paths, command);
