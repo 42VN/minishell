@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 13:33:16 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:38:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_fault(t_shell *shell)
 
 int	is_recursive(t_ast *ast)
 {
-	if (ast->token.cmd && (!ft_strcmp(ast->token.cmd, "./minishell") 
+	if (ast->token.cmd && (!ft_strcmp(ast->token.cmd, "./minishell")
 			|| !ft_strcmp(ast->token.cmd, "./minishell_bonus")))
 		return (1);
 	else

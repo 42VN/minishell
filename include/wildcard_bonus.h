@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard.h                                         :+:      :+:    :+:   */
+/*   wildcard_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 12:20:28 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:38:05 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WILDCARD_H
-# define WILDCARD_H
+#ifndef WILDCARD_BONUS_H
+# define WILDCARD_BONUS_H
 
 # include "dirent.h"
 
