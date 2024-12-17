@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 00:03:39 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/12 12:13:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/17 13:47:01 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str)
 	str_len = 0;
 	if (!split_cmd || !*split_cmd)
 		return (0);
-	split_str = ft_split_quote(str, ' ');
+	split_str = ft_split_quote_wc(str);
 	if (!split_str)
 		return (0);
 	exp_split_cmd_init_len(&cmd_len, &str_len, split_cmd, split_str);

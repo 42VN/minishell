@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 12:20:17 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:45:08 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		ft_is_op_bracket(char c);
 char	*ft_strjoin_space(char const *s1, char const *s2);
 
 char	**ft_split_quote(char *s, char delimiter);
+char	**ft_split_quote_wc(char *s);
 void	free_array(char **array);
 int		array_length(char **array);
 
