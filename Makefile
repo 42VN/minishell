@@ -6,7 +6,7 @@
 #    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-#    Updated: 2024/12/17 12:33:38 by hitran           ###   ########.fr        #
+#    Updated: 2024/12/17 12:59:36 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 EXP_FILES			=	exp_logic.c utils.c utils2.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c exp_mem.c exp_heredoc.c exp.c
 SIG_FILES			=	signals.c signal_utils.c
 HD_FILES			=	read_heredoc.c heredoc_utils.c
-WC_FILES			=	wildcard.c wildcard_utils.c expand_wildcard.c
+WC_FILES			=	wildcard_bonus.c wildcard_utils_bonus.c expand_wildcard_bonus.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(MAIN_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
