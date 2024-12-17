@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
+#    By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/12/17 13:45:44 by ktieu            ###   ########.fr        #
-=======
-#    Updated: 2024/12/17 13:33:58 by hitran           ###   ########.fr        #
->>>>>>> 22f0b9cd34d8985a6b5a0625d67b0fb88d151902
+#    Created: 2024/12/17 14:01:34 by hitran            #+#    #+#              #
+#    Updated: 2024/12/17 14:01:46 by hitran           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +38,8 @@ HD_DIR				=	$(SRC_DIR)/heredoc
 WC_DIR				=	$(SRC_DIR)/wildcard
 
 OBJ_DIR				=	obj
-OBJ_BN_DIR			=	obj_bn
 
 MAIN_FILES			=	main.c
-MAIN_BN_FILES		=	main_bonus.c
 ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c env_underscore.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	ast_utils.c
@@ -56,21 +50,9 @@ EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c
 EXP_FILES			=	exp_logic.c utils.c utils2.c exp_dollar.c exp_tiddle.c exp_normal.c exp_single_quote.c exp_double_quote.c exp_mem.c exp_heredoc.c exp.c
 SIG_FILES			=	signals.c signal_utils.c
 HD_FILES			=	read_heredoc.c heredoc_utils.c
-WC_FILES			=	wildcard_bonus.c wildcard_utils_bonus.c expand_wildcard_bonus.c
+WC_FILES			=	wildcard.c wildcard_utils.c expand_wildcard.c
 
 SRC_FILES			=	$(addprefix $(SRC_DIR)/, $(MAIN_FILES)) \
-						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
-						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES)) \
-						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES)) \
-						$(addprefix $(AST_DIR)/, $(AST_FILES)) \
-						$(addprefix $(TOKEN_DIR)/, $(TOKEN_FILES)) \
-						$(addprefix $(BUILTIN_DIR)/, $(BUILTIN_FILES)) \
-						$(addprefix $(EXEC_DIR)/, $(EXEC_FILES)) \
-						$(addprefix $(EXP_DIR)/, $(EXP_FILES))\
-						$(addprefix $(SIG_DIR)/, $(SIG_FILES))\
-						$(addprefix $(HD_DIR)/, $(HD_FILES))
-
-SRC_BN_FILES		=	$(addprefix $(SRC_DIR)/, $(MAIN_BN_FILES)) \
 						$(addprefix $(ENV_DIR)/, $(ENV_FILES)) \
 						$(addprefix $(SHELL_DIR)/, $(SHELL_FILES)) \
 						$(addprefix $(UTIL_DIR)/, $(UTIL_FILES)) \
@@ -84,7 +66,6 @@ SRC_BN_FILES		=	$(addprefix $(SRC_DIR)/, $(MAIN_BN_FILES)) \
 						$(addprefix $(WC_DIR)/, $(WC_FILES))
 
 OBJ_FILES 			= $(SRC_FILES:%.c=$(OBJ_DIR)/%.o)
-OBJ_BN_FILES 		= $(SRC_BN_FILES:%.c=$(OBJ_BN_DIR)/%.o)
 
 # **************************************************************************** #
 #                                  Build Rules                                 #
@@ -97,16 +78,10 @@ $(NAME): $(OBJ_FILES) $(LIBFT_A)
 
 bonus: $(NAME_BONUS)
 
-$(NAME_BONUS): $(OBJ_BN_FILES) $(LIBFT_A)
-	$(CC) $(CFLAGS) $(OBJ_BN_FILES) $(LINKER) -o $(NAME_BONUS)
+$(NAME_BONUS): $(OBJ_FILES) $(LIBFT_A)
+	$(CC) $(CFLAGS) $(OBJ_FILES) $(LINKER) -o $(NAME_BONUS)
 
-# Rule for normal objects
 $(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-# Rule for bonus objects
-$(OBJ_BN_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 

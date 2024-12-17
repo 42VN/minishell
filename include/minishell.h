@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 13:51:05 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/17 14:02:02 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "../libft/libft.h"
 # include "token.h"
 # include "heredoc.h"
-# include "wildcard_bonus.h"
+# include "wildcard.h"
 # include "ast.h"
 # include "execution.h"
 # include "builtin.h"
