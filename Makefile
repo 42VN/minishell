@@ -6,7 +6,11 @@
 #    By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/06 16:57:00 by ktieu             #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/12/17 13:45:44 by ktieu            ###   ########.fr        #
+=======
+#    Updated: 2024/12/17 13:33:58 by hitran           ###   ########.fr        #
+>>>>>>> 22f0b9cd34d8985a6b5a0625d67b0fb88d151902
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +49,7 @@ MAIN_BN_FILES		=	main_bonus.c
 ENV_FILES			=	env_sort.c env_dup.c env_get.c env_print.c env_set.c env_unset.c env_underscore.c
 SHELL_FILES			=	shell_init.c shell_cleanup.c
 AST_FILES			=	build_ast.c	ast_utils.c
-UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c ft_split_quote.c array.c ft_split_quote_wc.c
+UTIL_FILES			=	ft_prompt.c ft_exit.c ft_error_ret.c ft_is_op.c ft_strjoin_space.c ft_split_quote.c array.c  update_status.c ft_split_quote_wc.c
 TOKEN_FILES			=	quote.c parse.c token.c free.c mem.c  utils.c utils2.c operator.c cmd.c error.c redirect.c check.c
 BUILTIN_FILES		=	env.c unset.c export.c cd_utils.c cd.c echo.c exit.c pwd.c export_utils.c
 EXEC_FILES			= 	execute_ast.c execute_cmd.c error.c find_cmd_path.c utils.c

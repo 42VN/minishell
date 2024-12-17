@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 13:45:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/17 13:51:05 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "../libft/libft.h"
 # include "token.h"
 # include "heredoc.h"
-# include "wildcard.h"
+# include "wildcard_bonus.h"
 # include "ast.h"
 # include "execution.h"
 # include "builtin.h"
@@ -83,5 +83,7 @@ char	**ft_split_quote(char *s, char delimiter);
 char	**ft_split_quote_wc(char *s);
 void	free_array(char **array);
 int		array_length(char **array);
+void	ft_free_triptr(char ***str);
+int		update_status(t_shell *shell, int new_status);
 
 #endif
