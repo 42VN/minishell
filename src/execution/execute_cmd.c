@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 11:36:41 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 15:06:23 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	execute_non_builtin(t_shell *shell, t_token token)
 	}
 	if (pid == 0)
 	{
-		start_signal(shell, CHILD);
+		// start_signal(shell, CHILD);
+		reset_signals();
 		command_path = find_command_path(shell, token.split_cmd[0]);
 		if (!command_path)
 		{

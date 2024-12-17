@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 13:33:21 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 15:05:14 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	execute_logic(t_shell *shell, t_ast *ast)
 
 static void	execute_child(t_shell *shell, t_ast *ast, int *pipe_fd, int left)
 {
-	start_signal(shell, CHILD);
+	// start_signal(shell, CHILD);
 	if (left)
 	{
 		close(pipe_fd[0]);

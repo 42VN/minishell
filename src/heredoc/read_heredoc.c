@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/17 11:38:03 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 15:33:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	here_doc(t_shell *shell, t_redirect *redirect,
 	heredoc = ft_strdup("");
 	if (!heredoc)
 		return (EXIT_FAILURE);
+	shell->exitcode = 0;
 	while (1)
 	{
 		line = readline("> ");
@@ -53,10 +54,10 @@ static int	start_heredoc(t_shell *shell, t_redirect *redirect)
 			start_signal(shell, HEREDOC);
 			if (here_doc(shell, redirect, line, NULL) == EXIT_FAILURE)
 			{
-				start_signal(shell, PARENT);
+				// start_signal(shell, PARENT);
 				return (EXIT_FAILURE);
 			}
-			start_signal(shell, PARENT);
+			// start_signal(shell, PARENT);
 		}
 		redirect = redirect->next;
 	}
