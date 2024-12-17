@@ -6,32 +6,11 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/11/22 11:59:10 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:33:16 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	update_status(t_shell *shell, int new_status)
-{
-	if (new_status >= 0)
-		shell->exitcode = new_status;
-	return (shell->exitcode);
-}
-
-void	ft_free_triptr(char ***str)
-{
-	int	i;
-
-	i = 0;
-	if (*str)
-	{
-		while ((*str)[i] != NULL)
-			free((*str)[i++]);
-		free(*str);
-		*str = NULL;
-	}
-}
 
 void	redirect_fd(int from_fd, int to_fd)
 {
@@ -61,4 +40,13 @@ void	print_fault(t_shell *shell)
 		ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
 	else if (shell->exitcode - 128 == SIGSEGV)
 		ft_putendl_fd("Segmentation fault (core dumped)", STDERR_FILENO);
+}
+
+int	is_recursive(t_ast *ast)
+{
+	if (ast->token.cmd && (!ft_strcmp(ast->token.cmd, "./minishell") 
+			|| !ft_strcmp(ast->token.cmd, "./minishell_bonus")))
+		return (1);
+	else
+		return (0);
 }

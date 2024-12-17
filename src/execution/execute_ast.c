@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 13:18:32 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:33:21 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ void	execute_ast(t_shell *shell, t_ast *ast)
 		execute_ast(shell, ast->right);
 	else if (ast->token.type == CMD)
 	{
-		if (ast->token.cmd && (!ft_strcmp(ast->token.cmd, "./minishell") 
-			|| !ft_strcmp(ast->token.cmd, "./minishell_bonus")))
+		if (is_recursive(ast))
 			minishell(shell);
 		else
 			execute_command(shell, ast->token);
