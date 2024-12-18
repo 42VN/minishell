@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 10:28:34 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 10:53:48 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ void	minishell(t_shell *shell)
 			return ;
 		input = readline(PROMPT);
 		if (!input)
+		{
+			printf("exit\n");
 			break ;
+		}
 		if (ft_strcmp(input, ""))
 		{
 			add_history(input);
