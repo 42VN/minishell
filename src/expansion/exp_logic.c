@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:48:34 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 14:02:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,11 @@ int	exp_process(t_shell *shell, char **res, char *cmd)
 int	exp_logic_str(t_shell *shell, char **str)
 {
 	char	*res;
+	char	**split_cmd;
+	size_t	len;
 
 	res = ft_strdup("");
+	len = 0;
 	if (!res)
 		return (ft_error_ret("expansion: exp_logic: ft_strdup",
 				shell, ERR_MALLOC, 0));
@@ -50,7 +53,15 @@ int	exp_logic_str(t_shell *shell, char **str)
 	if (!res)
 		return (ft_error_ret("expansion: exp_logic: malloc",
 				shell, ERR_MALLOC, 0));
-	exp_remove_quotes(&res, 0);
+	split_cmd = ft_split_quote_wc(res);
+	free(res);
+	while (split_cmd[len])
+		(len)++;
+	exp_split_cmd_remove_quotes(split_cmd, len);
+	res = exp_split_cmd_join(split_cmd);
+	if (!res)
+		return (ft_error_ret("expansion: exp_logic: malloc",
+				shell, ERR_MALLOC, 0));
 	ft_free_null(str);
 	*str = res;
 	return (1);

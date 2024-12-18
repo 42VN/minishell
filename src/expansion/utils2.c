@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 22:53:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:51:56 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 13:59:14 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,36 @@ int	exp_remove_quotes(char **res, int i)
 		++i;
 	}
 	return (1);
+}
+
+void	exp_split_cmd_remove_quotes(char **split_str, size_t str_len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < str_len)
+	{
+		exp_remove_quotes(&split_str[i], 0);
+		++i;
+	}
+	return ;
+}
+
+char	*exp_split_cmd_join(char **split_str)
+{
+	char	*res;
+	size_t	i;
+
+	i = 0;
+	res = ft_strdup("");
+	if (!res)
+		return (NULL);
+	while (split_str[i])
+	{
+		res = ft_strjoin(res, split_str[i]);
+		if (!res)
+			return (NULL);
+		++i;
+	}
+	return (res);
 }

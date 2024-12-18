@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 00:03:39 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 13:47:01 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 13:53:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,6 @@ static void	exp_split_cmd_cpy(char **res, char ***src, size_t start, size_t len)
 		(*src)[i] = NULL;
 		++i;
 	}
-}
-
-static void	exp_split_cmd_remove_quotes(char **split_str, size_t str_len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < str_len)
-	{
-		exp_remove_quotes(&split_str[i], 0);
-		++i;
-	}
-	return ;
 }
 
 int	exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str)
