@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 09:12:46 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 13:38:34 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 10:26:14 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,18 @@ void	wait_update(t_shell *shell, pid_t pid)
 {
 	int		status;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		update_status(shell, WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
 		update_status(shell, 128 + WTERMSIG(status));
-}
-
-void	print_fault(t_shell *shell)
-{
-	if (shell->exitcode - 128 == SIGQUIT)
-		ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
-	else if (shell->exitcode - 128 == SIGSEGV)
-		ft_putendl_fd("Segmentation fault (core dumped)", STDERR_FILENO);
+	}
+	init_signals();
 }
 
 int	is_recursive(t_ast *ast)

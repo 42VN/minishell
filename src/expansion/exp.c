@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:35:10 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/11 13:53:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 10:27:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	expansion_redirect(t_shell *shell, size_t i)
 		redirect = shell->tokens->array[i].redirect;
 		while (redirect)
 		{
-			if (redirect->type == HEREDOC && redirect->path)
+			if (redirect->type == RD_HEREDOC && redirect->path)
 			{
 				if (ft_strchr(redirect->path, '\'')
 					|| ft_strchr(redirect->path, '\"'))

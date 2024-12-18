@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 13:33:07 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 10:26:21 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	execute_command(t_shell *shell, t_token token);
 
 void	redirect_fd(int from_fd, int to_fd);
 void	wait_update(t_shell *shell, pid_t pid);
-void	print_fault(t_shell *shell);
 
 //---------------------------------||  ERROR  ||------------------------------//
 

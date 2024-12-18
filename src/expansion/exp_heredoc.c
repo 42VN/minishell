@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:06:31 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/16 09:56:57 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 10:27:32 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	expansion_redirect_heredoc(t_shell *shell, size_t i)
 		redirect = shell->tokens->array[i].redirect;
 		while (redirect)
 		{
-			if (redirect->type == HEREDOC && redirect->path)
+			if (redirect->type == RD_HEREDOC && redirect->path)
 			{
 				if (redirect->no_exp == 0)
 				{

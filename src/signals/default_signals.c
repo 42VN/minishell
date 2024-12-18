@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_utils.c                                     :+:      :+:    :+:   */
+/*   default_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:58:02 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 09:35:15 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 10:30:07 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_signal_exit(t_shell *shell)
+int	default_signals(void)
 {
-	static t_shell	*current_shell;
-
-	if (shell)
-		current_shell = shell;
-	else if (current_shell)
-		current_shell->exitcode = SIGINT + 128;
+	if (signal(SIGINT, SIG_DFL) == SIG_ERR
+		|| signal(SIGQUIT, SIG_DFL) == SIG_ERR)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

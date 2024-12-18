@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 15:04:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 10:28:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	process_input(t_shell *shell, char **input, int size)
 		if (!shell->ast)
 			return ;
 		execute_ast(shell, shell->ast);
+		print_fault(shell);
 	}
 }
 
@@ -57,8 +58,8 @@ void	minishell(t_shell *shell)
 
 	while (!shell->aborted)
 	{
-		set_signal_handler(SIGINT, sigint_handler);
-		set_signal_handler(SIGQUIT, SIG_IGN);
+		if (init_signals() == EXIT_FAILURE)
+			return ;
 		input = readline(PROMPT);
 		if (!input)
 			break ;
@@ -85,8 +86,6 @@ int	main(int ac, char **av, char **envp)
 	}
 	(void)av;
 	shell_init(&shell, envp);
-	// if (!start_signal(&shell, PARENT))
-	// 	return (shell.exitcode);
 	minishell(&shell);
 	shell_cleanup(&shell);
 	exit (shell.exitcode);

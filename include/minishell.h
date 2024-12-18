@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 17:08:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/17 14:02:02 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 10:25:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	free_array(char **array);
 int		array_length(char **array);
 void	ft_free_triptr(char ***str);
 int		update_status(t_shell *shell, int new_status);
+void	print_fault(t_shell *shell);
 
 #endif

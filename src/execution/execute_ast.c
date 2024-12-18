@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 08:30:54 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 15:05:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 10:29:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	execute_logic(t_shell *shell, t_ast *ast)
 
 static void	execute_child(t_shell *shell, t_ast *ast, int *pipe_fd, int left)
 {
-	// start_signal(shell, CHILD);
+	default_signals();
 	if (left)
 	{
 		close(pipe_fd[0]);
@@ -90,12 +90,7 @@ void	execute_ast(t_shell *shell, t_ast *ast)
 	else if (ast->right)
 		execute_ast(shell, ast->right);
 	else if (ast->token.type == CMD)
-	{
-		if (is_recursive(ast))
-			minishell(shell);
-		else
-			execute_command(shell, ast->token);
-	}
+		execute_command(shell, ast->token);
 	while (wait(NULL) > 0)
 		;
 }

@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_utils.c                                     :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:58:02 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 09:35:15 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 09:34:13 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_signal_exit(t_shell *shell)
+void	sigint_heredoc_handler(int signum)
 {
-	static t_shell	*current_shell;
+	(void)signum;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_done = 1;
+	set_signal_exit(NULL);
+}
 
-	if (shell)
-		current_shell = shell;
-	else if (current_shell)
-		current_shell->exitcode = SIGINT + 128;
+void	sigint_handler(int signum)
+{
+	(void)signum;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
