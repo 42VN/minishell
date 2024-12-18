@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:41:44 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 11:37:11 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:11:26 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,27 @@
 
 int	not_numberic(char *s)
 {
+	long	number;
+	long	check;
+	int		sign;
+
+	number = 0;
+	sign = 1;
 	if (!s[0])
 		return (1);
 	while (*s == ' ' || (*s >= 9 && *s <= 13))
 		s++;
 	if (*s == '+' || *s == '-')
-		s++;
+		if (*s++ == '-')
+			sign = -1;
 	while (*s)
 	{
 		if (*s < '0' || *s > '9')
 			return (1);
-		s++;
+		check = number * 10 + *s++ - '0';
+		if ((check * sign) / 10 != (number * sign))
+			return (1);
+		number = check;
 	}
 	return (0);
 }
