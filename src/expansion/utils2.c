@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 22:53:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 13:59:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:13:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	exp_split_cmd_remove_quotes(char **split_str, size_t str_len)
 char	*exp_split_cmd_join(char **split_str)
 {
 	char	*res;
+	char	*joined;
 	size_t	i;
 
 	i = 0;
@@ -65,9 +66,14 @@ char	*exp_split_cmd_join(char **split_str)
 		return (NULL);
 	while (split_str[i])
 	{
-		res = ft_strjoin(res, split_str[i]);
-		if (!res)
+		joined = ft_strjoin(res, split_str[i]);
+		if (!joined)
+		{
+			free(res);
 			return (NULL);
+		}
+		free(res);
+		res = joined;
 		++i;
 	}
 	return (res);

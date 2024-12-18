@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:52:44 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/12 16:35:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:02:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_redirect	*ft_token_redirect(t_shell *shell, char **str, char op, int count)
 	if (redirect->type == RD_HEREDOC)
 		shell->tokens->has_heredoc = 1;
 	redirect->path = path;
+	redirect->org_path = ft_strdup(path);
 	return (redirect);
 }
 
@@ -88,6 +89,8 @@ void	ft_redirect_clear(t_redirect **head)
 	while (temp)
 	{
 		next = temp->next;
+		if (temp->org_path)
+			free(temp->org_path);
 		if (temp->path)
 			free(temp->path);
 		free(temp);

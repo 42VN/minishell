@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 14:04:59 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:11:34 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,31 @@ int	exp_process(t_shell *shell, char **res, char *cmd)
 	return (1);
 }
 
+int exp_logic_str_helper(char **res)
+{
+	size_t	len;
+	char	**split_cmd;
+
+	len = 0;
+	split_cmd = ft_split_quote_wc(*res);
+	if (!split_cmd)
+		return (0);
+	free(*res);
+	while (split_cmd[len])
+		(len)++;
+	exp_split_cmd_remove_quotes(split_cmd, len);
+	*res = exp_split_cmd_join(split_cmd);
+	if (!res)
+		return (0);
+	ft_multi_free_null(&split_cmd);
+	return (1);
+}
+
 int	exp_logic_str(t_shell *shell, char **str)
 {
 	char	*res;
-	char	**split_cmd;
-	size_t	len;
 
 	res = ft_strdup("");
-	len = 0;
 	if (!res)
 		return (ft_error_ret("expansion: exp_logic_str: ft_strdup",
 				shell, ERR_MALLOC, 0));
@@ -53,13 +70,7 @@ int	exp_logic_str(t_shell *shell, char **str)
 	if (!res)
 		return (ft_error_ret("expansion: exp_logic_str: malloc",
 				shell, ERR_MALLOC, 0));
-	split_cmd = ft_split_quote_wc(res);
-	free(res);
-	while (split_cmd[len])
-		(len)++;
-	exp_split_cmd_remove_quotes(split_cmd, len);
-	res = exp_split_cmd_join(split_cmd);
-	if (!res)
+	if (!exp_logic_str_helper(&res))
 		return (ft_error_ret("expansion: exp_logic_str: malloc",
 				shell, ERR_MALLOC, 0));
 	ft_free_null(str);

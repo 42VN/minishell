@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 16:47:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/12 17:27:58 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:01:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_redirect
 	int					fd;
 	int					no_exp;
 	t_redirect_type		type;
+	char				*org_path;
 	char				*path;
 	struct s_redirect	*next;
 }	t_redirect;
