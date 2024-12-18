@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:32:25 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/06 16:27:24 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 17:10:37 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	builtin_exit(t_shell *shell, char **token);
 int		builtin_error(t_shell *shell, char *s, int error_num);
 int		update_pwd(t_shell *shell);
 void	export_standalone_print(char *env_var);
+int		inaccessible_parent_dir(t_shell *shell, char *path);
 
 #endif

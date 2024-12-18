@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 15:38:54 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 17:09:20 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	cd_path(t_shell *shell, char *path)
 		update_status(shell, 1);
 		return (EXIT_FAILURE);
 	}
+	if (!getcwd(NULL, 0))
+		return (inaccessible_parent_dir(shell, path));
 	return (update_pwd(shell));
 }
 
