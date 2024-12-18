@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/16 10:45:19 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 15:26:47 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ int	wildcard(t_token *tokens, int size)
 				return (EXIT_FAILURE);
 			if (tokens[index].cmd && !ft_strcmp(tokens[index].cmd, "$EMPTY"))
 				return (EXIT_FAILURE);
-			if (tokens[index].cmd && tokens[index].split_cmd)
-				command_wildcard(&tokens[index].split_cmd);
 		}
 		index++;
 	}
