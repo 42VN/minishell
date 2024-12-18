@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_cmd_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:11:40 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 12:17:31 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 14:40:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	**find_envp_path(char **envp)
 
 	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
 		envp++;
-	if (!*envp)
+	if (!*envp || 0 == ft_strcmp(*envp, "PATH="))
 	{
 		cwd = (char **)ft_calloc(2, sizeof(char *));
 		if (!cwd)
