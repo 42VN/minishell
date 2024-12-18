@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:10:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 15:11:34 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/18 16:07:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	exp_process(t_shell *shell, char **res, char *cmd)
 	return (1);
 }
 
-int exp_logic_str_helper(char **res)
+int	exp_logic_str_helper(char **res)
 {
 	size_t	len;
 	char	**split_cmd;
