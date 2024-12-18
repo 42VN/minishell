@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 15:28:22 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 15:38:54 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,6 @@ int	cd_path(t_shell *shell, char *path)
 		perror("");
 		update_status(shell, 1);
 		return (EXIT_FAILURE);
-	}
-	if (!getcwd(NULL, 0))
-	{
-		perror("minishell: chdir: error retrieving current directory: "
-			"getcwd: cannot access parent directories");
-		// char *pwd = env_get(shell->envp, "PWD", 0);
-		// if (pwd)
-		// {
-		// 	char *new_pwd = ft_strjoin(pwd, "/..");
-		// 	if (new_pwd)
-		// 	{
-		// 		env_set(shell, "PWD", new_pwd);
-		// 		free(new_pwd);
-		// 	}
-		// }
-		return (0);
 	}
 	return (update_pwd(shell));
 }

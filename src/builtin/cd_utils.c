@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/03 19:15:24 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/18 15:39:06 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	update_pwd(t_shell *shell)
 
 	new_pwd = getcwd(NULL, 0);
 	if (!new_pwd)
-		return (builtin_error(shell, "minishell: getcwd failed\n", 1));
+		new_pwd = ft_strjoin(shell->cwd, "/..");
 	free(shell->old_pwd);
 	shell->old_pwd = ft_strdup(shell->cwd);
 	free(shell->cwd);
