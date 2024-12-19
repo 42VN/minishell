@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:42:06 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 17:09:20 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 11:31:03 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	cd_oldpwd(t_shell *shell)
 
 int	cd_path(t_shell *shell, char *path)
 {
+	char	*cwd;
 	if (chdir(path))
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: cd: %s: ", path);
@@ -75,8 +76,10 @@ int	cd_path(t_shell *shell, char *path)
 		update_status(shell, 1);
 		return (EXIT_FAILURE);
 	}
-	if (!getcwd(NULL, 0))
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
 		return (inaccessible_parent_dir(shell, path));
+	free(cwd);
 	return (update_pwd(shell));
 }
 
