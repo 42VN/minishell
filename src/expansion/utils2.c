@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 22:53:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 15:13:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/19 11:41:56 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,51 @@ char	*exp_split_cmd_join(char **split_str)
 		++i;
 	}
 	return (res);
+}
+
+char **exp_split_cmd_realloc_wildcard(
+	size_t cmd_len,
+	size_t *str_len,
+	char **split_str,
+	char ***old_res
+)
+{
+	size_t	new_len;
+	size_t	i;
+	char	**res;
+
+	i = 0;
+	new_len = 0;
+	while (split_str[new_len])
+		(new_len)++;
+	if (new_len > *str_len)
+	{
+		*str_len = new_len;
+		res = (char **)ft_calloc(cmd_len + new_len + 1, sizeof(char *));
+		if (!res)
+		{
+			if (*old_res)
+				free(*old_res);
+			return (NULL);
+		}
+		exp_split_cmd_cpy(res, old_res, 0, cmd_len);
+		if (*old_res)
+			free(*old_res);
+		return (res);
+	}
+	else
+		return (*old_res);
+}
+
+void	exp_split_cmd_cpy(char **res, char ***src, size_t start, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		res[i + start] = (*src)[i];
+		(*src)[i] = NULL;
+		++i;
+	}
 }
