@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/19 11:18:59 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:13:51 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,6 @@ int	inside_quotes(char *str)
 	return (0);
 }
 
-// static void	print_arr(char **tab)
-// {
-// 	unsigned int i = 0;
-// 	while (tab && tab[i])
-// 	{
-// 		printf("%s, ", tab[i]);
-// 		++i;
-// 	}
-// 	printf("\n");
-// }
-
 void	command_wildcard(char ***splitted)
 {
 	int		index;
@@ -96,8 +85,11 @@ int	redirect_wildcard(t_redirect *redirect)
 
 	while (redirect)
 	{
-		if (redirect->path && ft_strcmp(redirect->path, "*")
-			&& ft_strchr(redirect->path, '*'))
+		if (!ft_strcmp(redirect->path, "*")
+			|| inside_quotes(redirect->org_path))
+			;
+		else if (redirect->path && !inside_quotes(redirect->path)
+			&& ft_strcmp(redirect->path, "*") && ft_strchr(redirect->path, '*'))
 		{
 			matches = expand_wildcard(redirect->path, NULL);
 			if (!matches)
