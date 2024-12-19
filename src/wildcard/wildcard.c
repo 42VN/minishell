@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/19 10:24:28 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 11:18:59 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ void	command_wildcard(char ***splitted)
 		if (ft_strchr((*splitted)[index], '*'))
 		{
 			matches = expand_wildcard((*splitted)[index], NULL);
-			// printf("matches: \n");
-			// print_arr(matches);
 			if (!matches)
 				continue ;
 			if (!replace_wildcard(splitted, index, matches))
@@ -88,8 +86,6 @@ void	command_wildcard(char ***splitted)
 			}
 			index += array_length(matches) - 1;
 			free_array(matches);
-			// printf("splitted: \n");
-			// print_arr(*splitted);
 		}
 	}
 }
@@ -134,7 +130,7 @@ int	wildcard(t_token *tokens, int size)
 			if (tokens[index].cmd && !ft_strcmp(tokens[index].cmd, "$EMPTY"))
 				return (EXIT_FAILURE);
 			if (tokens[index].split_cmd)
-				command_wildcard(&tokens[index].split_cmd); //1912
+				command_wildcard(&tokens[index].split_cmd);
 		}
 		index++;
 	}

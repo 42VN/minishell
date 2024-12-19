@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:53:50 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/19 10:27:20 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 11:16:19 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,12 @@ static void	process_input(t_shell *shell, char **input, int size)
 		size = get_tokens_size(shell->tokens->array);
 		if (!size)
 			return ;
-		if (!expansion(shell))
-			return ;
-		if (read_heredoc(shell, shell->tokens->array, size) == EXIT_FAILURE)
-			return ;
-		if (shell->err_type == ERR_SYNTAX)
-			return ;
-		if (!expansion_heredoc(shell))
-			return ;
-		if (wildcard(shell->tokens->array, size) == EXIT_FAILURE)
-			return ;
-		if (remove_quotes(shell->tokens->array, size) == EXIT_FAILURE)
+		if (!expansion(shell)
+			|| read_heredoc(shell, shell->tokens->array, size) == EXIT_FAILURE
+			|| shell->err_type == ERR_SYNTAX
+			|| !expansion_heredoc(shell)
+			|| wildcard(shell->tokens->array, size) == EXIT_FAILURE
+			|| remove_quotes(shell->tokens->array, size) == EXIT_FAILURE)
 			return ;
 		shell->ast = build_ast(shell->tokens->array);
 		if (!shell->ast)

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 00:03:39 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/19 10:25:33 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 11:17:08 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,9 @@ int	exp_split_cmd_push_back(t_shell *shell, char ***split_cmd, char *str)
 		return (ft_error_ret("exp_split_cmd_push_back: ft_calloc",
 				shell, ERR_MALLOC, 0));
 	exp_split_cmd_cpy(res, split_cmd, 0, cmd_len);
-	// command_wildcard(&split_str);
-	// exp_split_cmd_remove_quotes(split_str, str_len);
-	// printf("remove quotes:\n");
-	// print_arr(split_str);
 	exp_split_cmd_cpy(res, &split_str, cmd_len, str_len);
 	ft_multi_free_null(split_cmd);
 	ft_multi_free_null(&split_str);
 	*split_cmd = res;
-	// printf("res:\n");
-	// print_arr(res);
 	return (1);
 }
