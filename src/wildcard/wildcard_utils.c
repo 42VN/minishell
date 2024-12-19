@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_utils_bonus.c                             :+:      :+:    :+:   */
+/*   wildcard_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:19 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/17 12:19:35 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:31:34 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,16 @@ int	print_malloc_error(void)
 {
 	ft_printf_fd(STDERR_FILENO, "minishell: memory allocation failed!\n");
 	return (EXIT_FAILURE);
+}
+
+int	inside_quotes(char *str)
+{
+	char	quote;
+	int		len;
+
+	len = ft_strlen(str);
+	quote = str[0];
+	if ((quote == '\'' || quote == '\"') && len > 1 && str[len -1] == quote)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/19 12:13:51 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:31:24 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,6 @@ int	replace_wildcard(char ***splitted, int pos, char **matches)
 	free_array(*splitted);
 	*splitted = new_array;
 	return (1);
-}
-
-int	inside_quotes(char *str)
-{
-	char	quote;
-	int		len;
-
-	len = ft_strlen(str);
-	quote = str[0];
-	if ((quote == '\'' || quote == '\"') && len > 1 && str[len -1] == quote)
-		return (1);
-	return (0);
 }
 
 void	command_wildcard(char ***splitted)

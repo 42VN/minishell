@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 15:23:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 12:32:00 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int		match_loop(const char **f, const char **p, const char **star,
 			const char **match);
 int		is_match(const char *file, const char *pattern);
 int		print_malloc_error(void);
+int		inside_quotes(char *str);
 
 #endif
