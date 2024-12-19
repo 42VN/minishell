@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/18 10:50:04 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 14:53:49 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	here_doc(t_shell *shell, t_redirect *redirect,
 			break ;
 		}
 		if (shell->exitcode - 128 == SIGINT)
-			return (heredoc_sigint(heredoc, &redirect->path));
+			return (heredoc_sigint(heredoc, &redirect->path, line));
 		if (!ft_strcmp(redirect->path, line))
 		{
 			free(line);

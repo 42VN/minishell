@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:22:42 by jazevedo          #+#    #+#             */
-/*   Updated: 2024/12/16 11:31:58 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 14:54:30 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ void	print_warning(char *path)
 			"line 1 delimited by end-of-file (wanted `%s')\n", path);
 }
 
-int	heredoc_sigint(char *heredoc, char **path)
+int	heredoc_sigint(char *heredoc, char **path, char *line)
 {
 	if (heredoc)
 		free(heredoc);
+	if (line)
+		free(line);
 	if (path && *path)
 		free(*path);
 	*path = ft_strdup("");

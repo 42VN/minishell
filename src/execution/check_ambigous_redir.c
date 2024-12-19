@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/19 14:01:36 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 14:55:14 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int	check_ambigous_redir(t_shell *shell, t_redirect *redirect, int *fd)
 			&& redirect->type != RD_HEREDOC)
 			return (open_error(shell, redirect->org_path, fd,
 					"ambiguous redirect"));
-		else if (ft_strchr(redirect->org_path, '$') && ft_strchr(redirect->path, 32) && !ft_is_all_white_spaces(redirect->path))
+		else if (ft_strchr(redirect->org_path, '$')
+			&& ft_strchr(redirect->path, 32)
+			&& !ft_is_all_white_spaces(redirect->path))
 			return (open_error(shell, redirect->org_path, fd,
 					"ambiguous redirect"));
 		else if (!ft_strcmp(redirect->org_path, "*"))
