@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 22:53:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 15:13:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/12/19 13:39:00 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ char	*exp_split_cmd_join(char **split_str)
 		return (NULL);
 	while (split_str[i])
 	{
-		joined = ft_strjoin(res, split_str[i]);
+		if (!*res)
+			joined = ft_strjoin(res, split_str[i]);
+		else
+			joined = ft_strjoin_space(res, split_str[i]);
 		if (!joined)
 		{
 			free(res);
