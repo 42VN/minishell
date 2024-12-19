@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:06:57 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 10:29:22 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 09:24:57 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ static int	redirect_io(t_shell *shell, t_redirect *redirect, int *fd)
 {
 	while (redirect && redirect->path)
 	{
-		if (!ft_strcmp(redirect->path, "*"))
-			return (open_error(shell, redirect->path, fd,
-					"ambiguous redirect"));
+		if (check_ambigous_redir(shell, redirect, fd) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 		if (redirect->type == RD_HEREDOC)
 			fd[0] = open_heredoc(redirect->path);
 		else if (redirect->type == RD_IN)

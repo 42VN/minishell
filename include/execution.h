@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:46:08 by ktieu             #+#    #+#             */
-/*   Updated: 2024/12/18 10:26:21 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 09:21:12 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_shell	t_shell;
 void	execute_ast(t_shell *shell, t_ast *ast);
 char	*find_command_path(t_shell *shell, char *command);
 void	execute_command(t_shell *shell, t_token token);
+int		check_ambigous_redir(t_shell *shell, t_redirect *redirect, int *fd);
 
 //---------------------------------||  UTILS  ||------------------------------//
 
