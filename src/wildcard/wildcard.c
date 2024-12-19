@@ -6,7 +6,7 @@
 /*   By: hitran <hitran@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:39:00 by hitran            #+#    #+#             */
-/*   Updated: 2024/12/18 15:26:47 by hitran           ###   ########.fr       */
+/*   Updated: 2024/12/19 10:24:28 by hitran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ int	inside_quotes(char *str)
 	return (0);
 }
 
+// static void	print_arr(char **tab)
+// {
+// 	unsigned int i = 0;
+// 	while (tab && tab[i])
+// 	{
+// 		printf("%s, ", tab[i]);
+// 		++i;
+// 	}
+// 	printf("\n");
+// }
+
 void	command_wildcard(char ***splitted)
 {
 	int		index;
@@ -66,6 +77,8 @@ void	command_wildcard(char ***splitted)
 		if (ft_strchr((*splitted)[index], '*'))
 		{
 			matches = expand_wildcard((*splitted)[index], NULL);
+			// printf("matches: \n");
+			// print_arr(matches);
 			if (!matches)
 				continue ;
 			if (!replace_wildcard(splitted, index, matches))
@@ -75,6 +88,8 @@ void	command_wildcard(char ***splitted)
 			}
 			index += array_length(matches) - 1;
 			free_array(matches);
+			// printf("splitted: \n");
+			// print_arr(*splitted);
 		}
 	}
 }
@@ -118,6 +133,8 @@ int	wildcard(t_token *tokens, int size)
 				return (EXIT_FAILURE);
 			if (tokens[index].cmd && !ft_strcmp(tokens[index].cmd, "$EMPTY"))
 				return (EXIT_FAILURE);
+			if (tokens[index].split_cmd)
+				command_wildcard(&tokens[index].split_cmd); //1912
 		}
 		index++;
 	}
